@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./beta/pocket-planetarium/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="beta/pocket-planetarium/_ds/classical-2a0469cf-aabe-440b-baac-303002be6d70/styles.css">
+<script src="beta/pocket-planetarium/_ds/classical-2a0469cf-aabe-440b-baac-303002be6d70/_ds_bundle.js"></script>
+<style>
+  html, body { margin:0; background:var(--color-neutral-100); }
+  a { color:var(--color-accent-700); text-decoration:none; }
+  a:hover { color:var(--color-accent-600); }
+  button:focus-visible, input:focus-visible { outline:2px solid var(--color-accent); outline-offset:2px; }
+  [data-app-scroll]::-webkit-scrollbar { display:none; }
+  @media (max-width: 560px) {
+    body { background:#0a0908; }
+    [data-page-pad] { padding:0 !important; gap:0 !important; min-height:100dvh !important; }
+    [data-desk-only] { display:none !important; }
+  }
+  input[type=range] { accent-color:#b68235; }
+  @keyframes cosDrift { from { transform:scale(1.06) rotate(0.4deg); } to { transform:scale(1) rotate(-0.4deg); } }
+  @keyframes cosSettleA { from { transform:scale(1.09); } to { transform:scale(1); } }
+  @keyframes cosSettleB { from { transform:scale(1.09); } to { transform:scale(1); } }
+  @keyframes cosRise { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:none; } }
+  @keyframes cosFadeA { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  @keyframes cosFadeB { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+</style>
+</helmet>
+
+<div data-page-pad="" style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:44px 20px;font-family:var(--font-body)">
+  <div data-desk-only="" style="display:flex;align-items:baseline;gap:12px">
+    <span style="font-family:var(--font-heading);font-size:22px;color:var(--color-text)">Cosmos</span>
+    <span style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">A pocket planetarium &middot; iOS prototype</span>
+  </div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./beta/pocket-planetarium/ios-frame.jsx" dark="{{ true }}" width="{{ devW }}" height="{{ devH }}" bare="{{ isMobile }}" hint-size="402px,874px">
+    <div style="position:relative;height:100%;display:flex;flex-direction:column;background:#0a0908;color:#f0ece5;font-family:var(--font-body);overflow:hidden">
+
+      <div style="flex:1;min-height:0;position:relative">
+
+        <sc-if value="{{ tabJourney }}" hint-placeholder-val="{{ true }}">
+          <div data-screen-label="Journey" data-app-scroll="" ref="{{ journeyRef }}" onScroll="{{ onJourneyScroll }}" style="position:absolute;inset:0;overflow:auto;scrollbar-width:none">
+            <div style="min-height:560px;display:flex;flex-direction:column;justify-content:flex-end;gap:22px;padding:28px 26px 44px;position:relative;overflow:hidden">
+              <img src="site/hero-sun.jpg" alt="The limb of the Sun" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:0.8">
+              <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,0.1) 30%,rgba(10,9,8,0.92) 78%,#0a0908 100%)"></div>
+              <div style="position:relative">
+                <div style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:12px">Sol &middot; A pocket planetarium</div>
+                <div style="font-family:var(--font-heading);font-weight:400;font-size:58px;line-height:0.98;letter-spacing:-0.02em">Cosmos</div>
+                <p style="margin:14px 0 0;font-size:15px;line-height:1.55;color:#d8d2c8;max-width:21em;text-wrap:pretty">The Sun, eight planets, twenty-two moons and thirty photographs of Jupiter, developed by strangers. Drift outward, or let the show carry you.</p>
+              </div>
+              <div style="position:relative;display:flex;align-items:center;gap:14px">
+                <button type="button" onClick="{{ startShow }}" style="font-family:var(--font-heading);font-size:16px;padding:10px 20px;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Begin tonight&rsquo;s show</button>
+                <span style="font-size:12px;color:#8e877c">or scroll to leave the Sun</span>
+              </div>
+            </div>
+
+            <sc-for list="{{ journeyPanels }}" as="jp" hint-placeholder-count="4">
+              <div data-jp="{{ jp.id }}" style="position:relative">
+                <sc-if value="{{ jp.hasRuler }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:30px 0 26px">
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.55)"></div>
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.4)"></div>
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.28)"></div>
+                    <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8e877c;font-feature-settings:'tnum'">{{ jp.auLabel }}</div>
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.28)"></div>
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.4)"></div>
+                    <div style="width:1px;height:12px;background:rgba(182,130,53,0.55)"></div>
+                  </div>
+                </sc-if>
+                <div onClick="{{ jp.open }}" style="min-height:540px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px;padding:12px 30px 34px;cursor:pointer">
+                  <div style="width:82%;max-width:300px;overflow:hidden;border-radius:4px">
+                    {{ jp.imgEl }}
+                  </div>
+                  <div>
+                    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:8px">{{ jp.kicker }}</div>
+                    <div style="font-family:var(--font-heading);font-weight:400;font-size:42px;line-height:1;letter-spacing:-0.02em">{{ jp.name }}</div>
+                    <p style="margin:12px auto 0;font-size:14.5px;line-height:1.5;color:#bdb6ab;max-width:20em;text-wrap:pretty">{{ jp.hook }}</p>
+                  </div>
+                  <div style="font-family:var(--font-heading);font-size:14px;color:var(--color-accent-400);border-bottom:1px solid rgba(182,130,53,0.5);padding-bottom:2px">Open the plate</div>
+                </div>
+              </div>
+            </sc-for>
+
+            <div style="padding:10px 30px 46px;text-align:center">
+              <div style="font-size:12px;line-height:1.6;color:#8e877c;max-width:24em;margin:0 auto">The journey ends at Neptune, 30 AU out. The moons and the JunoCam gallery continue below.</div>
+            </div>
+          </div>
+
+          <div style="position:absolute;right:9px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:5">
+            <sc-for list="{{ railDots }}" as="d" hint-placeholder-count="4">
+              <button type="button" onClick="{{ d.jump }}" aria-label="{{ d.name }}" style="{{ d.style }}"></button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabMoons }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Moons" data-app-scroll="" style="position:absolute;inset:0;overflow:auto;scrollbar-width:none;padding:60px 22px 30px">
+            <div style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:8px">Satellite reference</div>
+            <div style="font-family:var(--font-heading);font-weight:400;font-size:38px;line-height:1;letter-spacing:-0.02em;margin-bottom:10px">Twenty-two moons</div>
+            <p style="margin:0 0 18px;font-size:13.5px;line-height:1.55;color:#bdb6ab;text-wrap:pretty">Two of them larger than Mercury. One with weather. One running backwards. Two that are barely more than gravel.</p>
+
+            <button type="button" onClick="{{ openScale }}" style="display:flex;width:100%;align-items:center;gap:14px;background:#171614;border:1px solid rgba(255,255,255,0.14);border-radius:var(--radius-md);padding:14px 16px;cursor:pointer;color:#f0ece5;text-align:left;margin-bottom:18px">
+              <div style="display:flex;align-items:flex-end;gap:3px;flex:none">
+                <div style="width:26px;height:26px;border-radius:50%;overflow:hidden;border:1px solid var(--color-accent)"><img src="moons/gp-ganymede.png" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="width:18px;height:18px;border-radius:50%;overflow:hidden;border:1px dashed var(--color-neutral-500)"><img src="moons/disc-mercury.png" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="width:12px;height:12px;border-radius:50%;overflow:hidden;border:1px solid var(--color-accent)"><img src="moons/gp-europa.png" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+              </div>
+              <div style="flex:1">
+                <div style="font-family:var(--font-heading);font-size:17px;line-height:1.2">The seven largest, and Mercury</div>
+                <div style="font-size:11.5px;color:#8e877c;margin-top:2px">Pinch to feel the scale &mdash; all eight are photographs</div>
+              </div>
+              <div style="font-family:var(--font-heading);font-size:18px;color:var(--color-accent-400)">&rarr;</div>
+            </button>
+
+            <div data-app-scroll="" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:14px;margin:0 -22px;padding-left:22px;padding-right:22px">
+              <sc-for list="{{ systemChips }}" as="c" hint-placeholder-count="5">
+                <button type="button" onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.14);padding-top:12px;margin-bottom:6px">
+              <span style="font-size:11.5px;color:#8e877c;font-feature-settings:'tnum'">{{ moonCount }}</span>
+              <button type="button" onClick="{{ toggleTrueScale }}" style="{{ trueScaleStyle }}">True scale</button>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px 10px;align-items:end">
+              <sc-for list="{{ moonCells }}" as="mc" hint-placeholder-count="6">
+                <button type="button" onClick="{{ mc.open }}" style="background:transparent;border:none;cursor:pointer;color:#f0ece5;display:flex;flex-direction:column;align-items:center;gap:9px;padding:12px 4px 14px">
+                  <div style="{{ mc.discStyle }}">{{ mc.imgEl }}</div>
+                  <div style="text-align:center">
+                    <div style="font-family:var(--font-heading);font-size:16.5px;line-height:1.1">{{ mc.name }}</div>
+                    <div style="font-size:11px;color:#8e877c;font-feature-settings:'tnum';margin-top:2px">{{ mc.meta }}</div>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabGallery }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Gallery" data-app-scroll="" style="position:absolute;inset:0;overflow:auto;scrollbar-width:none;padding:60px 22px 30px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px">
+              <div style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">JunoCam &middot; Jupiter</div>
+              <button type="button" onClick="{{ openStory }}" style="background:transparent;border:none;cursor:pointer;font-size:11.5px;letter-spacing:0.06em;color:var(--color-accent-400);border-bottom:1px solid rgba(182,130,53,0.5);padding:0 0 1px">About this camera</button>
+            </div>
+            <div style="font-family:var(--font-heading);font-weight:400;font-size:34px;line-height:1.04;letter-spacing:-0.02em;margin-bottom:10px">Developed by strangers</div>
+            <p style="margin:0 0 18px;font-size:13.5px;line-height:1.55;color:#bdb6ab;text-wrap:pretty">The mission posts JunoCam&rsquo;s raw frames and invites anyone to process them. These thirty passed through someone&rsquo;s afternoon.</p>
+
+            <button type="button" onClick="{{ openCompare }}" style="display:flex;width:100%;align-items:stretch;gap:0;background:#171614;border:1px solid rgba(255,255,255,0.14);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;color:#f0ece5;text-align:left;padding:0;margin-bottom:18px">
+              <div style="width:64px;flex:none;background:#000"><img src="images/13-jonsson-dark.png" alt="Cyclone, as received" style="width:100%;height:100%;object-fit:cover"></div>
+              <div style="width:64px;flex:none;background:#000;border-left:1px solid var(--color-accent)"><img src="images/12-jonsson-bright.png" alt="Cyclone, lifted" style="width:100%;height:100%;object-fit:cover"></div>
+              <div style="flex:1;padding:13px 14px;display:flex;flex-direction:column;justify-content:center">
+                <div style="font-family:var(--font-heading);font-size:17px;line-height:1.2">One frame, developed twice</div>
+                <div style="font-size:11.5px;color:#8e877c;margin-top:3px">Drag the seam &mdash; the argument for processing in one picture</div>
+              </div>
+              <div style="font-family:var(--font-heading);font-size:18px;color:var(--color-accent-400);align-self:center;padding-right:14px">&rarr;</div>
+            </button>
+
+            <div data-app-scroll="" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -22px;padding:0 22px 10px">
+              <sc-for list="{{ regionChips }}" as="c" hint-placeholder-count="5">
+                <button type="button" onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <div data-app-scroll="" style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -22px;padding:0 22px 14px">
+              <sc-for list="{{ treatChips }}" as="c" hint-placeholder-count="4">
+                <button type="button" onClick="{{ c.pick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+
+            <div style="font-size:11.5px;color:#8e877c;font-feature-settings:'tnum';border-top:1px solid rgba(255,255,255,0.14);padding-top:12px;margin-bottom:12px">{{ frameCount }}</div>
+
+            <div style="columns:2;column-gap:10px">
+              <sc-for list="{{ shownFrames }}" as="p" hint-placeholder-count="6">
+                <figure style="break-inside:avoid;margin:0 0 14px;cursor:pointer;display:inline-block;width:100%" onClick="{{ p.open }}">
+                  <div style="position:relative;background:#000;border:1px solid rgba(255,255,255,0.12)">
+                    {{ p.imgEl }}
+                    <div style="position:absolute;left:0;bottom:0;padding:3px 7px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-family:var(--font-heading);color:#e8e5e0;background:rgba(23,22,20,0.62)">{{ p.treatment }}</div>
+                  </div>
+                  <figcaption style="margin-top:6px">
+                    <div style="font-family:var(--font-heading);font-size:14.5px;line-height:1.2;color:#f0ece5">{{ p.title }}</div>
+                    <div style="font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c;margin-top:2px">{{ p.region }}</div>
+                  </figcaption>
+                </figure>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tabColophon }}" hint-placeholder-val="{{ false }}">
+          <div data-screen-label="Colophon" data-app-scroll="" style="position:absolute;inset:0;overflow:auto;scrollbar-width:none;padding:62px 24px 30px;background:#1a1815">
+            <div style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:12px">Provenance</div>
+            <div style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin-bottom:14px">Where the numbers come from</div>
+            <p style="margin:0 0 22px;font-size:13.5px;line-height:1.6;color:#bdb6ab;text-wrap:pretty">Every figure here is time-independent: size, shape, spin, gravity, field and atmosphere. Each is read from the same tables the Sol orrery renders from.</p>
+            <dl style="margin:0 0 26px;border-top:1px solid rgba(255,255,255,0.3)">
+              <sc-for list="{{ sources }}" as="s" hint-placeholder-count="5">
+                <div style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+                  <dt style="font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:#8e877c;margin-bottom:4px">{{ s.k }}</dt>
+                  <dd style="margin:0;font-size:13px;line-height:1.5;color:#e8e3da">{{ s.v }}</dd>
+                </div>
+              </sc-for>
+            </dl>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:26px">
+              <a href="https://protonmatter.github.io/sol/" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:baseline;border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-md);padding:13px 16px;color:#f0ece5"><span style="font-family:var(--font-heading);font-size:16px">Sol &mdash; the orrery</span><span style="font-size:11px;color:var(--color-accent-400);letter-spacing:0.08em">VISIT &rarr;</span></a>
+              <a href="https://www.missionjuno.swri.edu/junocam/processing" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:baseline;border:1px solid rgba(255,255,255,0.18);border-radius:var(--radius-md);padding:13px 16px;color:#f0ece5"><span style="font-family:var(--font-heading);font-size:16px">Mission Juno &mdash; process a frame</span><span style="font-size:11px;color:var(--color-accent-400);letter-spacing:0.08em">VISIT &rarr;</span></a>
+            </div>
+            <button type="button" onClick="{{ startShow }}" style="font-family:var(--font-heading);font-size:16px;padding:10px 20px;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Replay tonight&rsquo;s show</button>
+            <p style="margin:24px 0 0;font-size:11px;line-height:1.6;color:#8e877c">Spacecraft imagery NASA/JPL-Caltech and partners, public domain. Moon and ring maps Solar System Scope, CC&nbsp;BY&nbsp;4.0. Type set in Cormorant Garamond and Lora.</p>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <div style="flex:none;display:flex;border-top:1px solid rgba(255,255,255,0.14);background:rgba(13,12,10,0.94);backdrop-filter:blur(14px);padding:8px 6px calc(6px + env(safe-area-inset-bottom));z-index:8">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button type="button" onClick="{{ t.pick }}" style="{{ t.style }}">
+            <span style="display:block;height:22px">{{ t.icon }}</span>
+            <span style="display:block;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;margin-top:3px">{{ t.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ bodyOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Body detail" data-app-scroll="" style="position:absolute;inset:0;z-index:20;background:#171614;overflow:auto;scrollbar-width:none;animation:cosRise 420ms cubic-bezier(0.2,0.8,0.2,1) both">
+          <div style="position:relative;height:330px;background:#000;overflow:hidden">
+            {{ bodyImgEl }}
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,22,20,0.35) 0%,transparent 30%,transparent 62%,rgba(23,22,20,0.55) 100%)"></div>
+            <button type="button" onClick="{{ closeBody }}" style="position:absolute;top:54px;left:14px;width:36px;height:36px;border-radius:50%;background:rgba(23,22,20,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);color:#f0ece5;font-size:17px;cursor:pointer;line-height:1">&larr;</button>
+          </div>
+          <div style="position:relative;margin-top:-26px;border-radius:20px 20px 0 0;background:var(--color-bg);color:var(--color-text);padding:26px 24px 30px">
+            <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px">{{ bodyKicker }}</div>
+            <h2 style="font-family:var(--font-heading);font-weight:400;font-size:44px;line-height:1;letter-spacing:-0.02em;margin:0 0 10px">{{ bodyName }}</h2>
+            <div style="font-size:11px;line-height:1.5;color:var(--color-neutral-600);margin-bottom:16px">{{ bodyCredit }}</div>
+            <p style="margin:0 0 22px;font-size:14.5px;line-height:1.6;text-align:justify;hyphens:auto">{{ bodyDesc }}</p>
+            <dl style="margin:0 0 24px;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+              <sc-for list="{{ bodyFacts }}" as="f" hint-placeholder-count="6">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px;padding:9px 0;border-bottom:1px solid var(--color-divider)">
+                  <dt style="font-size:10.5px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600);padding-top:2px">{{ f.k }}</dt>
+                  <dd style="margin:0;font-size:13.5px;line-height:1.4">{{ f.v }}</dd>
+                </div>
+              </sc-for>
+            </dl>
+            <sc-if value="{{ bodyHasWeight }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:16px 16px 18px;margin-bottom:20px">
+                <div style="font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:10px">You, here</div>
+                <p style="margin:0 0 12px;font-size:14px;line-height:1.5">If the bathroom scales say <strong style="font-feature-settings:'tnum'">{{ weight }} kg</strong> at home, here they would read <strong style="font-family:var(--font-heading);font-size:19px;color:var(--color-accent-700);font-feature-settings:'tnum'">{{ weightHere }}</strong>.</p>
+                <input type="range" min="10" max="120" step="1" value="{{ weight }}" onChange="{{ setWeight }}" onInput="{{ setWeight }}" style="width:100%;cursor:pointer">
+                <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-top:4px"><span>10 kg</span><span>gravity here: {{ bodyG }} m/s&sup2; &middot; Earth 9.80</span><span>120 kg</span></div>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px">
+              <sc-if value="{{ bodyHasMoons }}" hint-placeholder-val="{{ false }}">
+                <button type="button" onClick="{{ gotoBodyMoons }}" style="font-family:var(--font-heading);font-size:14.5px;padding:8px 16px;background:transparent;color:var(--color-accent-700);border:1px solid var(--color-accent);border-radius:var(--radius-md);cursor:pointer">{{ bodyMoonsLabel }}</button>
+              </sc-if>
+              <sc-if value="{{ bodyHasGallery }}" hint-placeholder-val="{{ false }}">
+                <button type="button" onClick="{{ gotoGallery }}" style="font-family:var(--font-heading);font-size:14.5px;padding:8px 16px;background:transparent;color:var(--color-accent-700);border:1px solid var(--color-accent);border-radius:var(--radius-md);cursor:pointer">Thirty JunoCam frames &rarr;</button>
+              </sc-if>
+            </div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:14px">
+              <button type="button" onClick="{{ prevBody }}" style="font-family:var(--font-heading);font-size:14px;padding:7px 14px;background:transparent;color:var(--color-neutral-700);border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer">&larr; {{ prevBodyName }}</button>
+              <button type="button" onClick="{{ nextBody }}" style="font-family:var(--font-heading);font-size:14px;padding:7px 14px;background:transparent;color:var(--color-neutral-700);border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer">{{ nextBodyName }} &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ moonOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Moon detail" data-app-scroll="" style="position:absolute;inset:0;z-index:22;background:#171614;overflow:auto;scrollbar-width:none;animation:cosRise 420ms cubic-bezier(0.2,0.8,0.2,1) both">
+          <div style="position:relative;height:290px;background:#000;overflow:hidden">
+            {{ moonImgEl }}
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,22,20,0.35) 0%,transparent 30%,transparent 62%,rgba(23,22,20,0.55) 100%)"></div>
+            <button type="button" onClick="{{ closeMoon }}" style="position:absolute;top:54px;left:14px;width:36px;height:36px;border-radius:50%;background:rgba(23,22,20,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);color:#f0ece5;font-size:17px;cursor:pointer;line-height:1">&larr;</button>
+          </div>
+          <div style="position:relative;margin-top:-26px;border-radius:20px 20px 0 0;background:var(--color-bg);color:var(--color-text);padding:26px 24px 30px">
+            <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:8px">{{ moonRoman }}</div>
+            <h2 style="font-family:var(--font-heading);font-weight:400;font-size:42px;line-height:1;letter-spacing:-0.02em;margin:0 0 10px">{{ moonName }}</h2>
+            <div style="font-size:11px;line-height:1.5;color:var(--color-neutral-600);margin-bottom:16px">{{ moonCredit }}</div>
+            <p style="margin:0 0 22px;font-size:14.5px;line-height:1.6;text-align:justify;hyphens:auto">{{ moonDesc }}</p>
+            <dl style="margin:0 0 24px;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+              <sc-for list="{{ moonFacts }}" as="f" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px;padding:9px 0;border-bottom:1px solid var(--color-divider)">
+                  <dt style="font-size:10.5px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600);padding-top:2px">{{ f.k }}</dt>
+                  <dd style="margin:0;font-size:13.5px;line-height:1.4">{{ f.v }}</dd>
+                </div>
+              </sc-for>
+            </dl>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:14px">
+              <button type="button" onClick="{{ prevMoon }}" style="font-family:var(--font-heading);font-size:14px;padding:7px 14px;background:transparent;color:var(--color-neutral-700);border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer">&larr; {{ prevMoonName }}</button>
+              <button type="button" onClick="{{ nextMoon }}" style="font-family:var(--font-heading);font-size:14px;padding:7px 14px;background:transparent;color:var(--color-neutral-700);border:1px solid var(--color-divider);border-radius:var(--radius-md);cursor:pointer">{{ nextMoonName }} &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ scaleOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Scale" style="position:absolute;inset:0;z-index:24;background:#0a0908;display:flex;flex-direction:column;animation:cosRise 380ms cubic-bezier(0.2,0.8,0.2,1) both">
+          <div style="flex:none;display:flex;align-items:baseline;justify-content:space-between;padding:54px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.14)">
+            <div>
+              <div style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-400)">True relative size</div>
+              <div style="font-family:var(--font-heading);font-size:24px;margin-top:2px">The seven largest, and Mercury</div>
+            </div>
+            <button type="button" onClick="{{ closeScale }}" style="background:transparent;border:none;color:#8e877c;font-size:22px;cursor:pointer;line-height:1">&times;</button>
+          </div>
+          <div ref="{{ scaleStageRef }}" onPointerDown="{{ scaleDown }}" onPointerMove="{{ scaleMove }}" onPointerUp="{{ scaleUp }}" onPointerCancel="{{ scaleUp }}" onWheel="{{ scaleWheel }}" style="flex:1;min-height:0;overflow:hidden;position:relative;touch-action:none;cursor:grab">
+            <div style="{{ scaleRowStyle }}">
+              <sc-for list="{{ scaleDiscs }}" as="sd" hint-placeholder-count="8">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:8px;flex:none">
+                  <div style="{{ sd.discStyle }}">{{ sd.imgEl }}</div>
+                  <div style="text-align:center;white-space:nowrap">
+                    <div style="font-family:var(--font-heading);font-size:13px;line-height:1.1">{{ sd.name }}</div>
+                    <div style="font-size:10px;color:#8e877c;font-feature-settings:'tnum'">{{ sd.km }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;padding:12px 20px 18px;border-top:1px solid rgba(255,255,255,0.14)">
+            <input type="range" min="0.6" max="5" step="0.05" value="{{ scaleZoom }}" onChange="{{ setScaleZoom }}" onInput="{{ setScaleZoom }}" style="width:100%;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:6px">
+              <span style="font-size:11px;color:#8e877c">Pinch, drag or slide &middot; {{ scaleZoomLabel }}</span>
+              <span style="font-size:11px;color:#8e877c">Mercury is dashed &mdash; a planet, for comparison</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Lightbox" style="position:absolute;inset:0;z-index:26;background:#0c0b0a;display:flex;flex-direction:column;animation:cosRise 380ms cubic-bezier(0.2,0.8,0.2,1) both">
+          <div style="flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:52px 18px 14px;border-bottom:1px solid rgba(255,255,255,0.14)">
+            <button type="button" onClick="{{ closeLightbox }}" style="background:transparent;border:none;color:#f0ece5;font-size:17px;cursor:pointer;line-height:1;padding:4px">&larr;</button>
+            <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8e877c;font-feature-settings:'tnum'">{{ lbCounter }}</div>
+            <div style="font-size:11px;color:#8e877c;font-feature-settings:'tnum'">{{ lbZoomLabel }}</div>
+          </div>
+          <div onPointerDown="{{ lbDown }}" onPointerMove="{{ lbMove }}" onPointerUp="{{ lbUp }}" onPointerCancel="{{ lbUp }}" onWheel="{{ lbWheel }}" onDoubleClick="{{ lbDouble }}" style="flex:1;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;touch-action:none;position:relative;cursor:zoom-in">
+            {{ lbImgEl }}
+          </div>
+          <div style="flex:none;border-top:1px solid rgba(255,255,255,0.14);background:#12110f;padding:16px 20px 14px;max-height:250px;overflow:auto" data-app-scroll="">
+            <div style="font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:4px">{{ lbRegion }} &middot; {{ lbTreatment }}</div>
+            <div style="font-family:var(--font-heading);font-size:24px;line-height:1.1;color:#f3f0eb;margin-bottom:8px">{{ lbTitle }}</div>
+            <p style="margin:0 0 10px;font-size:12.5px;line-height:1.6;color:#c9c4bc;text-align:justify;hyphens:auto">{{ lbNote }}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.12);padding-top:10px">
+              <span style="font-size:10.5px;color:#8b857c;font-feature-settings:'tnum'">{{ lbDims }} px &middot; {{ lbCredit }}</span>
+              <div style="display:flex;gap:8px">
+                <button type="button" onClick="{{ lbPrev }}" style="font-family:var(--font-heading);font-size:13px;padding:5px 12px;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Prev</button>
+                <button type="button" onClick="{{ lbNext }}" style="font-family:var(--font-heading);font-size:13px;padding:5px 12px;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ compareOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Compare" style="position:absolute;inset:0;z-index:28;background:#0a0908;display:flex;flex-direction:column;animation:cosRise 380ms cubic-bezier(0.2,0.8,0.2,1) both">
+          <div style="flex:none;display:flex;align-items:baseline;justify-content:space-between;padding:54px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.14)">
+            <div>
+              <div style="font-size:10.5px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-400)">Same frame, twice</div>
+              <div style="font-family:var(--font-heading);font-size:24px;margin-top:2px">Cyclone, developed</div>
+            </div>
+            <button type="button" onClick="{{ closeCompare }}" style="background:transparent;border:none;color:#8e877c;font-size:22px;cursor:pointer;line-height:1">&times;</button>
+          </div>
+          <div ref="{{ compareStageRef }}" onPointerDown="{{ cmpDown }}" onPointerMove="{{ cmpMove }}" onPointerUp="{{ cmpUp }}" style="flex:1;min-height:0;position:relative;overflow:hidden;touch-action:none;cursor:ew-resize">
+            <img src="images/12-jonsson-bright.png" alt="Cyclone, lifted" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" draggable="false">
+            <img src="images/13-jonsson-dark.png" alt="Cyclone, as received" style="{{ cmpTopStyle }}" draggable="false">
+            <div style="{{ cmpDividerStyle }}">
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:rgba(23,22,20,0.75);border:1px solid var(--color-accent);color:var(--color-accent-400);display:flex;align-items:center;justify-content:center;font-size:13px">&harr;</div>
+            </div>
+            <div style="position:absolute;top:12px;left:14px;padding:3px 9px;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;font-family:var(--font-heading);color:#e8e5e0;background:rgba(23,22,20,0.7)">As received</div>
+            <div style="position:absolute;top:12px;right:14px;padding:3px 9px;font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;font-family:var(--font-heading);color:#e8e5e0;background:rgba(23,22,20,0.7)">Lifted</div>
+          </div>
+          <div style="flex:none;padding:14px 20px 18px;border-top:1px solid rgba(255,255,255,0.14)">
+            <p style="margin:0;font-size:12px;line-height:1.6;color:#bdb6ab">Almost everything in the lifted version is present in the dark one &mdash; simply too dark to see. Processed by Bj&ouml;rn J&oacute;nsson. NASA/JPL-Caltech/SwRI/MSSS.</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ storyOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="JunoCam story" data-app-scroll="" style="position:absolute;inset:0;z-index:28;background:var(--color-bg);color:var(--color-text);overflow:auto;scrollbar-width:none;animation:cosRise 420ms cubic-bezier(0.2,0.8,0.2,1) both;padding:60px 24px 34px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+            <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700)">{{ storyKicker }}</div>
+            <button type="button" onClick="{{ closeStory }}" style="background:transparent;border:none;color:var(--color-neutral-600);font-size:22px;cursor:pointer;line-height:1">&times;</button>
+          </div>
+          <h2 style="font-family:var(--font-heading);font-weight:400;font-size:36px;line-height:1.05;letter-spacing:-0.02em;margin:0 0 14px">{{ storyTitle }}</h2>
+          <p style="margin:0 0 22px;font-size:14.5px;line-height:1.6;text-align:justify;hyphens:auto">{{ storyLede }}</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;border-top:1px solid var(--color-divider);padding:16px 0 20px;font-feature-settings:'tnum'">
+            <sc-for list="{{ storyStats }}" as="st" hint-placeholder-count="4">
+              <div>
+                <div style="font-family:var(--font-heading);font-size:28px;line-height:1;color:var(--color-accent-700)">{{ st.k }}</div>
+                <div style="font-size:11px;line-height:1.45;color:var(--color-neutral-700);margin-top:5px">{{ st.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-for list="{{ storySections }}" as="sec" hint-placeholder-count="5">
+            <div style="border-top:1px solid var(--color-divider);padding:16px 0 6px">
+              <h4 style="font-family:var(--font-heading);font-weight:400;font-size:20px;margin:0 0 8px">{{ sec.k }}</h4>
+              <p style="margin:0 0 12px;font-size:13.5px;line-height:1.6;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">{{ sec.v }}</p>
+            </div>
+          </sc-for>
+          <div style="border-top:1px solid var(--color-divider);padding-top:14px;font-size:11px;color:var(--color-neutral-600)">Technical detail from the Mission Juno image processing gallery &middot; <a href="https://www.missionjuno.swri.edu/junocam/processing" target="_blank" rel="noopener">missionjuno.swri.edu</a></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showOpen }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Tonight's show" style="position:absolute;inset:0;z-index:30;background:#0a0908;display:flex;flex-direction:column;overflow:hidden">
+          <div style="flex:none;display:flex;align-items:center;justify-content:space-between;padding:54px 18px 0;position:relative;z-index:4">
+            <div style="font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">Tonight&rsquo;s show</div>
+            <div style="display:flex;gap:14px;align-items:center">
+              <button type="button" onClick="{{ togglePause }}" style="background:transparent;border:none;color:#bdb6ab;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer">{{ pauseLabel }}</button>
+              <button type="button" onClick="{{ closeShow }}" style="background:transparent;border:none;color:#8e877c;font-size:22px;cursor:pointer;line-height:1">&times;</button>
+            </div>
+          </div>
+          <div style="flex:1;min-height:0;position:relative">
+            <div style="{{ showStageStyle }}">
+              <div style="width:76%;max-width:280px;overflow:hidden;border-radius:4px">
+                {{ showImgEl }}
+              </div>
+              <div style="text-align:center;padding:0 34px">
+                <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:8px">{{ showKicker }}</div>
+                <div style="font-family:var(--font-heading);font-weight:400;font-size:46px;line-height:1;letter-spacing:-0.02em">{{ showName }}</div>
+                <p style="margin:12px auto 0;font-size:14.5px;line-height:1.55;color:#bdb6ab;max-width:21em;text-wrap:pretty">{{ showHook }}</p>
+                <div style="margin-top:14px;font-size:12px;color:#8e877c;font-feature-settings:'tnum'">{{ showFact }}</div>
+              </div>
+            </div>
+            <button type="button" onClick="{{ showPrevTap }}" aria-label="Previous chapter" style="position:absolute;left:0;top:0;bottom:0;width:30%;background:transparent;border:none;cursor:pointer"></button>
+            <button type="button" onClick="{{ showNextTap }}" aria-label="Next chapter" style="position:absolute;right:0;top:0;bottom:0;width:30%;background:transparent;border:none;cursor:pointer"></button>
+          </div>
+          <div style="flex:none;padding:0 18px 20px">
+            <div style="display:flex;gap:5px;margin-bottom:10px">
+              <sc-for list="{{ showTicks }}" as="tk" hint-placeholder-count="10">
+                <button type="button" onClick="{{ tk.jump }}" aria-label="{{ tk.name }}" style="{{ tk.style }}"></button>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:11px;color:#8e877c">Tap the edges to move &middot; tap a tick to jump</span><button type="button" onClick="{{ showOpenBody }}" style="background:transparent;border:none;cursor:pointer;font-family:var(--font-heading);font-size:13px;color:var(--color-accent-400);border-bottom:1px solid rgba(182,130,53,0.5);padding:0 0 1px">Open the plate &rarr;</button></div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </x-import>
+
+  <div data-desk-only="" style="font-size:11px;color:var(--color-neutral-600);max-width:420px;text-align:center;line-height:1.6">Journey &middot; Moons &middot; Gallery &middot; Colophon in the tab bar. Everything tappable: bodies open plates, moons open sheets, frames open the loupe. Figures NASA Planetary Fact Sheets &middot; IAU WGCCRE 2015.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 640, &quot;height&quot;: 1060},
+ &quot;motion&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Cinema&quot;, &quot;description&quot;: &quot;Ambient drift and Ken Burns motion&quot;},
+ &quot;showSeconds&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 8, &quot;min&quot;: 4, &quot;max&quot;: 20, &quot;unit&quot;: &quot;s&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Cinema&quot;, &quot;description&quot;: &quot;Seconds per chapter in tonight's show&quot;},
+ &quot;archivalGrade&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Imagery&quot;, &quot;description&quot;: &quot;Warm archival grade on JunoCam frames&quot;}}">
+class Component extends DCLogic {
+  state = {
+    D: null, tab: 'journey', body: null, moon: null, moonSystem: 'all', trueScale: false,
+    region: 'All', treatment: 'All', frame: null, compareOpen: false, comparePos: 50,
+    storyOpen: false, scaleOpen: false, scale: { z: 1, tx: 0, ty: 0 },
+    lb: { z: 1, tx: 0, ty: 0 }, showOn: false, showIdx: 0, showPaused: false,
+    weight: 32, jScroll: 0, jH: 700, jCenters: [], activeIdx: -1, dragging: false, isMobile: false
+  };
+
+  componentDidMount() {
+    import('./cosmos-data.js').then(m => {
+      let idx = 0;
+      try { idx = Math.max(0, Math.min(m.BODIES.length - 1, parseInt(localStorage.getItem('cosmos-show-idx') || '0', 10) || 0)); } catch (e) {}
+      this.setState({ D: m, showIdx: idx });
+    });
+    this._pts = new Map(); this._pinch0 = null; this._swipeX = null;
+    this._mq = window.matchMedia('(max-width: 560px)');
+    this._onMq = () => this.setState({ isMobile: this._mq.matches });
+    this._mq.addEventListener('change', this._onMq);
+    if (this._mq.matches) this.setState({ isMobile: true });
+  }
+  componentWillUnmount() {
+    if (this._timer) clearInterval(this._timer);
+    if (this._mq) this._mq.removeEventListener('change', this._onMq);
+  }
+
+  // ---- shared pinch/pan stage ----
+  stageDown(key, e, minZ, maxZ) {
+    e.currentTarget.setPointerCapture(e.pointerId);
+    this._pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (this._pts.size === 2) {
+      const [a, b] = [...this._pts.values()];
+      this._pinch0 = { d: Math.hypot(a.x - b.x, a.y - b.y), z: this.state[key].z };
+    } else { this._swipeX = e.clientX; }
+    this.setState({ dragging: true });
+  }
+  stageMove(key, e, minZ, maxZ) {
+    if (!this._pts.has(e.pointerId)) return;
+    const prev = this._pts.get(e.pointerId);
+    this._pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const s = this.state[key];
+    if (this._pts.size === 2 && this._pinch0) {
+      const [a, b] = [...this._pts.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      const z = Math.min(maxZ, Math.max(minZ, this._pinch0.z * d / this._pinch0.d));
+      this.setState({ [key]: Object.assign({}, s, { z }) });
+    } else if (this._pts.size === 1) {
+      this.setState({ [key]: Object.assign({}, s, { tx: s.tx + e.clientX - prev.x, ty: s.ty + e.clientY - prev.y }) });
+    }
+  }
+  stageUp(key, e) {
+    this._pts.delete(e.pointerId);
+    if (this._pts.size < 2) this._pinch0 = null;
+    if (this._pts.size === 0) this.setState({ dragging: false });
+  }
+  wheelZoom(key, e, minZ, maxZ) {
+    e.preventDefault();
+    const s = this.state[key];
+    const z = Math.min(maxZ, Math.max(minZ, s.z * (e.deltaY < 0 ? 1.1 : 0.9)));
+    this.setState({ [key]: Object.assign({}, s, { z, tx: z === minZ ? 0 : s.tx, ty: z === minZ ? 0 : s.ty }) });
+  }
+
+  // ---- gallery/lightbox ----
+  filteredFrames() {
+    const D = this.state.D; if (!D) return [];
+    const s = this.state;
+    return D.FRAMES.filter(f => (s.region === 'All' || f.region === s.region) && (s.treatment === 'All' || f.treatment === s.treatment));
+  }
+  stepFrame(n) {
+    const list = this.filteredFrames();
+    const i = list.findIndex(f => f.id === this.state.frame);
+    if (i < 0) return;
+    this.setState({ frame: list[(i + n + list.length) % list.length].id, lb: { z: 1, tx: 0, ty: 0 } });
+  }
+
+  // ---- show ----
+  startShowNow() {
+    if (this._timer) clearInterval(this._timer);
+    const secs = Math.max(4, this.props.showSeconds ?? 8);
+    this._timer = setInterval(() => {
+      if (this.state.showOn && !this.state.showPaused) this.stepShow(1);
+    }, secs * 1000);
+    this.setState({ showOn: true, showPaused: false });
+  }
+  stopShow() { if (this._timer) clearInterval(this._timer); this._timer = null; this.setState({ showOn: false }); }
+  stepShow(n) {
+    const D = this.state.D; if (!D) return;
+    const idx = (this.state.showIdx + n + D.BODIES.length) % D.BODIES.length;
+    try { localStorage.setItem('cosmos-show-idx', String(idx)); } catch (e) {}
+    this.setState({ showIdx: idx });
+  }
+
+  chip(label, active, on) {
+    return { label, pick: on, style: {
+      flex: 'none', fontFamily: 'var(--font-heading)', fontSize: '12.5px', letterSpacing: '0.03em',
+      padding: '5px 13px', whiteSpace: 'nowrap', cursor: 'pointer', borderRadius: '999px',
+      background: active ? 'rgba(182,130,53,0.16)' : 'transparent',
+      color: active ? 'var(--color-accent-400)' : '#bdb6ab',
+      border: active ? '1px solid var(--color-accent-700)' : '1px solid rgba(255,255,255,0.2)'
+    } };
+  }
+
+  renderVals() {
+    const s = this.state, D = s.D;
+    const motion = this.props.motion ?? true;
+    const grade = (this.props.archivalGrade ?? false) ? 'sepia(0.22) saturate(0.82) contrast(1.05)' : 'none';
+    const bodies = D ? D.BODIES : [];
+    const moons = D ? D.MOONS : [];
+
+    // journey
+    const journeyPanels = bodies.map((b, i) => {
+      const c = s.jCenters[i];
+      let par = 0;
+      if (c !== undefined) par = Math.max(-34, Math.min(34, (c - (s.jScroll + s.jH / 2)) * -0.07));
+      return {
+        id: b.id, img: b.img, alt: b.alt, name: b.name, kicker: b.kicker, hook: b.hook,
+        hasRuler: i > 0, auLabel: b.au + ' AU from the Sun',
+        open: () => this.setState({ body: b.id }),
+        imgEl: React.createElement('img', { src: b.img, alt: b.alt, draggable: false, style: {
+          width: '100%', display: 'block',
+          transform: 'translateY(' + par.toFixed(1) + 'px)',
+          animation: motion ? 'cosDrift 26s ease-in-out infinite alternate' : 'none',
+          transition: 'transform 120ms linear'
+        } })
+      };
+    });
+    const railDots = bodies.map((b, i) => ({
+      name: b.name,
+      jump: () => {
+        const el = this._jc && this._jc.querySelector('[data-jp="' + b.id + '"]');
+        if (el && this._jc) this._jc.scrollTo({ top: el.offsetTop - 10, behavior: 'smooth' });
+      },
+      style: {
+        width: i === s.activeIdx ? '7px' : '5px', height: i === s.activeIdx ? '7px' : '5px',
+        borderRadius: '50%', padding: 0, cursor: 'pointer', border: 'none',
+        background: i === s.activeIdx ? 'var(--color-accent-400)' : 'rgba(240,236,229,0.28)'
+      }
+    }));
+
+    // tabs
+    const R = React.createElement;
+    const ic = (paths, extra) => R('svg', { width: 21, height: 21, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }, ...paths);
+    const icons = {
+      journey: ic([R('circle', { key: 1, cx: 12, cy: 12, r: 3.4 }), R('path', { key: 2, d: 'M3.5 12a8.5 8.5 0 1 0 17 0 8.5 8.5 0 1 0-17 0', strokeDasharray: '2.6 3.4' }), R('circle', { key: 3, cx: 20.5, cy: 12, r: 1.4, fill: 'currentColor', stroke: 'none' })]),
+      moons: ic([R('path', { key: 1, d: 'M20 12.5A8.2 8.2 0 1 1 11.5 4a6.4 6.4 0 0 0 8.5 8.5z' })]),
+      gallery: ic([R('rect', { key: 1, x: 3.5, y: 5, width: 17, height: 14, rx: 1.5 }), R('circle', { key: 2, cx: 9, cy: 10, r: 1.6 }), R('path', { key: 3, d: 'M20.5 15.5 15.5 11l-7 8' })]),
+      colophon: ic([R('path', { key: 1, d: 'M5 4.5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5z' }), R('path', { key: 2, d: 'M19 4.5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z' })])
+    };
+    const tabs = [['journey', 'Journey'], ['moons', 'Moons'], ['gallery', 'Gallery'], ['colophon', 'Colophon']].map(([id, label]) => ({
+      label, icon: icons[id],
+      pick: () => this.setState({ tab: id, body: null, moon: null }),
+      style: { flex: 1, background: 'transparent', border: 'none', cursor: 'pointer', padding: '6px 0 8px', textAlign: 'center', color: s.tab === id ? 'var(--color-accent-400)' : '#8e877c' }
+    }));
+
+    // moons
+    const sysList = D ? D.SYSTEMS : [];
+    const systemChips = [this.chip('All 22', s.moonSystem === 'all', () => this.setState({ moonSystem: 'all' }))]
+      .concat(sysList.map(sys => this.chip(sys.name + ' \u00b7 ' + sys.count, s.moonSystem === sys.id, () => this.setState({ moonSystem: sys.id }))));
+    const moonList = moons.filter(m => s.moonSystem === 'all' || m.system === s.moonSystem);
+    const moonCells = moonList.map(m => {
+      const size = s.trueScale ? Math.max(8, Math.round(m.r / 2631.2 * 104)) : 84;
+      const tiny = s.trueScale && size < 26;
+      return {
+        name: m.name, disc: m.disc,
+        meta: m.r.toLocaleString('en-US') + ' km \u00b7 ' + m.period.toFixed(m.period < 10 ? 2 : 1) + ' d',
+        open: () => this.setState({ moon: m.id }),
+        discStyle: { width: size + 'px', height: size + 'px', borderRadius: '50%', overflow: 'hidden', background: '#000', border: tiny ? '1px solid var(--color-accent)' : '1.5px solid var(--color-accent)', transition: 'width 300ms ease, height 300ms ease' },
+        imgEl: React.createElement('img', { src: m.disc, alt: m.name, style: { width: '100%', height: '100%', objectFit: 'cover', objectPosition: m.discPos || 'center', display: 'block' } })
+      };
+    });
+
+    // gallery
+    const flist = this.filteredFrames();
+    const shownFrames = flist.map(f => ({
+      src: f.src, title: f.title, region: f.region, treatment: f.treatment,
+      open: () => this.setState({ frame: f.id, lb: { z: 1, tx: 0, ty: 0 } }),
+      imgEl: React.createElement('img', { src: f.src, alt: f.title, style: { width: '100%', height: 'auto', display: 'block', filter: grade } })
+    }));
+    const regions = D ? D.REGIONS : [], treats = D ? D.TREATMENTS : [];
+
+    // body detail
+    const bi = bodies.findIndex(b => b.id === s.body);
+    const body = bi >= 0 ? bodies[bi] : null;
+    const prevB = bi >= 0 ? bodies[(bi - 1 + bodies.length) % bodies.length] : null;
+    const nextB = bi >= 0 ? bodies[(bi + 1) % bodies.length] : null;
+    const wHere = body && body.g ? s.weight * body.g / 9.80 : 0;
+    const sysName = body && body.moons && D ? D.SYSTEMS.find(x => x.id === body.moons) : null;
+
+    // moon detail
+    const mi = moons.findIndex(m => m.id === s.moon);
+    const moon = mi >= 0 ? moons[mi] : null;
+    const prevM = mi >= 0 ? moons[(mi - 1 + moons.length) % moons.length] : null;
+    const nextM = mi >= 0 ? moons[(mi + 1) % moons.length] : null;
+
+    // scale overlay
+    const scaleDiscs = (D ? D.SCALE_SET : []).map(o => {
+      const px = o.km / 2631 * 150;
+      return { name: o.name, km: o.km.toLocaleString('en-US') + ' km',
+        imgEl: React.createElement('img', { src: o.img, alt: o.name, draggable: false, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } }),
+        discStyle: { width: px + 'px', height: px + 'px', borderRadius: '50%', overflow: 'hidden', background: '#000', border: o.moon ? '1.5px solid var(--color-accent)' : '1.5px dashed var(--color-neutral-500)' } };
+    });
+
+    // lightbox
+    const frame = D ? D.FRAMES.find(f => f.id === s.frame) : null;
+    const fIdx = flist.findIndex(f => f.id === s.frame);
+
+    // show
+    const showBody = bodies.length ? bodies[s.showIdx % bodies.length] : null;
+    const alt = s.showIdx % 2 === 0;
+
+    return {
+      // tabs
+      isMobile: s.isMobile,
+      devW: s.isMobile ? '100vw' : 402,
+      devH: s.isMobile ? '100dvh' : 874,
+      tabJourney: s.tab === 'journey', tabMoons: s.tab === 'moons', tabGallery: s.tab === 'gallery', tabColophon: s.tab === 'colophon',
+      tabs,
+      // journey
+      journeyPanels, railDots,
+      journeyRef: el => { this._jc = el; },
+      onJourneyScroll: e => {
+        const el = e.currentTarget;
+        const top = el.scrollTop, h = el.clientHeight;
+        if (this._jraf) return;
+        this._jraf = requestAnimationFrame(() => {
+          this._jraf = 0;
+          const nodes = el.querySelectorAll('[data-jp]');
+          const centers = [...nodes].map(n => n.offsetTop + n.offsetHeight / 2);
+          let act = -1;
+          centers.forEach((c, i) => { if (c - top < h * 0.72) act = i; });
+          this.setState({ jScroll: top, jH: h, jCenters: centers, activeIdx: act });
+        });
+      },
+      // body sheet
+      bodyOpen: !!body,
+      bodyImgEl: body ? React.createElement('img', { key: body.id, src: body.img, alt: body.alt, style: { width: '100%', height: '100%', objectFit: 'cover', animation: 'cosSettleA 18s cubic-bezier(0.16,0.6,0.3,1) both' } }) : null,
+      bodyName: body ? body.name : '',
+      bodyKicker: body ? body.kicker : '', bodyCredit: body ? body.credit : '', bodyDesc: body ? body.desc : '',
+      bodyFacts: body ? body.facts.map(f => ({ k: f[0], v: f[1] })) : [],
+      bodyHasWeight: !!(body && body.g), bodyG: body && body.g ? body.g.toFixed(2) : '',
+      weight: s.weight,
+      weightHere: wHere >= 1000 ? (wHere / 1000).toFixed(2) + ' tonnes' : Math.round(wHere) + ' kg',
+      setWeight: e => this.setState({ weight: parseInt(e.target.value, 10) }),
+      bodyHasMoons: !!sysName, bodyMoonsLabel: sysName ? 'Its ' + (sysName.count === 1 ? 'moon' : sysName.count + ' moons') + ' \u2192' : '',
+      gotoBodyMoons: () => this.setState({ tab: 'moons', moonSystem: body.moons, body: null }),
+      bodyHasGallery: !!(body && body.gallery),
+      gotoGallery: () => this.setState({ tab: 'gallery', body: null }),
+      closeBody: () => this.setState({ body: null }),
+      prevBody: () => this.setState({ body: prevB.id }), nextBody: () => this.setState({ body: nextB.id }),
+      prevBodyName: prevB ? prevB.name : '', nextBodyName: nextB ? nextB.name : '',
+      // moons tab
+      systemChips, moonCells,
+      moonCount: moonList.length + (moonList.length === 1 ? ' moon' : ' moons') + ' \u00b7 radius and orbital period from the satellite table',
+      toggleTrueScale: () => this.setState({ trueScale: !s.trueScale }),
+      trueScaleStyle: { background: 'transparent', cursor: 'pointer', fontFamily: 'var(--font-heading)', fontSize: '12.5px', padding: '4px 12px', borderRadius: '999px', border: s.trueScale ? '1px solid var(--color-accent-700)' : '1px solid rgba(255,255,255,0.2)', color: s.trueScale ? 'var(--color-accent-400)' : '#bdb6ab' },
+      openScale: () => this.setState({ scaleOpen: true, scale: { z: 1, tx: 0, ty: 0 } }),
+      // moon sheet
+      moonOpen: !!moon,
+      moonImgEl: moon ? React.createElement('img', { key: moon.id, src: moon.photo, alt: moon.name, style: { width: '100%', height: '100%', objectFit: 'cover', animation: 'cosSettleB 18s cubic-bezier(0.16,0.6,0.3,1) both' } }) : null,
+      moonName: moon ? moon.name : '', moonRoman: moon ? moon.roman : '',
+      moonCredit: moon ? moon.credit : '', moonDesc: moon ? moon.desc : '',
+      moonFacts: moon ? moon.facts.map(f => ({ k: f[0], v: f[1] })) : [],
+      closeMoon: () => this.setState({ moon: null }),
+      prevMoon: () => this.setState({ moon: prevM.id }), nextMoon: () => this.setState({ moon: nextM.id }),
+      prevMoonName: prevM ? prevM.name : '', nextMoonName: nextM ? nextM.name : '',
+      // scale overlay
+      scaleOpen: s.scaleOpen, closeScale: () => this.setState({ scaleOpen: false }),
+      scaleDiscs,
+      scaleRowStyle: {
+        position: 'absolute', left: '50%', top: '50%', display: 'flex', alignItems: 'flex-end', gap: '18px', padding: '20px',
+        transform: 'translate(-50%,-50%) translate(' + s.scale.tx + 'px,' + s.scale.ty + 'px) scale(' + s.scale.z + ')',
+        transition: s.dragging ? 'none' : 'transform 140ms ease-out', transformOrigin: 'center'
+      },
+      scaleZoom: s.scale.z, scaleZoomLabel: s.scale.z.toFixed(2) + '\u00d7',
+      setScaleZoom: e => this.setState({ scale: Object.assign({}, s.scale, { z: parseFloat(e.target.value) }) }),
+      scaleStageRef: () => {},
+      scaleDown: e => this.stageDown('scale', e, 0.6, 5), scaleMove: e => this.stageMove('scale', e, 0.6, 5),
+      scaleUp: e => this.stageUp('scale', e), scaleWheel: e => this.wheelZoom('scale', e, 0.6, 5),
+      // gallery
+      regionChips: regions.map(r => this.chip(r, s.region === r, () => this.setState({ region: r }))),
+      treatChips: treats.map(t => this.chip(t, s.treatment === t, () => this.setState({ treatment: t }))),
+      shownFrames,
+      frameCount: D ? (flist.length === D.FRAMES.length ? '30 frames' : flist.length + ' of 30 frames') : '',
+      openStory: () => this.setState({ storyOpen: true }),
+      openCompare: () => this.setState({ compareOpen: true }),
+      // lightbox
+      lightboxOpen: !!frame,
+      lbTitle: frame ? frame.title : '', lbNote: frame ? frame.note : '',
+      lbRegion: frame ? frame.region : '', lbTreatment: frame ? frame.treatment : '',
+      lbDims: frame ? frame.dims : '', lbCredit: frame ? (frame.credit || 'Citizen scientist, uncredited in this set') : '',
+      lbCounter: fIdx >= 0 ? (fIdx + 1) + ' / ' + flist.length : '',
+      lbZoomLabel: s.lb.z.toFixed(1) + '\u00d7 \u2014 pinch or double-tap',
+      lbImgEl: frame ? React.createElement('img', { src: frame.src, alt: frame.title, draggable: false, style: {
+        maxWidth: '100%', maxHeight: '100%', userSelect: 'none', filter: grade,
+        transform: 'translate(' + s.lb.tx + 'px,' + s.lb.ty + 'px) scale(' + s.lb.z + ')',
+        transition: s.dragging ? 'none' : 'transform 140ms ease-out'
+      } }) : null,
+      closeLightbox: () => this.setState({ frame: null }),
+      lbPrev: () => this.stepFrame(-1), lbNext: () => this.stepFrame(1),
+      lbDown: e => { this._lbX = this.state.lb.z <= 1 ? e.clientX : null; this.stageDown('lb', e, 1, 6); },
+      lbMove: e => { if (this.state.lb.z > 1 || this._pts.size === 2) this.stageMove('lb', e, 1, 6); },
+      lbUp: e => {
+        const wasZoomed = this.state.lb.z > 1;
+        this.stageUp('lb', e);
+        if (!wasZoomed && this._lbX !== null && this._pts.size === 0) {
+          const dx = e.clientX - this._lbX;
+          if (Math.abs(dx) > 60) this.stepFrame(dx < 0 ? 1 : -1);
+          else this.setState({ lb: { z: this.state.lb.z, tx: 0, ty: 0 } });
+          this._lbX = null;
+        }
+      },
+      lbWheel: e => this.wheelZoom('lb', e, 1, 6),
+      lbDouble: () => this.setState({ lb: s.lb.z > 1 ? { z: 1, tx: 0, ty: 0 } : { z: 2.2, tx: 0, ty: 0 } }),
+      // compare
+      compareOpen: s.compareOpen, closeCompare: () => this.setState({ compareOpen: false }),
+      cmpTopStyle: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', clipPath: 'inset(0 ' + (100 - s.comparePos) + '% 0 0)' },
+      cmpDividerStyle: { position: 'absolute', top: 0, bottom: 0, left: s.comparePos + '%', width: '1.5px', background: 'var(--color-accent)', boxShadow: '0 0 12px rgba(0,0,0,0.6)' },
+      compareStageRef: el => { this._cmp = el; },
+      cmpDown: e => { e.currentTarget.setPointerCapture(e.pointerId); this._cmpDrag = true; this.cmpSet(e); },
+      cmpMove: e => { if (this._cmpDrag) this.cmpSet(e); },
+      cmpUp: () => { this._cmpDrag = false; },
+      // story
+      storyOpen: s.storyOpen, closeStory: () => this.setState({ storyOpen: false }),
+      storyKicker: D ? D.STORY.kicker : '', storyTitle: D ? D.STORY.title : '', storyLede: D ? D.STORY.lede : '',
+      storyStats: D ? D.STORY.stats.map(x => ({ k: x[0], v: x[1] })) : [],
+      storySections: D ? D.STORY.sections.map(x => ({ k: x[0], v: x[1] })) : [],
+      // colophon
+      sources: D ? D.SOURCES.map(x => ({ k: x[0], v: x[1] })) : [],
+      // show
+      showOpen: s.showOn, startShow: () => this.startShowNow(), closeShow: () => this.stopShow(),
+      togglePause: () => this.setState({ showPaused: !s.showPaused }),
+      pauseLabel: s.showPaused ? 'Resume' : 'Pause',
+      showImgEl: showBody ? React.createElement('img', { key: s.showIdx, src: showBody.img, alt: showBody.name, style: {
+        width: '100%', display: 'block',
+        animation: 'cosSettleA ' + Math.max(4, this.props.showSeconds ?? 8) + 's cubic-bezier(0.16,0.6,0.3,1) both'
+      } }) : null,
+      showName: showBody ? showBody.name : '',
+      showKicker: showBody ? showBody.kicker : '', showHook: showBody ? showBody.hook : '',
+      showFact: showBody ? showBody.facts[0][0] + ' \u00b7 ' + showBody.facts[0][1] : '',
+      showStageStyle: {
+        position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '22px',
+        animation: (alt ? 'cosFadeA' : 'cosFadeB') + ' 900ms cubic-bezier(0.2,0.8,0.2,1) both'
+      },
+
+      showPrevTap: () => this.stepShow(-1), showNextTap: () => this.stepShow(1),
+      showOpenBody: () => { this.stopShow(); this.setState({ body: showBody.id, tab: 'journey' }); },
+      showTicks: bodies.map((b, i) => ({
+        name: b.name, jump: () => { try { localStorage.setItem('cosmos-show-idx', String(i)); } catch (e) {} this.setState({ showIdx: i }); },
+        style: { flex: 1, height: '3px', padding: 0, border: 'none', cursor: 'pointer', borderRadius: '2px', background: i <= s.showIdx ? 'var(--color-accent-400)' : 'rgba(240,236,229,0.2)' }
+      }))
+    };
+  }
+
+  cmpSet(e) {
+    if (!this._cmp) return;
+    const r = this._cmp.getBoundingClientRect();
+    const p = Math.max(4, Math.min(96, (e.clientX - r.left) / r.width * 100));
+    this.setState({ comparePos: p });
+  }
+}
+</script>
+</body>
+</html>

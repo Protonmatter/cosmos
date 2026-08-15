@@ -81,8 +81,9 @@
   .device::after { content: ""; position: absolute; top: 22px; left: 50%; transform: translateX(-50%);
     width: 104px; height: 26px; border-radius: 999px; background: #0c0b0a; z-index: 3; pointer-events: none; }
 
-  /* Click-to-load poster — the prototype is a 12 MB self-contained bundle,
-     so it is not fetched until the visitor actually asks for it. */
+  /* Click-to-load poster. The prototype is light now (~215 KB of code, reusing
+     the site's existing imagery), but holding it behind a tap keeps the bezel
+     composed until the visitor actually wants it. */
   .poster { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 20px; text-align: center; padding: 40px 30px;
     background: radial-gradient(120% 80% at 50% 12%, #2a2118 0%, #0c0b0a 62%); }
@@ -166,7 +167,7 @@
       <div class="cta-row">
         <button class="btn solid" id="launch" type="button">Launch the prototype
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-        <a class="btn" href="beta/pocket-planetarium.html">Open fullscreen
+        <a class="btn" href="pocket-planetarium.html">Open fullscreen
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
         <span class="badge"><span class="pulse"></span>Beta</span>
       </div>
@@ -174,7 +175,7 @@
       <div class="handoff">
         <h3>You're already on a phone</h3>
         <p>Which is where this one belongs. Open it full screen rather than in a frame.</p>
-        <a class="btn solid" href="beta/pocket-planetarium.html">Open the prototype
+        <a class="btn solid" href="pocket-planetarium.html">Open the prototype
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
@@ -187,18 +188,18 @@
             <h3>Tonight's show</h3>
             <p>The Sun, eight planets, twenty-two moons and thirty photographs of Jupiter, developed by strangers.</p>
             <button class="btn solid" id="launch-2" type="button">Begin</button>
-            <span class="weight">12 MB · loads on tap</span>
+            <span class="weight">Prototype · loads on tap</span>
           </div>
           <iframe id="frame" title="Cosmos Pocket Planetarium prototype" allow="fullscreen"></iframe>
         </div>
       </div>
-      <p class="device-note">Shown at 390 × 844.<br><a href="beta/pocket-planetarium.html">Open it fullscreen instead ↗</a></p>
+      <p class="device-note">Shown at 390 × 844.<br><a href="pocket-planetarium.html">Open it fullscreen instead ↗</a></p>
     </div>
   </section>
 
   <div class="notice">
     <span class="mark" aria-hidden="true">§</span>
-    <p><b>This is a prototype, not a release.</b> It is a design study for a phone app — laid out at 390 points wide and never tested beyond that. Nothing here is wired to a backend, the figures are the same static tables the decks read from, and layouts above tablet width are undefined. The three <a href="./#decks" style="color:var(--accent)">production decks</a> are unaffected by anything on this page.</p>
+    <p><b>This is an unfinished prototype, not a release.</b> It is a design study for a phone app, laid out at 390 points wide and never tested beyond that. The shell and the tab bar work; two of the four screens are still missing their list views, which is called out below. The figures come from the same static tables the decks read from, and layouts above tablet width are undefined. The three <a href="./#decks" style="color:var(--accent)">production decks</a> are unaffected by anything on this page.</p>
   </div>
 
   <div class="section-head">
@@ -208,19 +209,19 @@
   <div class="tabs">
     <div class="tab">
       <div class="n">01</div><h4>Journey</h4>
-      <p>A continuous scroll from the Sun out to Neptune at 30 AU. Each body opens a plate with the same figures the Solar System deck carries.</p>
+      <p>Opens full-bleed on the Sun with the premise. The outward travel to Neptune is not wired up in this build — "Begin tonight's show" and the scroll prompt do nothing yet.</p>
     </div>
     <div class="tab">
       <div class="n">02</div><h4>Moons</h4>
-      <p>Twenty-two satellites across five systems. Tapping one raises a sheet rather than navigating away, so you keep your place in the system.</p>
+      <p>Header and a scale card setting the seven largest against Mercury, all eight photographed. The twenty-two-moon list reads zero — the data is present, the list view is not built.</p>
     </div>
     <div class="tab">
       <div class="n">03</div><h4>Gallery</h4>
-      <p>Thirty JunoCam frames developed by volunteers from raw pushframe strips. Frames open into a loupe for close reading.</p>
+      <p>The argument for processing, made in one draggable before/after seam. The thirty-frame grid that should sit beneath it is still empty.</p>
     </div>
     <div class="tab">
       <div class="n">04</div><h4>Colophon</h4>
-      <p>Provenance for every figure and image — NASA Planetary Fact Sheets, IAU WGCCRE 2015, and the Mission Juno processing gallery.</p>
+      <p>The one finished screen: provenance for the figures and imagery, credits, and links out to Sol and the Mission Juno processing gallery.</p>
     </div>
   </div>
 
@@ -230,7 +231,8 @@
   </div>
   <ul class="known">
     <li>Desktop and tablet widths are unstyled — the shell stretches to fill whatever width it is given instead of centring, which is why it is framed at phone size here.</li>
-    <li>Everything is bundled into one 12 MB file, so the first load is heavy and everything after it is entirely offline — no network calls at all, not even for fonts.</li>
+    <li>The Moons and Gallery list views render nothing. Their data is loaded and intact (twenty-two moons, thirty frames); only the code that lays them out is missing.</li>
+    <li>The Journey never leaves the Sun. There is no scroll container behind the opening screen yet.</li>
   </ul>
 
   <footer>
@@ -272,7 +274,7 @@
     const poster = document.getElementById('poster');
     let loaded = false;
     function launch() {
-      if (!loaded) { frame.src = 'beta/pocket-planetarium.html'; loaded = true; }
+      if (!loaded) { frame.src = 'pocket-planetarium.html'; loaded = true; }
       poster.hidden = true;
       frame.focus({ preventScroll: true });
       frame.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
