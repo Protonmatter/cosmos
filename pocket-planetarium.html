@@ -523,12 +523,19 @@ class Component extends DCLogic {
   }
 
   // ---- show ----
-  startShowNow() {
+  // The interval is (re)armed rather than left free-running, so its phase is
+  // always measured from the body currently on screen. Armed once at start it
+  // keeps its original phase, and a manual step taken late in a dwell gets
+  // overtaken by the pending tick a moment later — advancing two bodies.
+  _armShowTimer() {
     if (this._timer) clearInterval(this._timer);
     const secs = Math.max(4, this.props.showSeconds ?? 8);
     this._timer = setInterval(() => {
       if (this.state.showOn && !this.state.showPaused) this.stepShow(1);
     }, secs * 1000);
+  }
+  startShowNow() {
+    this._armShowTimer();
     this.setState({ showOn: true, showPaused: false });
   }
   stopShow() { if (this._timer) clearInterval(this._timer); this._timer = null; this.setState({ showOn: false }); }
@@ -536,6 +543,10 @@ class Component extends DCLogic {
     const D = this.state.D; if (!D) return;
     const idx = (this.state.showIdx + n + D.BODIES.length) % D.BODIES.length;
     try { localStorage.setItem('cosmos-show-idx', String(idx)); } catch (e) {}
+    // Every advance restarts the countdown, so each body gets its full dwell
+    // whether you arrived by tapping or by waiting. Guarded on _timer so
+    // stepping while the show is stopped doesn't quietly start it.
+    if (this._timer) this._armShowTimer();
     this.setState({ showIdx: idx });
   }
 
@@ -777,7 +788,13 @@ class Component extends DCLogic {
       sources: D ? D.SOURCES.map(x => ({ k: x[0], v: x[1] })) : [],
       // show
       showOpen: s.showOn, startShow: () => this.startShowNow(), closeShow: () => this.stopShow(),
-      togglePause: () => this.setState({ showPaused: !s.showPaused }),
+      // Resuming restarts the countdown too — otherwise pausing late in a
+      // dwell and resuming fires the pending tick almost immediately.
+      togglePause: () => {
+        const paused = !s.showPaused;
+        if (!paused && this._timer) this._armShowTimer();
+        this.setState({ showPaused: paused });
+      },
       pauseLabel: s.showPaused ? 'Resume' : 'Pause',
       showImgEl: showBody ? React.createElement('img', { key: s.showIdx, src: showBody.img, alt: showBody.name, style: {
         width: '100%', display: 'block',

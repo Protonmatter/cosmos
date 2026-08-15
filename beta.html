@@ -199,7 +199,7 @@
 
   <div class="notice">
     <span class="mark" aria-hidden="true">§</span>
-    <p><b>This is an unfinished prototype, not a release.</b> It is a design study for a phone app, laid out at 390 points wide and never tested beyond that. The shell and the tab bar work; two of the four screens are still missing their list views, which is called out below. The figures come from the same static tables the decks read from, and layouts above tablet width are undefined. The three <a href="./#decks" style="color:var(--accent)">production decks</a> are unaffected by anything on this page.</p>
+    <p><b>This is a prototype, not a release.</b> It is a design study for a phone app — every figure is read from the same static tables the decks use, and nothing is wired to a live source. Above 560px it draws its own device frame rather than the one on this page. The three <a href="./#decks" style="color:var(--accent)">production decks</a> are unaffected by anything here.</p>
   </div>
 
   <div class="section-head">
@@ -209,30 +209,29 @@
   <div class="tabs">
     <div class="tab">
       <div class="n">01</div><h4>Journey</h4>
-      <p>Opens full-bleed on the Sun with the premise. The outward travel to Neptune is not wired up in this build — "Begin tonight's show" and the scroll prompt do nothing yet.</p>
+      <p>Opens full-bleed on the Sun, then scrolls outward through all nine bodies to Neptune. Each opens a plate carrying the same figures as the Solar System deck. "Begin tonight's show" runs it hands-free instead, eight seconds a chapter.</p>
     </div>
     <div class="tab">
       <div class="n">02</div><h4>Moons</h4>
-      <p>Header and a scale card setting the seven largest against Mercury, all eight photographed. The twenty-two-moon list reads zero — the data is present, the list view is not built.</p>
+      <p>All twenty-two, filterable by system, each disc captioned with radius and orbital period. A true-scale toggle sizes them against each other, and a pinch card sets the seven largest beside Mercury.</p>
     </div>
     <div class="tab">
       <div class="n">03</div><h4>Gallery</h4>
-      <p>The argument for processing, made in one draggable before/after seam. The thirty-frame grid that should sit beneath it is still empty.</p>
+      <p>Thirty JunoCam frames developed by volunteers, filterable by region and by treatment. A draggable before/after seam makes the argument for processing in a single picture.</p>
     </div>
     <div class="tab">
       <div class="n">04</div><h4>Colophon</h4>
-      <p>The one finished screen: provenance for the figures and imagery, credits, and links out to Sol and the Mission Juno processing gallery.</p>
+      <p>Provenance for the figures and imagery, typographic credits, and links out to Sol and the Mission Juno processing gallery.</p>
     </div>
   </div>
 
   <div class="section-head">
-    <h2>Known gaps</h2>
+    <h2>Notes</h2>
     <span>Before you file it</span>
   </div>
   <ul class="known">
-    <li>Desktop and tablet widths are unstyled — the shell stretches to fill whatever width it is given instead of centring, which is why it is framed at phone size here.</li>
-    <li>The Moons and Gallery list views render nothing. Their data is loaded and intact (twenty-two moons, thirty frames); only the code that lays them out is missing.</li>
-    <li>The Journey never leaves the Sun. There is no scroll container behind the opening screen yet.</li>
+    <li>Above 560px it renders its own device frame and title, but sits left-aligned rather than centred in the window.</li>
+    <li>Nothing is wired to a live source — the bodies, moons and frames all come from the same static tables the three decks read from.</li>
   </ul>
 
   <footer>
