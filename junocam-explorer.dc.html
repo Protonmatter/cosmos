@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="classical.css">
+<style>
+  html, body { margin:0; background:var(--color-bg); color:var(--color-text); }
+  a { color:var(--color-accent-700); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--color-accent) 45%, transparent); }
+  a:hover { color:var(--color-accent-600); border-bottom-color:var(--color-accent); }
+  ::-webkit-scrollbar { width:10px; height:10px; }
+  ::-webkit-scrollbar-thumb { background:var(--color-neutral-300); }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--color-bg);font-family:var(--font-body);font-size:15px;line-height:1.6">
+
+  <header style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-6);padding:var(--space-4) var(--space-8);border-bottom:1px solid var(--color-divider);position:sticky;top:0;background:var(--color-bg);z-index:40">
+    <div style="display:flex;align-items:baseline;gap:var(--space-3)">
+      <span style="font-family:var(--font-heading);font-size:22px;letter-spacing:-0.01em">JunoCam</span>
+      <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-feature-settings:'tnum';color:var(--color-neutral-600)">Processing Gallery</span>
+    </div>
+    <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600)">An explorer for thirty processed frames</div>
+  </header>
+
+  <div style="max-width:1180px;margin:0 auto;padding:var(--space-8) var(--space-8) 0">
+
+    <section style="display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--space-8);align-items:end;padding-bottom:var(--space-8)">
+      <div>
+        <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">Raw frames, public hands</div>
+        <h1 style="font-size:64px;font-weight:400;line-height:1.02;margin:0 0 var(--space-4);letter-spacing:-0.02em">Jupiter, developed by strangers</h1>
+        <p style="font-size:19px;line-height:1.5;margin:0;color:var(--color-neutral-800);max-width:34em;text-wrap:pretty">JunoCam was carried to Jupiter as an outreach instrument. The mission posts the raw frames and invites anyone to download them, process them, and upload the result. Almost every Jupiter picture you have seen from this spacecraft passed through someone's afternoon.</p>
+      </div>
+      <p style="margin:0;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">The gallery it feeds now runs to hundreds of pages of public submissions. The thirty frames collected here are a small sample of what happens when a spinning camera's output is handed to a crowd. Filter them, open one, and look closely. Two of them — Cyclone, As Received and Cyclone, Lifted — are the same frame twice; press Compare to put them side by side.</p>
+    </section>
+
+    <hr class="hr" style="margin:0 0 var(--space-8)">
+
+    <section style="padding-bottom:var(--space-8)">
+      <div style="display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1fr) minmax(0,1fr);gap:var(--space-8);align-items:start">
+        <div>
+          <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:var(--space-3)">The subject</div>
+          <h3 style="font-size:38px;font-weight:400;line-height:1.05;margin:0;letter-spacing:-0.02em">What you are<br>looking at</h3>
+        </div>
+        <p style="margin:0;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">Jupiter has about 318 times the mass of Earth and no surface to land on — it is hydrogen and helium nearly all the way down, thickening from gas into a hot metallic fluid. It also spins faster than anything else in the solar system, turning once in under ten hours, which is why the disc in these frames is visibly wider than it is tall. That rotation is what organises the weather into stripes: pale <em>zones</em> where gas rises, dark <em>belts</em> where it sinks, separated by jet streams that Juno has found run thousands of kilometres deep rather than sitting on the surface like Earth's.</p>
+        <p style="margin:0;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">The poles look nothing like the stripes. Juno was the first spacecraft to fly over them, and found cyclones parked in a geometric arrangement: one giant storm at the north pole with eight more encircling it, and a smaller group at the south. They do not wander off or die out the way hurricanes do — they oscillate around fixed positions and drift slowly around the pole. Almost every polar frame in this gallery is a picture of that arrangement seen from a different angle.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-6);border-top:1px solid var(--color-divider);margin-top:var(--space-6);padding-top:var(--space-4);font-feature-settings:'tnum'">
+        <div><div style="font-family:var(--font-heading);font-size:40px;line-height:1;color:var(--color-accent-700)">9h 56m</div><div style="font-size:12px;line-height:1.4;color:var(--color-neutral-700);margin-top:var(--space-2)">One Jupiter day — the fastest rotation in the solar system</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:40px;line-height:1;color:var(--color-accent-700)">318×</div><div style="font-size:12px;line-height:1.4;color:var(--color-neutral-700);margin-top:var(--space-2)">Earth's mass, and more than twice that of every other planet combined</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:40px;line-height:1;color:var(--color-accent-700)">1.3×</div><div style="font-size:12px;line-height:1.4;color:var(--color-neutral-700);margin-top:var(--space-2)">Earth's width — the Great Red Spot today, down from twice that in 1979</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:40px;line-height:1;color:var(--color-accent-700)">320 km</div><div style="font-size:12px;line-height:1.4;color:var(--color-neutral-700);margin-top:var(--space-2)">How far the Red Spot's roots reach below the cloud tops</div></div>
+      </div>
+    </section>
+
+    <hr class="hr" style="margin:0 0 var(--space-8)">
+
+    <section style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-8);padding-bottom:var(--space-8)">
+      <div>
+        <h4 style="font-size:18px;font-weight:400;margin:0 0 var(--space-2)">A camera that cannot hold still</h4>
+        <p style="margin:0;text-align:justify;hyphens:auto;font-size:14px;color:var(--color-neutral-800)">JunoCam is a pushframe imager. Its filter strips are bonded directly onto the detector — 1600 pixels wide, about 155 rows high — and the spacecraft's own rotation scans them across the planet. At the nominal two revolutions per minute, a frame lands roughly every 400 milliseconds.</p>
+      </div>
+      <div>
+        <h4 style="font-size:18px;font-weight:400;margin:0 0 var(--space-2)">Four filters and a trick</h4>
+        <p style="margin:0;text-align:justify;hyphens:auto;font-size:14px;color:var(--color-neutral-800)">Three visible strips — red, green, blue — plus a narrowband methane filter near 890 nanometres. The spin would smear anything exposed longer than 3.2 milliseconds, so the camera shifts the image down one row every 3.2 milliseconds to cancel the motion, up to about a hundred steps.</p>
+      </div>
+      <div>
+        <h4 style="font-size:18px;font-weight:400;margin:0 0 var(--space-2)">Eight bits, and fading</h4>
+        <p style="margin:0;text-align:justify;hyphens:auto;font-size:14px;color:var(--color-neutral-800)">Pixels leave the detector 12 bits deep and are companded to 8 bits inside the instrument; that is the form the public gets. Jupiter's radiation belts are steadily degrading the camera — later perijoves show reduced dynamic range and more noise, which is now part of the processing problem.</p>
+      </div>
+    </section>
+
+    <hr class="hr" style="margin:0 0 var(--space-6)">
+
+    <section style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-6);padding-bottom:var(--space-6);position:sticky;top:57px;background:var(--color-bg);z-index:30;padding-top:var(--space-4);border-bottom:1px solid var(--color-divider);margin-bottom:var(--space-8)">
+      <div style="display:flex;align-items:center;gap:var(--space-2)">
+        <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600);margin-right:var(--space-1)">View</span>
+        <sc-for list="{{ regionChips }}" as="c" hint-placeholder-count="5">
+          <button type="button" class="{{ c.cls }}" onClick="{{ c.onClick }}" style="font-size:13px;padding:5px 12px;white-space:nowrap">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-2)">
+        <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600);margin-right:var(--space-1)">Treatment</span>
+        <sc-for list="{{ treatChips }}" as="c" hint-placeholder-count="4">
+          <button type="button" class="{{ c.cls }}" onClick="{{ c.onClick }}" style="font-size:13px;padding:5px 12px;white-space:nowrap">{{ c.label }}</button>
+        </sc-for>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:var(--space-3)">
+        <span style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">{{ countLabel }}</span>
+        <button type="button" class="{{ compareCls }}" onClick="{{ toggleCompare }}" style="font-size:13px;padding:5px 14px;white-space:nowrap">Compare</button>
+      </div>
+    </section>
+
+    <sc-if value="{{ comparing }}" hint-placeholder-val="{{ false }}">
+      <section style="border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:var(--space-6);margin-bottom:var(--space-8)">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:var(--space-4)">
+          <h4 style="margin:0;font-size:18px;font-weight:400">Side by side</h4>
+          <span style="font-size:12px;color:var(--color-neutral-600)">{{ compareHint }}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);align-items:start">
+          <sc-for list="{{ compareSlots }}" as="s" hint-placeholder-count="2">
+            <figure style="margin:0">
+              <div style="border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:var(--color-neutral-200);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden">
+                <img src="{{ s.src }}" alt="{{ s.title }}" style="{{ s.style }}">
+                <span style="{{ s.emptyStyle }}">{{ s.empty }}</span>
+              </div>
+              <figcaption style="margin-top:var(--space-2);font-size:12px">{{ s.caption }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+
+    <section style="columns:{{ colCount }};column-gap:var(--space-6);padding-bottom:var(--space-8)">
+      <sc-for list="{{ shown }}" as="p" hint-placeholder-count="8">
+        <figure style="break-inside:avoid;margin:0 0 var(--space-6);cursor:pointer;display:inline-block;width:100%" onClick="{{ p.onPick }}">
+          <div style="{{ p.matStyle }}">
+            <div style="{{ p.gradeStyle }}">
+              <img src="{{ p.src }}" alt="{{ p.title }}" style="width:100%;height:auto;display:block">
+            </div>
+            <div style="{{ p.badgeStyle }}">{{ p.badge }}</div>
+          </div>
+          <figcaption style="margin-top:var(--space-2)">
+            <div style="font-family:var(--font-heading);font-size:18px;line-height:1.2;color:var(--color-text)">{{ p.title }}</div>
+            <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-neutral-600);margin-top:3px">{{ p.region }}</div>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </section>
+
+    <hr class="hr" style="margin:0 0 var(--space-8)">
+
+    <section style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-8);padding-bottom:var(--space-8)">
+      <div>
+        <h3 style="font-size:28px;font-weight:400;margin:0 0 var(--space-3)">What counts as processing</h3>
+        <p style="margin:0 0 var(--space-3);text-align:justify;hyphens:auto;color:var(--color-neutral-800)">The invitation is deliberately loose. Cropping counts. So does pulling one atmospheric feature out of the murk, pushing colour past what the eye would see, stitching frames into collages, or reconstructing colour from the separate filter strips. The only hard rules are about logos and decency.</p>
+        <p style="margin:0;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">What comes back has been used well beyond the gallery. Public versions illustrate articles about the mission, get shown to the scientific community, and appear in journal papers with attribution. Some of it the team simply treats as art.</p>
+      </div>
+      <div>
+        <h3 style="font-size:28px;font-weight:400;margin:0 0 var(--space-3)">Why the pictures keep changing</h3>
+        <p style="margin:0 0 var(--space-3);text-align:justify;hyphens:auto;color:var(--color-neutral-800)">No two people develop the same frame the same way. Colour balance, stretch, sharpening and geometry are all judgement calls, and the raw 8-bit data leaves plenty of room for them. Compare any two versions of the same perijove and the disagreement is the point.</p>
+        <p style="margin:0;text-align:justify;hyphens:auto;color:var(--color-neutral-800)">The camera is also getting harder to read. Radiation has cut its dynamic range and raised its noise floor, and the mission has openly asked citizen scientists to find new ways to work with what is left.</p>
+      </div>
+    </section>
+
+    <footer style="border-top:1px solid var(--color-divider);padding:var(--space-4) 0 var(--space-8);font-size:11px;color:var(--color-neutral-600);display:flex;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap">
+      <span>Images: NASA / JPL-Caltech / SwRI / MSSS, processed by JunoCam citizen scientists. Technical detail from the Mission Juno image processing gallery.</span>
+      <a href="https://www.missionjuno.swri.edu/junocam/processing" target="_blank" rel="noopener">missionjuno.swri.edu</a>
+    </footer>
+  </div>
+
+  <sc-if value="{{ isOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:100;background:#171614;display:grid;grid-template-columns:minmax(0,1fr) 340px" onClick="{{ closeLightbox }}">
+      <div style="{{ stageWrapStyle }}" onWheel="{{ onWheel }}" onPointerDown="{{ onDragStart }}" onPointerMove="{{ onDragMove }}" onPointerUp="{{ onDragEnd }}" onClick="{{ stopClick }}">
+        <img src="{{ openSrc }}" alt="{{ openTitle }}" style="{{ stageImgStyle }}" draggable="false">
+      </div>
+      <aside style="background:#1e1c1a;border-left:1px solid rgba(255,255,255,0.12);padding:var(--space-8) var(--space-6);display:flex;flex-direction:column;gap:var(--space-4);overflow:auto;color:#e8e5e0" onClick="{{ stopClick }}">
+        <div style="font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent-400)">{{ openRegion }}</div>
+        <h3 style="margin:0;font-size:30px;font-weight:400;color:#f3f0eb;line-height:1.1">{{ openTitle }}</h3>
+        <p style="margin:0;font-size:14px;line-height:1.65;color:#c9c4bc;text-align:justify;hyphens:auto">{{ openNote }}</p>
+        <div style="height:1px;background:rgba(255,255,255,0.14)"></div>
+        <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px var(--space-4);font-size:12px;color:#c9c4bc;font-feature-settings:'tnum'">
+          <dt style="color:#8b857c">Treatment</dt><dd style="margin:0">{{ openTreatment }}</dd>
+          <dt style="color:#8b857c">Frame</dt><dd style="margin:0">{{ openDims }}</dd>
+          <dt style="color:#8b857c">Processed by</dt><dd style="margin:0">{{ openCredit }}</dd>
+          <dt style="color:#8b857c">Zoom</dt><dd style="margin:0">{{ openZoom }}</dd>
+        </dl>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:auto;padding-top:var(--space-4)">
+          <button type="button" onClick="{{ zoomOut }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:#e8e5e0;border:1px solid rgba(255,255,255,0.28);border-radius:var(--radius-md);cursor:pointer">Zoom out</button>
+          <button type="button" onClick="{{ zoomIn }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:#e8e5e0;border:1px solid rgba(255,255,255,0.28);border-radius:var(--radius-md);cursor:pointer">Zoom in</button>
+          <button type="button" onClick="{{ resetZoom }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:#8b857c;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer">Reset</button>
+        </div>
+        <div style="display:flex;gap:var(--space-2);justify-content:space-between;border-top:1px solid rgba(255,255,255,0.14);padding-top:var(--space-4)">
+          <button type="button" onClick="{{ prev }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Previous</button>
+          <button type="button" onClick="{{ closeLightbox }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:#8b857c;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer">Close</button>
+          <button type="button" onClick="{{ next }}" style="font-family:var(--font-heading);font-size:14px;padding:6px 14px;white-space:nowrap;background:transparent;color:var(--color-accent-400);border:1px solid var(--color-accent-700);border-radius:var(--radius-md);cursor:pointer">Next</button>
+        </div>
+      </aside>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;archivalGrade&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Imagery&quot;},&quot;columns&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;min&quot;:2,&quot;max&quot;:4,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+class Component extends DCLogic {
+  data = [
+    { id:'a', src:'images/01-turbulent-south.png', title:'Turbulent South', region:'South', treatment:'Enhanced colour', dims:'960 × 1495',
+      note:'A tall crop running from the temperate bands down toward the pole. The pale ovals strung along the upper bands are long-lived anticyclones; between and below them the cloud deck breaks into folded filamentary regions, the crumpled grey-blue ribbons that mark where the zonal flow loses its grip.' },
+    { id:'b', src:'images/02-south-polar.png', title:'South Polar Approach', region:'Polar', treatment:'Enhanced colour', dims:'960 × 540',
+      note:'Looking across the terminator toward the southern polar region. Colour has been pushed to separate the dusty green haze of the polar cap from the warmer banded latitudes above it. The dark ovals scattered across the lower half are cyclonic.' },
+    { id:'c', src:'images/03-southern-ovals.png', title:'Southern Ovals', region:'South', treatment:'Enhanced colour', dims:'960 × 720',
+      note:'A near-full southern hemisphere with the limb held intact. Several white ovals and one ringed grey-green vortex sit along the same latitude, which is how these storms usually behave: they queue up in a band and stay there for years.' },
+    { id:'d', src:'images/04-limb-terminator.png', title:'Limb and Terminator', region:'Limb', treatment:'Enhanced colour', dims:'960 × 607',
+      note:'The frame is dominated by the curve of the planet against black, with the terminator cutting across the bottom. Rust-coloured belts run down the left; the right side dissolves into a field of small vortices near the pole.' },
+    { id:'e', src:'images/05-golden-filaments.png', title:'Golden Filaments', region:'South', treatment:'High contrast', dims:'960 × 604',
+      note:'Contrast pushed hard and colour pulled warm. The treatment sacrifices anything like natural colour in exchange for structure: every fold, curl and shear line in the filamentary regions is legible, and the white ovals read as discs rather than smudges.' },
+    { id:'f', src:'images/06-blue-north.png', title:'Blue North over Ovals', region:'North', treatment:'High contrast', dims:'960 × 1706',
+      note:'The tallest crop in the set, and the sharpest contrast between hemispheric character: a cold blue polar region, granular with small cyclones, giving way to warm ochre bands studded with bright ovals along the lower limb.' },
+    { id:'g', src:'images/07-low-light.png', title:'Low Light Vortices', region:'South', treatment:'Low light', dims:'960 × 678',
+      note:'A dim frame worked up from very little signal. The gold filaments against near-black cloud show what aggressive stretching can recover, and also what it costs — the noise floor is visible, and the shadowed limb has gone flat.' },
+    { id:'h', src:'images/08-banded-hemisphere.png', title:'Banded Hemisphere', region:'North', treatment:'Enhanced colour', dims:'960 × 539',
+      note:'A wide view with the bands running left to right and dozens of vortices packed into the shear zones between them. This is closer to a survey frame than a portrait: the interest is in the density of features, not any one of them.' },
+    { id:'i', src:'images/09-north-dome.png', title:'Northern Dome', region:'North', treatment:'Enhanced colour', dims:'960 × 539',
+      note:'The planet held as a dome against black, warm at the limb and cooling toward the lower edge. Dozens of small vortices are packed into the shear zones; a handful of bright ovals sit on the upper bands.' },
+    { id:'j', src:'images/10-blue-vortex-field.png', title:'The Blue Field', region:'North', treatment:'Enhanced colour', dims:'960 × 540',
+      note:'Colour pushed until the deep cloud reads as ocean blue and every cyclone stands out white against it. This is enhancement as authorship: the structure is real, the palette is a decision.' },
+    { id:'k', src:'images/11-pale-dome-oval.png', title:'Pale Dome', region:'North', treatment:'Natural colour', dims:'960 × 539',
+      note:'A restrained treatment of much the same geometry — cream and dust rather than blue. One bright oval sits near the centre with a wake of small curls trailing behind it.' },
+    { id:'l', src:'images/12-jonsson-bright.png', title:'Cyclone, Lifted', region:'Close-up', treatment:'Enhanced colour', dims:'960 × 1469', credit:'Björn Jónsson',
+      note:'The same frame as Cyclone, As Received, brightened and stretched until the cloud structure is fully legible. The blue speckle at the top left is noise the stretch has amplified along with everything else.' },
+    { id:'m', src:'images/13-jonsson-dark.png', title:'Cyclone, As Received', region:'Close-up', treatment:'Low light', dims:'960 × 1469', credit:'Björn Jónsson',
+      note:'The unbrightened version of the frame beside it. Almost everything in the lifted version is present here — it is simply too dark to see, which is the whole argument for processing in one picture.' },
+    { id:'n', src:'images/14-crescent-north.png', title:'Northern Crescent', region:'Limb', treatment:'Enhanced colour', dims:'960 × 960',
+      note:'A crescent cut hard against black by the terminator. The teal fringe along the straight edge is a mosaicking artifact where the strips were joined and not cropped away.' },
+    { id:'o', src:'images/15-vortex-grain.png', title:'Vortex, Grain and All', region:'Close-up', treatment:'High contrast', dims:'960 × 962',
+      note:'A single storm at maximum stretch. Sharpening has raised the noise into visible grain and pushed the colour toward mauve and bronze — legibility bought at the cost of everything else.' },
+    { id:'p', src:'images/16-merging-storms.png', title:'Merging Storms', region:'Close-up', treatment:'High contrast', dims:'960 × 960',
+      note:'Two bright cores folded into one another inside a larger circulation. The same aggressive treatment as its neighbour, and the same trade: every filament visible, no colour you could call true.' },
+    { id:'q', src:'images/17-tall-crescent-a.png', title:'Terminator Crescent I', region:'Limb', treatment:'Enhanced colour', dims:'960 × 2880',
+      note:'An extremely tall crop keeping the full curve of the lit limb. A single bright oval anchors the middle of the frame; the rest dissolves into blue shadow toward the terminator.' },
+    { id:'r', src:'images/18-tall-crescent-b.png', title:'Terminator Crescent II', region:'Limb', treatment:'Enhanced colour', dims:'960 × 2880',
+      note:'A second pass at the same geometry, warmer and dustier. Placed beside the first it shows how far two colour balances can drift while describing identical cloud.' },
+    { id:'s', src:'images/19-vortex-soft.png', title:'Vortex, Restrained', region:'Close-up', treatment:'Natural colour', dims:'960 × 960',
+      note:'The quiet treatment of a close-up storm: soft blue-grey, minimal sharpening, noise left where it fell. Less to look at, and much closer to what the detector actually reported.' },
+    { id:'t', src:'images/20-orange-band-dome.png', title:'Orange Band', region:'North', treatment:'Enhanced colour', dims:'960 × 540',
+      note:'A rust-coloured belt runs along the top of the dome, with a bright zone beneath it and a scattering of white ovals below that. A conventional Jupiter, competently rendered.' },
+    { id:'u', src:'images/21-grs-crescent.png', title:'Red Spot on the Crescent', region:'Red Spot', treatment:'Natural colour', dims:'960 × 914',
+      note:'The Great Red Spot near the upper limb of a crescent, small in the frame and unmistakable. The colour here is held close to plausible, which makes the spot read orange rather than red.' },
+    { id:'v', src:'images/22-pale-oval-closeup.png', title:'Pale Oval', region:'Close-up', treatment:'Natural colour', dims:'960 × 744',
+      note:'A single anticyclone filling most of the frame, pale green-white against olive cloud. The near-monochrome result is what happens when a processor declines to push saturation at all.' },
+    { id:'w', src:'images/23-banded-orange.png', title:'Banded, Orange to Blue', region:'North', treatment:'Enhanced colour', dims:'960 × 466',
+      note:'A wide letterbox crop through several belts at once, running from a deep orange band on the left to blue-grey turbulence on the right. Good for showing how abruptly the zonal character changes.' },
+    { id:'x', src:'images/24-io-wide.png', title:'Io Below the Bands', region:'Moons', treatment:'Low light', dims:'960 × 768',
+      note:'Io as a small mottled disc against the shadowed lower limb of Jupiter. The violet cast comes from lifting a very dark exposure far enough to see the moon at all.' },
+    { id:'y', src:'images/25-io-tall.png', title:'Io at the Limb', region:'Moons', treatment:'Low light', dims:'960 × 1200',
+      note:'The same encounter framed vertically, with Io just clear of the planet\'s edge. Almost the whole frame is black; the composition is doing more work than the processing.' },
+    { id:'z', src:'images/26-brown-barges.png', title:'Brown Barges', region:'North', treatment:'Enhanced colour', dims:'960 × 540',
+      note:'Two dark brown belts run diagonally across the frame, broken by the elongated cyclonic features long known as barges. The blue-white zone between them is the sharpest boundary in the set.' },
+    { id:'aa', src:'images/27-full-disc.png', title:'Most of a Planet', region:'Limb', treatment:'Natural colour', dims:'960 × 1200', credit:'Rachel Richards',
+      note:'A nearly complete disc, lit from the left and falling into shadow at the lower right. Restrained colour and a lot of empty black — a portrait rather than a survey.' },
+    { id:'ab', src:'images/28-jupiter-with-io.png', title:'Jupiter and Io, from Far Off', region:'Moons', treatment:'Natural colour', dims:'960 × 677',
+      note:'A distant full-disc view with Io well clear of the planet — a very different vantage from the close perijove passes that produced everything else here, and worth including for exactly that reason.' },
+    { id:'ac', src:'images/29-grs-square.png', title:'The Great Red Spot', region:'Red Spot', treatment:'Enhanced colour', dims:'960 × 960',
+      note:'The spot at the top of the frame with the turbulent wake trailing away beneath it. The chains of small white curls below are where the storm shears the flow it sits in.' },
+    { id:'ad', src:'images/30-grs-wide.png', title:'Red Spot at the Edge', region:'Red Spot', treatment:'Enhanced colour', dims:'960 × 540',
+      note:'The spot pushed to the left edge and rendered a deep brick red, with the rest of the frame given over to the banded flow downstream of it.' }
+  ];
+  state = { region:'All', treatment:'All', comparing:false, compare:[], open:null, zoom:1, tx:0, ty:0, dragging:false, lx:0, ly:0 };
+
+  componentDidMount() {
+    this._key = (e) => {
+      if (this.state.open === null) return;
+      if (e.key === 'Escape') this.setState({ open:null });
+      if (e.key === 'ArrowRight') this.step(1);
+      if (e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+
+  filtered() {
+    const s = this.state;
+    return this.data.filter(d =>
+      (s.region === 'All' || d.region === s.region) &&
+      (s.treatment === 'All' || d.treatment === s.treatment));
+  }
+  step(n) {
+    const list = this.filtered();
+    const i = list.findIndex(d => d.id === this.state.open);
+    if (i < 0) return;
+    const j = (i + n + list.length) % list.length;
+    this.setState({ open:list[j].id, zoom:1, tx:0, ty:0 });
+  }
+  pick(id) {
+    if (this.state.comparing) {
+      let c = this.state.compare.slice();
+      if (c.includes(id)) c = c.filter(x => x !== id);
+      else { c.push(id); if (c.length > 2) c.shift(); }
+      this.setState({ compare:c });
+    } else {
+      this.setState({ open:id, zoom:1, tx:0, ty:0 });
+    }
+  }
+  chip(label, active, on) {
+    return { label, cls: 'btn ' + (active ? 'btn-primary' : 'btn-secondary'), onClick: on };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const grade = this.props.archivalGrade ? 'sepia(0.22) saturate(0.82) contrast(1.05)' : 'none';
+    const cols = this.props.columns ?? 3;
+    const list = this.filtered();
+
+    const shown = list.map(d => {
+      const sel = s.compare.includes(d.id);
+      return Object.assign({}, d, {
+        onPick: () => this.pick(d.id),
+        gradeStyle: { filter: grade },
+        matStyle: {
+          position:'relative',
+          border:'6px solid var(--color-surface)',
+          outline: sel ? '2px solid var(--color-accent)' : '1px solid var(--color-divider)',
+          background:'#171614'
+        },
+        badge: sel ? 'Selected' : (s.comparing ? 'Add to compare' : d.treatment),
+        badgeStyle: {
+          position:'absolute', left:0, bottom:0,
+          padding:'4px 9px', fontSize:'10px', letterSpacing:'0.12em', textTransform:'uppercase',
+          fontFamily:'var(--font-heading)', whiteSpace:'nowrap',
+          color: sel ? '#171614' : '#e8e5e0',
+          background: sel ? 'var(--color-accent-300)' : 'rgba(23,22,20,0.62)'
+        }
+      });
+    });
+
+    const regions = ['All','North','South','Polar','Limb','Close-up','Red Spot','Moons'];
+    const treats = ['All','Natural colour','Enhanced colour','High contrast','Low light'];
+
+    const slots = [0,1].map(i => {
+      const d = this.data.find(x => x.id === s.compare[i]);
+      if (!d) return { src:'', style:{ display:'none' }, emptyStyle:{ fontSize:'12px', color:'var(--color-neutral-600)', padding:'var(--space-4)', textAlign:'center' }, empty: i === 0 ? 'Pick a first frame' : 'Pick a second frame', caption:'—', title:'' };
+      return { src:d.src, title:d.title, style:{ width:'100%', height:'100%', objectFit:'contain', filter:grade }, emptyStyle:{ display:'none' }, empty:'', caption:d.title + ' — ' + d.treatment };
+    });
+
+    const open = this.data.find(d => d.id === s.open);
+    const dragging = s.dragging;
+
+    return {
+      colCount: String(cols),
+      shown,
+      comparing: s.comparing,
+      compareCls: 'btn ' + (s.comparing ? 'btn-primary' : 'btn-secondary'),
+      toggleCompare: () => this.setState({ comparing: !s.comparing, compare: s.comparing ? [] : ['m','l'] }),
+      compareSlots: slots,
+      compareHint: s.compare.length < 2 ? 'Click frames below to fill the slots' : 'Click a selected frame to swap it out',
+      countLabel: list.length === this.data.length ? String(this.data.length) + ' frames' : String(list.length) + ' of ' + this.data.length,
+      regionChips: regions.map(r => this.chip(r, s.region === r, () => this.setState({ region:r }))),
+      treatChips: treats.map(t => this.chip(t === 'All' ? 'All' : t, s.treatment === t, () => this.setState({ treatment:t }))),
+
+      isOpen: !!open,
+      openSrc: open ? open.src : '',
+      openTitle: open ? open.title : '',
+      openRegion: open ? open.region : '',
+      openNote: open ? open.note : '',
+      openTreatment: open ? open.treatment : '',
+      openDims: open ? open.dims + ' px' : '',
+      openZoom: s.zoom.toFixed(2) + '×',
+      openCredit: open ? (open.credit || 'Uncredited in this set') : '',
+      stageWrapStyle: {
+        display:'flex', alignItems:'center', justifyContent:'center', overflow:'hidden',
+        padding:'32px', cursor: dragging ? 'grabbing' : (s.zoom > 1 ? 'grab' : 'zoom-in'), touchAction:'none'
+      },
+      stageImgStyle: {
+        maxWidth:'100%', maxHeight:'calc(100vh - 64px)', userSelect:'none',
+        transform: 'translate(' + s.tx + 'px,' + s.ty + 'px) scale(' + s.zoom + ')',
+        transition: dragging ? 'none' : 'transform 140ms ease-out',
+        filter: grade
+      },
+      closeLightbox: () => this.setState({ open:null }),
+      stopClick: (e) => e.stopPropagation(),
+      prev: () => this.step(-1),
+      next: () => this.step(1),
+      zoomIn: () => this.setState({ zoom: Math.min(6, s.zoom * 1.5) }),
+      zoomOut: () => this.setState(st => { const z = Math.max(1, st.zoom / 1.5); return { zoom:z, tx: z === 1 ? 0 : st.tx, ty: z === 1 ? 0 : st.ty }; }),
+      resetZoom: () => this.setState({ zoom:1, tx:0, ty:0 }),
+      onWheel: (e) => {
+        e.preventDefault();
+        this.setState(st => {
+          const z = Math.min(6, Math.max(1, st.zoom * (e.deltaY < 0 ? 1.12 : 0.89)));
+          return { zoom:z, tx: z === 1 ? 0 : st.tx, ty: z === 1 ? 0 : st.ty };
+        });
+      },
+      onDragStart: (e) => {
+        if (this.state.zoom <= 1) { this.setState({ zoom:2 }); return; }
+        e.currentTarget.setPointerCapture(e.pointerId);
+        this.setState({ dragging:true, lx:e.clientX, ly:e.clientY });
+      },
+      onDragMove: (e) => {
+        if (!this.state.dragging) return;
+        this.setState(st => ({ tx: st.tx + (e.clientX - st.lx), ty: st.ty + (e.clientY - st.ly), lx:e.clientX, ly:e.clientY }));
+      },
+      onDragEnd: () => { if (this.state.dragging) this.setState({ dragging:false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

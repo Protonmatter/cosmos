@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="classical.css">
+<style>
+  doc-page:not(:defined) { visibility:hidden; }
+  a { color:var(--color-accent-700); text-decoration:none; }
+  a:hover { color:var(--color-accent-600); }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+
+<doc-page width="18in" height="24in">
+  <section class="page" data-screen-label="Poster" style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:96px 96px 84px;display:flex;flex-direction:column;gap:34px;justify-content:space-between">
+
+    <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--color-text);border-bottom:1px solid var(--color-divider);padding:22px 0;font-size:24px;letter-spacing:0.2em;text-transform:uppercase;font-family:var(--font-heading);white-space:nowrap">
+      <span>Mission Juno · JunoCam</span>
+      <span style="color:var(--color-accent-700)">Image Processing Gallery</span>
+    </div>
+
+    <div>
+      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:156px;line-height:0.94;letter-spacing:-0.025em;margin:0 0 40px;max-width:14em">Jupiter, developed by strangers</h1>
+      <p style="margin:0;font-size:38px;line-height:1.35;color:var(--color-neutral-800);max-width:27em;text-wrap:pretty">A camera flown as an outreach instrument sends home raw frames. The mission posts them and asks the public to make the pictures.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:72px;align-items:start">
+      <figure style="margin:0">
+        <div style="aspect-ratio:5/4;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden">
+          <img src="images/06-blue-north.png" alt="A tall processed JunoCam frame: a cold blue polar region above warm ochre bands studded with white ovals" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <figcaption style="font-size:21px;margin-top:18px;color:var(--color-neutral-600)">Blue North over Ovals — one processor's reading of a single perijove pass.</figcaption>
+      </figure>
+
+      <div style="display:flex;flex-direction:column;gap:32px">
+        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">JunoCam is a pushframe imager. Its filter strips are bonded straight onto the detector — 1600 pixels wide, about 155 rows high — and the spacecraft's own rotation drags them across the planet. At two revolutions per minute a frame arrives roughly every 400 milliseconds.</p>
+        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">The spin would smear any exposure longer than 3.2 milliseconds, so the camera shifts the image down one row every 3.2 milliseconds to cancel the motion. Pixels leave the detector 12 bits deep and are compressed to 8 inside the instrument. That 8-bit form is what the public receives.</p>
+        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">What happens next is not the mission's work. Cropping counts. So does pulling one storm out of the murk, pushing colour past what an eye would see, stitching frames into collages, reconstructing colour from the separate strips. No two people develop the same frame the same way, and the disagreement is the record.</p>
+        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">The camera is also wearing out. Jupiter’s radiation belts have cut its dynamic range and raised its noise floor, and the mission has asked the public to find new ways to read what still comes back.</p>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--color-divider);padding-top:32px;display:grid;grid-template-columns:minmax(0,2fr) repeat(4,minmax(0,1fr));gap:40px;align-items:start">
+      <div>
+        <div style="font-size:22px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:16px">The subject</div>
+        <p style="margin:0;font-size:24px;line-height:1.45;color:var(--color-neutral-800)">No surface, and the fastest rotation in the solar system. The spin sorts the weather into stripes — pale zones rising, dark belts sinking — and stops at the poles, where cyclones sit parked in formation.</p>
+      </div>
+      <div style="font-feature-settings:'tnum'"><div style="font-family:var(--font-heading);font-size:48px;line-height:1;color:var(--color-accent-700)">9h 56m</div><div style="font-size:19px;line-height:1.4;color:var(--color-neutral-600);margin-top:10px">One Jupiter day</div></div>
+      <div style="font-feature-settings:'tnum'"><div style="font-family:var(--font-heading);font-size:48px;line-height:1;color:var(--color-accent-700)">318×</div><div style="font-size:19px;line-height:1.4;color:var(--color-neutral-600);margin-top:10px">Earth's mass</div></div>
+      <div style="font-feature-settings:'tnum'"><div style="font-family:var(--font-heading);font-size:48px;line-height:1;color:var(--color-accent-700)">8 + 1</div><div style="font-size:19px;line-height:1.4;color:var(--color-neutral-600);margin-top:10px">Cyclones held in formation at the north pole</div></div>
+      <div style="font-feature-settings:'tnum'"><div style="font-family:var(--font-heading);font-size:48px;line-height:1;color:var(--color-accent-700)">320 km</div><div style="font-size:19px;line-height:1.4;color:var(--color-neutral-600);margin-top:10px">How deep the Red Spot's roots run</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:26px">
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/29-grs-square.png" alt="The Great Red Spot with its turbulent wake" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Great Red Spot</figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/25-io-tall.png" alt="Io just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Io at the Limb</figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/10-blue-vortex-field.png" alt="A deep blue field of white cyclones" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Blue Field</figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/16-merging-storms.png" alt="Two bright storm cores folding into one another" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Merging Storms</figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/26-brown-barges.png" alt="Two dark brown belts broken by elongated barges" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Brown Barges</figcaption></figure>
+    </div>
+
+    <div style="border-top:1px solid var(--color-divider);padding-top:22px;display:flex;justify-content:space-between;gap:40px;font-size:19px;color:var(--color-neutral-600)">
+      <span>Images: NASA / JPL-Caltech / SwRI / MSSS, processed by JunoCam citizen scientists.</span>
+      <span>missionjuno.swri.edu/junocam/processing</span>
+    </div>
+
+  </section>
+</doc-page>
+</x-dc>
+</body>
+</html>

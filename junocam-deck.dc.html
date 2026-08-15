@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="classical.css">
+<style>
+  html, body { margin:0; background:#26241f; }
+  a { color:var(--color-accent-700); text-decoration:none; }
+  a:hover { color:var(--color-accent-600); }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Title" data-screen-label="01" data-speaker-notes="JunoCam was flown as an outreach instrument. The pictures everyone knows were made by volunteers." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr)">
+    <div style="padding:110px;display:flex;flex-direction:column;justify-content:space-between;min-height:0">
+      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;font-family:var(--font-heading);color:var(--color-accent-700)">Mission Juno · JunoCam</div>
+      <div>
+        <h1 style="font-family:var(--font-heading);font-weight:400;font-size:132px;line-height:0.94;letter-spacing:-0.025em;margin:0 0 44px">Jupiter,<br>developed by<br>volunteers</h1>
+        <p style="margin:0;font-size:34px;line-height:1.4;color:var(--color-neutral-800);max-width:20em">A camera flown for outreach sends home raw frames. The mission posts them and asks the public to make the pictures.</p>
+      </div>
+      <div style="border-top:1px solid var(--color-divider);padding-top:26px;font-size:22px;color:var(--color-neutral-600)">Images: NASA / JPL-Caltech / SwRI / MSSS, processed by JunoCam citizen scientists</div>
+    </div>
+    <div style="padding:110px 110px 110px 0;min-height:0"><div style="height:100%;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/01-turbulent-south.png" alt="A tall processed JunoCam frame of Jupiter's southern hemisphere" style="width:100%;height:100%;object-fit:cover;display:block"></div></div>
+  </section>
+
+
+  <section data-label="The planet" data-screen-label="02" data-speaker-notes="The subject itself, before the camera. Eleven Earths across, no surface, ten-hour day." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,0.72fr) minmax(0,1fr);gap:100px;align-items:center">
+    <div>
+      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:36px">The subject</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:116px;line-height:1;letter-spacing:-0.02em;margin:0 0 36px">The planet</h2>
+      <p style="margin:0;font-size:30px;line-height:1.45;color:#bdb6ab">Everything that follows is an argument about how to photograph this.</p>
+    </div>
+    <dl style="margin:0;border-top:1px solid rgba(255,255,255,0.3)">
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Composition</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">Hydrogen and helium, no surface</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Equatorial diameter</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">139,820 km — about eleven Earths across</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Mass</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">318 Earths, and more than twice every other planet combined</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">One rotation</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">9 hours 56 minutes — the fastest in the solar system</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">One orbit</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">11.9 Earth years, at roughly 778 million km from the Sun</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Cloud-top temperature</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">About −145 °C</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Moons</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">Four giant ones, and more than ninety smaller</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.8fr) minmax(0,1.25fr);gap:40px;padding:20px 0;">
+          <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Magnetosphere</dt>
+          <dd style="margin:0;font-size:28px;line-height:1.3;color:#e8e3da;font-feature-settings:'tnum'">The largest structure in the solar system</dd>
+        </div>
+    </dl>
+  </section>
+
+  <section data-label="Stripes" data-screen-label="03" data-speaker-notes="The fast rotation organises the weather into stripes. Pale zones rise, dark belts sink, and the jets between them run thousands of km deep." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:90px;align-items:center">
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:28px">Belts and zones</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 34px">The stripes are three thousand kilometres deep</h2>
+      <p style="margin:0 0 26px;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">They look painted on. They are not. Juno mapped the planet’s gravity field closely enough to trace the jet streams downward, and found the banded flow reaching some 3,000 kilometres below the cloud tops. Earth’s entire weather sits in a film a few kilometres thick.</p>
+      <p style="margin:0;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">There is nothing for it to sit on, either. Jupiter is hydrogen and helium nearly all the way down, and it turns once in under ten hours — faster than anything else in the solar system. That spin is what sorts the weather into stripes: pale zones where gas rises, dark belts where it sinks.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:30px">
+      <figure style="margin:0"><div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:2/1;overflow:hidden"><img src="images/23-banded-orange.png" alt="A wide crop across several of Jupiter's belts and zones" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:23px;line-height:1.4;margin-top:16px;color:var(--color-neutral-700)">One crop crossing several belts and zones. Every colour boundary is a boundary in the flow.</figcaption></figure>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;border-top:1px solid var(--color-divider);padding-top:36px;font-feature-settings:'tnum'">
+        <div><div style="font-family:var(--font-heading);font-size:64px;line-height:0.95;color:var(--color-accent-700)">3,000 km</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700);margin-top:14px">How deep the banded flow reaches</div></div>
+        <div><div style="font-family:var(--font-heading);font-size:64px;line-height:0.95;color:var(--color-accent-700)">9h 56m</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700);margin-top:14px">One Jupiter day</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="The poles" data-screen-label="04" data-speaker-notes="Juno was first to fly over the poles. A central cyclone with eight around it in the north, five in the south. They hold station rather than dissipating." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:90px;align-items:center">
+    <figure style="margin:0"><div style="border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:5/4;overflow:hidden"><img src="images/10-blue-vortex-field.png" alt="A field of white cyclones over deep blue cloud in Jupiter's polar region" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:23px;line-height:1.4;margin-top:16px;color:var(--color-neutral-700)">High latitudes, colour pushed hard. Each white curl is a cyclone hundreds of kilometres across; the deep blue is cloud far enough down that little light comes back.</figcaption></figure>
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:28px">The poles</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 40px">Storms parked in formation</h2>
+      <p style="margin:0 0 24px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Juno's polar orbit gave the first proper look over the top of the planet, and the stripes turned out to stop. In their place: one giant cyclone at the north pole, about 3,000 kilometres across, with eight more arranged around it. The south has its own smaller group.</p>
+      <p style="margin:0 0 32px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">They do not wander off or blow themselves out the way hurricanes do. They oscillate around fixed positions and drift slowly around the pole, holding the formation for years.</p>
+      <p style="margin:0;font-size:26px;line-height:1.5;color:var(--color-neutral-700);border-left:4px solid var(--color-accent);padding-left:34px">The Great Red Spot is the other constant, and it is shrinking — twice Earth's width in 1979, about 1.3 times now, with roots reaching some 320 kilometres below the cloud tops.</p>
+    </div>
+  </section>
+
+
+  <section data-label="Pushframe" data-screen-label="05" data-speaker-notes="Pushframe: the filter strips are bonded to the detector and the spacecraft's rotation scans them across Jupiter." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:90px;align-items:center">
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:28px">How it sees</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 40px">A camera that cannot hold still</h2>
+      <p style="margin:0 0 26px;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">JunoCam is a pushframe imager. Its filter strips sit bonded directly onto the detector — 1600 pixels wide, about 155 rows high — and the spacecraft's own rotation drags them across the planet.</p>
+      <p style="margin:0;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">At the nominal two revolutions per minute, a frame lands roughly every 400 milliseconds. Nothing about the picture exists until someone assembles those strips.</p>
+    </div>
+    <figure style="margin:0"><div style="border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:16/10;overflow:hidden"><img src="images/08-banded-hemisphere.png" alt="A wide banded hemisphere of Jupiter packed with vortices" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:23px;line-height:1.4;margin-top:16px;color:var(--color-neutral-700)">Banded Hemisphere — a survey frame rather than a portrait. Dozens of vortices are packed into the shear zones where one belt meets the next.</figcaption></figure>
+  </section>
+
+  <section data-label="Numbers" data-screen-label="06" data-speaker-notes="Four filters including narrowband methane at 890nm. TDI shifts one row every 3.2ms to cancel spin blur." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:flex;flex-direction:column;justify-content:center;gap:60px">
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:24px">Four filters and a trick</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0;max-width:22em;font-size:72px">The spin would smear anything exposed longer than 3.2 milliseconds</h2>
+    </div>
+    <div data-om-raster="true" style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:48px;border-top:1px solid var(--color-divider);padding-top:38px">
+
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;min-height:0">
+        <div style="flex:1;min-height:0;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:26px 26px;display:flex;flex-direction:column;justify-content:center;gap:18px">
+          <div style="display:flex;align-items:center;gap:14px;font-size:24px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);font-feature-settings:'tnum'">
+            <div style="flex:1;height:1px;background:var(--color-neutral-400)"></div><span style="white-space:nowrap">1600 px</span><div style="flex:1;height:1px;background:var(--color-neutral-400)"></div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:stretch">
+            <div style="flex:1;border:1px solid var(--color-neutral-500);display:flex;flex-direction:column">
+              <div style="height:54px;border-bottom:1px solid var(--color-neutral-400);display:flex;align-items:center;padding:0 18px;font-size:25px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Blue</div>
+              <div style="height:54px;border-bottom:1px solid var(--color-neutral-400);display:flex;align-items:center;padding:0 18px;font-size:25px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Green</div>
+              <div style="height:54px;border-bottom:1px solid var(--color-neutral-400);display:flex;align-items:center;padding:0 18px;font-size:25px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Red</div>
+              <div style="height:54px;display:flex;align-items:center;padding:0 18px;font-size:25px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);font-feature-settings:'tnum';white-space:nowrap">Methane 890 nm</div>
+            </div>
+            <div style="writing-mode:vertical-rl;display:flex;align-items:center;justify-content:center;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600);font-feature-settings:'tnum';white-space:nowrap">155 rows</div>
+          </div>
+        </div>
+        <figcaption style="font-size:23px;line-height:1.4;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:28px;color:var(--color-text)">One detector, four strips</span><br>Bonded straight onto the photoactive surface. There is no colour wheel to turn.</figcaption>
+      </figure>
+
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;min-height:0">
+        <div style="flex:1;min-height:0;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:26px 26px;display:flex;flex-direction:column;justify-content:center;gap:20px">
+          <div style="position:relative;height:150px">
+            <div style="position:absolute;left:0;top:0;width:190px;height:120px;border:1px solid var(--color-neutral-300)"></div>
+            <div style="position:absolute;left:78px;top:25px;width:190px;height:120px;border:1px solid var(--color-neutral-500)"></div>
+            <div style="position:absolute;left:156px;top:50px;width:190px;height:120px;border:1px solid var(--color-accent)"></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;font-size:24px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);font-feature-settings:'tnum'">
+            <span style="white-space:nowrap">400 ms</span>
+            <div style="flex:1;height:1px;background:var(--color-neutral-400)"></div>
+            <div style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:11px solid var(--color-neutral-500)"></div>
+          </div>
+        </div>
+        <figcaption style="font-size:23px;line-height:1.4;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:28px;color:var(--color-text)">The spin does the scanning</span><br>Two revolutions per minute drag the strips across the planet, a frame every 400 ms.</figcaption>
+      </figure>
+
+      <figure style="margin:0;display:flex;flex-direction:column;gap:24px;min-height:0">
+        <div style="flex:1;min-height:0;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:26px 26px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+            <div style="height:104px;display:flex;align-items:center"><div style="width:132px;height:26px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 16%, transparent)"></div></div>
+            <div style="font-size:24px;line-height:1.3;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600);text-align:center">Without TDI<br>a smear</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:20px">
+            <div style="height:104px;display:flex;align-items:center"><div style="width:26px;height:26px;border:1px solid var(--color-accent);background:color-mix(in srgb, var(--color-accent) 16%, transparent)"></div></div>
+            <div style="font-size:24px;line-height:1.3;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600);text-align:center">With TDI<br>a point</div>
+          </div>
+        </div>
+        <figcaption style="font-size:23px;line-height:1.4;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:28px;color:var(--color-text)">The image walks with the scene</span><br>One row every 3.2 ms, up to about a hundred steps, cancelling the motion.</figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <section data-label="Eight bits" data-screen-label="07" data-speaker-notes="12-bit pixels companded to 8-bit onboard. Radiation is degrading the camera — later perijoves have less dynamic range and more noise." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:90px;align-items:center">
+    <figure style="margin:0"><div style="border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:4/3;overflow:hidden"><img src="images/07-low-light.png" alt="A dim JunoCam frame stretched hard, gold filaments against near-black cloud" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:23px;line-height:1.4;margin-top:16px;color:var(--color-neutral-700)">A dim frame worked up from very little signal. The grain is the noise floor rising along with everything else.</figcaption></figure>
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:28px">What the public receives</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 40px">Eight bits, and fading</h2>
+      <p style="margin:0 0 24px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Pixels leave the detector 12 bits deep and are companded to 8 bits inside the instrument. Everything posted on the mission site is that 8-bit form; radiometric work uses the linear 12-bit products archived with the Planetary Data System.</p>
+      <p style="margin:0 0 24px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The camera is also being destroyed, and Jupiter is doing it. The planet's magnetosphere is the largest structure in the solar system and drives the harshest radiation belts around any planet — fed in part by material thrown off Io — and Juno flies straight through them on every pass.</p>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Later perijoves come back with reduced dynamic range and a higher noise floor. The mission has handed that to citizen scientists as a problem to solve.</p>
+    </div>
+  </section>
+
+
+  <section data-label="Processing" data-screen-label="08" data-speaker-notes="The brief is deliberately loose: cropping counts. Only hard rules are about logos and decency." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:90px;align-items:center">
+    <div>
+      <div style="font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:28px">The invitation</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 40px">What counts as processing</h2>
+      <p style="margin:0 0 26px;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">Cropping counts. So does pulling one atmospheric feature out of the murk, pushing colour past what an eye would see, stitching frames into collages, and reconstructing colour from the separate filter strips.</p>
+      <p style="margin:0;font-size:30px;line-height:1.5;text-align:justify;hyphens:auto">The results have gone well past the gallery: illustrating articles, reported to the scientific community, cited in journal papers with attribution. Some of it the team simply treats as art.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+      <div style="border:12px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:1/1;overflow:hidden"><img src="images/03-southern-ovals.png" alt="Southern hemisphere with white ovals" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div style="border:12px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:1/1;overflow:hidden"><img src="images/04-limb-terminator.png" alt="The limb of Jupiter with the terminator across the bottom" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div style="border:12px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:1/1;overflow:hidden"><img src="images/05-golden-filaments.png" alt="High contrast gold filamentary cloud structure" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div style="border:12px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:1/1;overflow:hidden"><img src="images/02-south-polar.png" alt="Dusky green south polar region across the terminator" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+    </div>
+  </section>
+
+  <section data-label="Two readings" data-screen-label="09" data-speaker-notes="Same frame, same processor. The only variable is the stretch. Land the point: the pictures are readings, the measurements are elsewhere." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:flex;flex-direction:column;gap:52px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:60px">
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">Which one is Jupiter?</h2>
+      <p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">One frame, one processor, one set of 8-bit pixels. The only thing that changed between these two pictures is how far the brightness was pushed before the file was saved.</p>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:70px;min-height:0">
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/13-jonsson-dark.png" alt="A dark, unbrightened JunoCam frame of a cyclone" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:26px;margin-top:22px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:32px;color:var(--color-text)">As received</span><span style="color:var(--color-neutral-600)"> — the cloud structure is all there, and almost none of it is visible.</span></figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/12-jonsson-bright.png" alt="The same frame brightened and stretched until the cyclone is fully legible" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:26px;margin-top:22px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:32px;color:var(--color-text)">Lifted</span><span style="color:var(--color-neutral-600)"> — brightened and stretched; the noise comes up with everything else.</span></figcaption>
+      </figure>
+    </div>
+    <p style="margin:0;font-size:28px;line-height:1.5;color:var(--color-neutral-800);border-top:1px solid var(--color-divider);padding-top:34px">Neither is wrong, and neither is a measurement. Science is done on the linear 12-bit products in the Planetary Data System. Every Jupiter picture the public has ever seen — including both of these — is somebody’s decision about what to make visible.</p>
+  </section>
+
+  <section data-label="What comes back" data-screen-label="10" data-speaker-notes="The range of the archive: red spot, moons, close-ups, wide surveys." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:110px;display:flex;flex-direction:column;gap:48px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px">
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">What comes back</h2>
+      <p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">The gallery runs to hundreds of pages of public submissions. Six of them, below, cover most of the range: the Red Spot, a moon, a polar cyclone field, a belt, a single storm, and a whole disc — one instrument, six sets of hands, six different ideas of what the data is for.</p>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:34px 40px;min-height:0">
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/29-grs-square.png" alt="The Great Red Spot with its turbulent wake" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">The Great Red Spot</span> — an anticyclone 1.3 times Earth's width, still shrinking</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/25-io-tall.png" alt="Io just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">Io at the limb</span> — the most volcanic body in the solar system, lifted out of near-black</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/10-blue-vortex-field.png" alt="A deep blue field of white cyclones" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">The blue field</span> — high-latitude cyclones, colour pushed well past the plausible</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/26-brown-barges.png" alt="Two dark brown belts broken by elongated barges" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">Brown barges</span> — elongated cyclones riding inside a dark belt</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/16-merging-storms.png" alt="Two bright storm cores folding into one another" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">Merging storms</span> — two bright cores folding into one circulation</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/27-full-disc.png" alt="A nearly complete disc of Jupiter falling into shadow" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:23px;line-height:1.35;margin-top:14px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);color:var(--color-text)">Most of a disc</span> — restrained colour, and a lot of deliberate empty black</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section data-label="Closing" data-screen-label="11" data-speaker-notes="Close on the point: the archive is a collaboration, and the explorer is where to browse it." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr)">
+    <div style="padding:110px;display:flex;flex-direction:column;justify-content:space-between;min-height:0">
+      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">In closing</div>
+      <div>
+        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:84px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 36px">There is no photograph of Jupiter. There are only readings of it.</h2>
+        <p style="margin:0 0 24px;font-size:30px;line-height:1.45;color:#bdb6ab;max-width:26em">The mission built an outreach camera, published the raw frames, and let the public decide what the planet looks like. Almost every Jupiter image you know came out of that arrangement.</p>
+        <p style="margin:0;font-size:30px;line-height:1.45;color:#bdb6ab;max-width:26em">It is the most-seen picture of another world, and it has no single author.</p>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.16);padding-top:26px;font-size:22px;color:#8e877c">Images: NASA / JPL-Caltech / SwRI / MSSS, processed by JunoCam citizen scientists · missionjuno.swri.edu/junocam/processing</div>
+    </div>
+    <div style="padding:110px 110px 110px 0;min-height:0"><div style="height:100%;border:16px solid #2a2723;outline:2px solid rgba(255,255,255,0.14);background:#171614;overflow:hidden"><img src="images/06-blue-north.png" alt="A tall processed JunoCam frame: blue polar region above ochre bands with white ovals" style="width:100%;height:100%;object-fit:cover;display:block"></div></div>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmos — three decks on the solar system</title>
+<meta name="description" content="Three presentation decks: the Sun and planets, twenty-two moons, and JunoCam at Jupiter. Built as standalone HTML, drawn from Protonmatter/sol.">
+<meta property="og:title" content="Cosmos — three decks on the solar system">
+<meta property="og:description" content="The planets, the moons, and JunoCam. Every figure read from Protonmatter/sol.">
+<meta property="og:image" content="site/thumb-juno.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap">
+<style>
+  :root {
+    --bg: #131210;
+    --bg-2: #1a1815;
+    --ink: #f0ece5;
+    --ink-2: #bdb6ab;
+    --ink-3: #7c766c;
+    --line: rgba(240,236,229,.12);
+    --accent: #e1ad66;
+    --accent-2: #c28d41;
+    --accent-deep: #7d5411;
+    --heading: "Cormorant Garamond", Georgia, serif;
+    --body: "Lora", Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent-deep); color: var(--ink); }
+
+  #sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .veil { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(1200px 700px at 78% -10%, rgba(225,173,102,.14), transparent 60%),
+                radial-gradient(900px 600px at 10% 110%, rgba(120,140,190,.10), transparent 60%); }
+
+  .wrap { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 30px 0 0; }
+  .wordmark { font-family: var(--heading); font-size: 26px; letter-spacing: .04em; display: flex; align-items: center; gap: 12px; }
+  .wordmark .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px 4px rgba(225,173,102,.45); }
+  nav.top-nav { display: flex; gap: 28px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+  nav.top-nav a { padding: 6px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+  nav.top-nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 60px; align-items: center; padding: 90px 0 70px; }
+  .eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 26px; }
+  h1 { font-family: var(--heading); font-weight: 400; font-size: clamp(56px, 8.5vw, 124px); line-height: .94; letter-spacing: -.02em; margin: 0 0 30px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 32em; margin: 0 0 36px; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; letter-spacing: .06em; transition: border-color .2s, background .2s, transform .2s; }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.solid { background: var(--accent); color: #1a1207; border-color: var(--accent); font-weight: 600; }
+  .btn.solid:hover { background: #f0c27c; }
+  .btn svg { width: 16px; height: 16px; }
+
+  .orb-wrap { position: relative; width: min(460px, 100%); aspect-ratio: 1; height: auto; margin-left: auto; justify-self: end; }
+  .orb { position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
+    background: url("site/hero-sun.jpg") center/cover; box-shadow: 0 0 80px 10px rgba(225,173,102,.28), inset 0 0 60px rgba(0,0,0,.35);
+    animation: spin 240s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(240,236,229,.14); transform: scale(1.18) rotate(-12deg); }
+  .ring.two { transform: scale(1.4) rotate(18deg); border-color: rgba(240,236,229,.08); }
+  .planet { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #d8cfc0; box-shadow: 0 0 10px rgba(255,255,255,.4); top: 50%; left: 50%; margin: -7px; transform-origin: 0 0; }
+  .planet.p1 { animation: orbit1 26s linear infinite; }
+  .planet.p2 { width: 9px; height: 9px; margin: -4.5px; background: #9fb4d6; animation: orbit2 41s linear infinite; }
+  @keyframes orbit1 { from { transform: rotate(0deg) translate(272px) rotate(0deg); } to { transform: rotate(360deg) translate(272px) rotate(-360deg); } }
+  @keyframes orbit2 { from { transform: rotate(120deg) translate(322px); } to { transform: rotate(480deg) translate(322px); } }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 26px; margin: 20px 0 34px; }
+  .section-head h2 { font-family: var(--heading); font-weight: 400; font-size: 40px; margin: 0; letter-spacing: -.01em; }
+  .section-head span { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+
+  .decks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+  .card { position: relative; display: block; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--bg-2);
+    transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s; will-change: transform; }
+  .card:hover { border-color: rgba(225,173,102,.5); box-shadow: 0 30px 60px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(225,173,102,.15); }
+  .card .art { aspect-ratio: 4/3; overflow: hidden; position: relative; background: #000; }
+  .card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s; filter: saturate(.92); }
+  .card:hover .art img { transform: scale(1.08); filter: saturate(1.05); }
+  .card .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,24,21,.95) 0%, rgba(26,24,21,0) 45%); }
+  .card .num { position: absolute; top: 18px; left: 20px; font-family: var(--heading); font-size: 22px; color: var(--ink); opacity: .85; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+  .card .tag { position: absolute; top: 20px; right: 20px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; background: rgba(19,18,16,.6); border: 1px solid var(--line); backdrop-filter: blur(6px); }
+  .card .body { padding: 22px 24px 26px; }
+  .card h3 { font-family: var(--heading); font-weight: 400; font-size: 34px; margin: 0 0 10px; line-height: 1.05; }
+  .card p { margin: 0 0 18px; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
+  .card .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .card .meta b { color: var(--accent); font-weight: 400; display: inline-flex; align-items: center; gap: 8px; }
+  .card .meta b::after { content: "→"; transition: transform .3s; }
+  .card:hover .meta b::after { transform: translateX(4px); }
+  .card .shine { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.08), transparent 40%); opacity: 0; transition: opacity .3s; }
+  .card:hover .shine { opacity: 1; }
+
+  .more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-top: 26px; }
+  .row { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: rgba(26,24,21,.6); transition: border-color .3s, background .3s; }
+  .row:hover { border-color: rgba(225,173,102,.5); background: var(--bg-2); }
+  .row img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; display: block; }
+  .row .thumbless { width: 120px; height: 90px; border-radius: 8px; border: 1px dashed var(--line); display: grid; place-items: center; font-family: var(--heading); font-size: 13px; color: var(--ink-3); letter-spacing: .1em; }
+  .row h4 { font-family: var(--heading); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
+  .row p { margin: 0; color: var(--ink-2); font-size: 14px; }
+
+  .sol { margin: 90px 0 0; padding: 60px 0 70px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 40px; align-items: center; }
+  .sol h2 { font-family: var(--heading); font-weight: 400; font-size: 46px; margin: 0 0 14px; line-height: 1.05; }
+  .sol p { margin: 0; color: var(--ink-2); font-size: 17px; line-height: 1.55; max-width: 44em; }
+  .sol .btn { font-size: 15px; padding: 16px 26px; }
+
+  footer { padding: 30px 0 50px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; color: var(--ink-3); font-size: 13px; }
+  footer a:hover { color: var(--accent); }
+  kbd { font: 12px/1 ui-monospace, monospace; padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink-2); }
+
+  @media (max-width: 980px) {
+    .decks { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; padding-top: 60px; }
+    .orb-wrap { width: 300px; margin: 0; justify-self: start; }
+    .planet.p1 { animation: none; display: none; } .planet.p2 { display: none; }
+    .more { grid-template-columns: 1fr; }
+    .sol { grid-template-columns: 1fr; }
+    nav.top-nav { display: none; }
+    .wrap { padding: 0 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .orb, .planet { animation: none !important; } .card { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="wordmark" href="./"><span class="dot"></span>Cosmos</a>
+    <nav class="top-nav">
+      <a href="#decks">Decks</a>
+      <a href="#more">Explorer</a>
+      <a href="https://github.com/Protonmatter/cosmos">Source</a>
+      <a href="https://protonmatter.github.io/sol/">Sol ↗</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Protonmatter · Sol reference decks</div>
+      <h1>The Sun, the planets,<br>and <em>everything</em><br>in orbit</h1>
+      <p class="lede">Three presentation decks built from the same body and satellite tables that drive the Sol orrery — the eight planets, twenty-two moons, and the JunoCam images that volunteers develop from raw strips.</p>
+      <div class="cta-row">
+        <a class="btn solid" href="#decks">Open the decks
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+        <a class="btn" href="https://protonmatter.github.io/sol/">Go to Sol
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+      </div>
+    </div>
+    <div class="orb-wrap" aria-hidden="true">
+      <div class="ring"></div><div class="ring two"></div>
+      <div class="orb"></div>
+      <div class="planet p1"></div><div class="planet p2"></div>
+    </div>
+  </section>
+
+  <div class="section-head" id="decks">
+    <h2>Three decks</h2>
+    <span>1920 × 1080 · arrow keys or space to advance</span>
+  </div>
+
+  <div class="decks">
+    <a class="card" href="solar-system.dc.html" data-tilt>
+      <div class="art"><img src="site/thumb-solar.jpg" alt="Saturn, imaged by Cassini" loading="lazy"><span class="num">01</span><span class="tag">13 slides</span></div>
+      <div class="body">
+        <h3>The Solar System</h3>
+        <p>The Sun, the eight planets and the Moon — one card each with radius, mass, gravity, rotation, tilt, temperature, atmosphere and field strength.</p>
+        <div class="meta"><span>Planets</span><b>Open deck</b></div>
+      </div>
+      <div class="shine"></div>
+    </a>
+
+    <a class="card" href="the-moons.dc.html" data-tilt>
+      <div class="art"><img src="site/thumb-moons.jpg" alt="Europa, imaged by Galileo" loading="lazy"><span class="num">02</span><span class="tag">18 slides</span></div>
+      <div class="body">
+        <h3>The Moons</h3>
+        <p>Twenty-two moons across five systems: Mars, the Galileans, Saturn's ice moons and Titan, the Uranian five, and Neptune's three.</p>
+        <div class="meta"><span>Satellites</span><b>Open deck</b></div>
+      </div>
+      <div class="shine"></div>
+    </a>
+
+    <a class="card" href="junocam-deck.dc.html" data-tilt>
+      <div class="art"><img src="site/thumb-juno.jpg" alt="Jupiter's Great Red Spot from JunoCam" loading="lazy"><span class="num">03</span><span class="tag">11 slides</span></div>
+      <div class="body">
+        <h3>JunoCam</h3>
+        <p>The instrument itself: why its images arrive as raw pushframe strips, what eight bits can hold, and the volunteers who process them.</p>
+        <div class="meta"><span>Jupiter</span><b>Open deck</b></div>
+      </div>
+      <div class="shine"></div>
+    </a>
+  </div>
+
+  <div class="section-head" id="more">
+    <h2>Also in this collection</h2>
+    <span>Companion pieces</span>
+  </div>
+  <div class="more">
+    <a class="row" href="junocam-explorer.dc.html">
+      <img src="site/thumb-explorer.jpg" alt="Merging storms on Jupiter" loading="lazy">
+      <div><h4>JunoCam Explorer</h4><p>Thirty processed Jupiter frames, filterable by region and treatment, with a zoomable viewer and side-by-side compare.</p></div>
+    </a>
+    <a class="row" href="junocam-poster.dc.html">
+      <div class="thumbless">18 × 24 in</div>
+      <div><h4>JunoCam Poster</h4><p>A single printable sheet on the same subject — print to PDF for one page.</p></div>
+    </a>
+  </div>
+
+  <section class="sol">
+    <div>
+      <div class="eyebrow">Where the numbers come from</div>
+      <h2>Continue to Sol</h2>
+      <p>Every figure in these decks is read from the body and satellite tables in <a href="https://github.com/Protonmatter/sol" style="color:var(--accent)">Protonmatter/sol</a> — the solar-cycle engine and orrery. If the decks are the reference, Sol is the live instrument.</p>
+    </div>
+    <a class="btn solid" href="https://protonmatter.github.io/sol/">Open Sol
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+  </section>
+
+  <footer>
+    <span>Imagery NASA/JPL-Caltech and partners · Moon and ring textures CC BY 4.0 Solar System Scope · Code MIT</span>
+    <span><a href="https://github.com/Protonmatter/cosmos">github.com/Protonmatter/cosmos</a></span>
+  </footer>
+</div>
+
+<script>
+  // Starfield
+  (function () {
+    const c = document.getElementById('sky'), ctx = c.getContext('2d');
+    let w, h, stars = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function resize() {
+      w = c.width = innerWidth * dpr; h = c.height = innerHeight * dpr;
+      c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
+      const n = Math.floor((innerWidth * innerHeight) / 4200);
+      stars = Array.from({ length: n }, () => ({ x: Math.random() * w, y: Math.random() * h, r: (Math.random() * 1.1 + .2) * dpr, a: Math.random(), s: Math.random() * .8 + .2, t: Math.random() * Math.PI * 2 }));
+    }
+    let px = 0, py = 0;
+    addEventListener('mousemove', e => { px = (e.clientX / innerWidth - .5); py = (e.clientY / innerHeight - .5); }, { passive: true });
+    function draw(t) {
+      ctx.clearRect(0, 0, w, h);
+      for (const s of stars) {
+        const tw = reduce ? .7 : (.55 + .45 * Math.sin(t / 900 * s.s + s.t));
+        ctx.globalAlpha = s.a * tw;
+        ctx.fillStyle = s.r > .9 * dpr ? '#fff3e4' : '#e9e4da';
+        ctx.beginPath(); ctx.arc(s.x - px * 18 * s.s * dpr, s.y - py * 18 * s.s * dpr, s.r, 0, Math.PI * 2); ctx.fill();
+      }
+      if (!reduce) requestAnimationFrame(draw);
+    }
+    resize(); addEventListener('resize', resize); requestAnimationFrame(draw);
+  })();
+
+  // Card tilt + shine
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.transform = `perspective(900px) rotateX(${(y - .5) * -6}deg) rotateY(${(x - .5) * 8}deg) translateY(-4px)`;
+      card.style.setProperty('--mx', (x * 100) + '%'); card.style.setProperty('--my', (y * 100) + '%');
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  // Keyboard: 1/2/3 open decks, S goes to Sol
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const map = { '1': 'solar-system.dc.html', '2': 'the-moons.dc.html', '3': 'junocam-deck.dc.html', 's': 'https://protonmatter.github.io/sol/' };
+    if (map[e.key.toLowerCase()]) location.href = map[e.key.toLowerCase()];
+  });
+</script>
+</body>
+</html>

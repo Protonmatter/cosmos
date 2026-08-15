@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="classical.css">
+<style>
+  html, body { margin:0; background:#26241f; }
+  a { color:var(--color-accent-700); text-decoration:none; }
+  a:hover { color:var(--color-accent-600); }
+</style>
+</helmet>
+
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
+
+  <section data-label="Cover" data-screen-label="01" data-speaker-notes="One card per body: the Sun, the eight planets, the Moon, and the wider moon systems. Every figure comes from the same table the orrery renders from." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr)">
+    <div style="padding:110px;display:flex;flex-direction:column;justify-content:space-between;min-height:0">
+      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">Sol · Body reference</div>
+      <div>
+        <h1 style="font-family:var(--font-heading);font-weight:400;font-size:126px;line-height:0.96;letter-spacing:-0.025em;margin:0 0 40px">Eleven bodies,<br>one table</h1>
+        <p style="margin:0;font-size:32px;line-height:1.45;color:#bdb6ab;max-width:22em">The Sun, the eight planets and the Moon, each with the size, spin, gravity, field and atmosphere the renderer works from.</p>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.16);padding-top:26px;font-size:24px;color:#8e877c">Figures: NASA Planetary Fact Sheets · IAU WGCCRE 2015 (Archinal et al. 2018)</div>
+    </div>
+    <div style="padding:110px 110px 110px 0;min-height:0;display:flex;align-items:center"><div style="width:100%;border:16px solid #2a2723;outline:2px solid rgba(255,255,255,0.14);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="planets/sun.png" alt="The Sun as a full orange disc, mottled with active regions and a flare at the limb" style="width:100%;height:100%;object-fit:contain;display:block"></div></div>
+  </section>
+
+  <section data-label="The Sun" data-screen-label="02" data-speaker-notes="A G2V main-sequence star holding 99.86% of the system's mass. Rotates differentially — about 25 days at the equator, 34 at the poles." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:16px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="planets/sun.png" alt="The Sun as a full orange disc, mottled with active regions and a flare at the limb" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Full disc in extreme ultraviolet. NASA/SDO.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">A G2V main-sequence star; luminosity 3.828×10²⁶ W. Rotates differentially (~25 d equator, ~34 d poles). Surface granulation, sunspots, an X-ray corona at ~1–3 MK, and a continuous solar wind.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">The star</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">The Sun</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">695,700 km</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">1.9885×10³⁰ kg — 332,950 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">274.0 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">25.38 d (Carrington sidereal)</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">7.25°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Effective temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">5,772 K — 5,499 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Composition</dt><dd style="margin:0;font-size:26px;line-height:1.3">H₂ plasma — 73% H, 25% He by mass</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Escape velocity</dt><dd style="margin:0;font-size:26px;line-height:1.3">617.5 km/s</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Mercury" data-screen-label="03" data-speaker-notes="Airless and cratered, locked in a 3:2 spin-orbit resonance. Weak but real global field." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="planets/mercury.png" alt="Mercury as a full grey disc, densely cratered from pole to pole" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Global mosaic. NASA/Johns Hopkins APL/Carnegie Institution.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Airless, heavily cratered, 3:2 spin–orbit resonance. A weak global dipole — surface field ~1% of Earth's, dipole moment ~0.06% — sustains a small magnetosphere.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">First planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Mercury</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">2,439.7 km</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">3.301×10²³ kg — 0.055 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">3.70 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">58.65 d — 3:2 with its year</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">0.034°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">440 K — 167 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">Trace exosphere — O, Na, H, He, K</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">0.0006× Earth's dipole</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Venus" data-screen-label="04" data-speaker-notes="A runaway greenhouse. 92 bar of CO2, 464 C, and a day longer than its year — turning backwards." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="planets/venus.png" alt="Venus as a full ochre disc, its surface picked out in radar" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Radar surface, colourised. NASA/JPL-Caltech.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">A runaway greenhouse: 92 bar of CO₂, 737 K surface. Rotates retrograde once per 243 days — slower than its year. No intrinsic magnetic field (only an induced one).</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Second planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Venus</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">6,051.8 km</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">4.867×10²⁴ kg — 0.815 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">8.87 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">243.02 d, retrograde</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">177.36° — effectively upside down</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">737 K — 464 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">92 bar — 96.5% CO₂, 3.5% N₂</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">None intrinsic — induced only</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Earth" data-screen-label="05" data-speaker-notes="The reference body. Everything else in this deck is quoted against it." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:16/9;overflow:hidden"><img src="planets/earth.png" alt="Earth as a full disc: Africa, Europe and the Indian Ocean under scattered cloud" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Full disc, sunlit face. NASA.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Liquid-water oceans, a nitrogen–oxygen atmosphere, and a strong dipole field (the reference, 8×10²² A·m²) driving a protective magnetosphere and aurorae.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Third planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Earth</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">6,378.1 km — polar 6,356.8</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">5.9722×10²⁴ kg — the reference</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">9.80 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">23.9345 h (sidereal)</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">23.44° — precessing over ~25,770 y</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">288 K — 15 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">1.0 bar — 78% N₂, 21% O₂, 1% Ar</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">8×10²² A·m² — the reference dipole</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="The Moon" data-screen-label="06" data-speaker-notes="Tidally locked, but not motionless — it turns once per orbit, and libration exposes 59% of the surface over time." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:2/1;overflow:hidden"><img src="textures/moon.jpg" alt="Equirectangular map of the Moon showing dark maria and bright cratered highlands" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Surface map, equirectangular. NASA/LRO and Clementine via Solar System Scope (CC-BY 4.0).</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Earth's tidally-locked companion: dark basaltic maria, bright cratered highlands, no atmosphere or global field. Libration — 7.9° in longitude, 6.7° in latitude — exposes 59% of the surface over time.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Earth's satellite</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">The Moon</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">1,737.4 km</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">7.346×10²² kg — 0.0123 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">1.62 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">27.322 d — synchronous</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">6.68°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">250 K — −23 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">Tenuous exosphere — He, Ar, Na</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">None</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Mars" data-screen-label="07" data-speaker-notes="Thin CO2 air, ice caps, iron-oxide dust. No global field today — only crustal remanence in the southern highlands." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="planets/mars.png" alt="Mars as a full rust-coloured disc with Valles Marineris cutting across the centre" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Global view centred on Valles Marineris. NASA/JPL-Caltech.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Thin CO₂ air, polar CO₂/water ice caps, iron-oxide dust. No global field today — only crustal remanent magnetism in the southern highlands.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Fourth planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Mars</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">3,396.2 km — polar 3,376.2</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">6.417×10²³ kg — 0.107 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">3.71 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">24.6229 h</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">25.19°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">210 K — −63 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">0.0064 bar — 95% CO₂, 2.7% N₂</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">None global — crustal remanence</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Jupiter" data-screen-label="08" data-speaker-notes="The largest planet, visibly oblate, fastest rotation, and a magnetosphere 20,000 times Earth's dipole." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img src="images/27-full-disc.png" alt="Jupiter as a full banded disc, its southern hemisphere mottled with storms" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">JunoCam full disc. NASA/JPL-Caltech/SwRI/MSSS, processed by a citizen scientist.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The largest planet — visibly oblate (flattening 6.5%). Fastest rotation (9.9 h) drives zonal bands and the centuries-old Great Red Spot. A colossal magnetosphere ~20,000× Earth's dipole.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Fifth planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Jupiter</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">71,492 km — polar 66,854</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">1.898×10²⁷ kg — 318 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">24.79 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">9.9259 h — the fastest</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">3.13°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">165 K — −108 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">90% H₂, 10% He; NH₃/H₂O clouds</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">20,000× Earth's dipole</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Saturn" data-screen-label="09" data-speaker-notes="Less dense than water, most oblate planet, and the ring system spanning 1.2 to 2.3 Saturn radii." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:22px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:3545/1834;overflow:hidden"><img src="planets/saturn.png" alt="Saturn from above, its rings casting a hard shadow across the northern hemisphere" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Cassini mosaic, 2016. NASA/JPL-Caltech/Space Science Institute.</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div style="border:8px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;height:70px;overflow:hidden"><img src="textures/saturn_ring.png" alt="Radial profile of Saturn's rings from Cassini photometry, showing the Cassini Division as a dark gap" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:14px;color:var(--color-neutral-600)">Radial ring profile, C-ring inner edge to A-ring outer edge — the dark band is the Cassini Division. NASA/Cassini photometry.</figcaption>
+      </figure>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Sixth planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Saturn</h2>
+      <p style="margin:0 0 30px;font-size:26px;line-height:1.45;color:var(--color-neutral-800)">Less dense than water. Rings of ice and rock from 1.2 to 2.3 Saturn-radii, split by the Cassini Division. The most oblate planet, flattened 9.8%.</p>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">60,268 km — polar 54,364</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">5.683×10²⁶ kg — 95 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Density</dt><dd style="margin:0;font-size:26px;line-height:1.3">0.687 g/cm³ — it would float</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">10.656 h</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">26.73°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rings</dt><dd style="margin:0;font-size:26px;line-height:1.3">74,500 – 136,780 km from centre</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">134 K — −139 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">580× Earth's dipole</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Uranus" data-screen-label="10" data-speaker-notes="Tipped 98 degrees — it rolls along its orbit. Methane absorbs red light, hence the cyan." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:16/9;overflow:hidden"><img src="planets/uranus.png" alt="Uranus as a featureless pale blue-green disc" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Voyager 2, 1986. NASA/JPL-Caltech.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Tipped 98° — it rolls along its orbit on its side. Methane absorbs red light, giving its cyan hue. A field tilted 59° from the spin axis and offset from centre.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Seventh planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Uranus</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">25,559 km — polar 24,973</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">8.681×10²⁵ kg — 14.5 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">8.69 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">17.24 h, retrograde</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">97.77° — on its side</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">76 K — −197 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">83% H₂, 15% He, 2% CH₄</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">50× Earth's, tilted 59°</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="Neptune" data-screen-label="11" data-speaker-notes="Deepest blue, strongest winds in the solar system at around 2,000 km/h, and a pole that precesses about Triton's orbit normal." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0;display:flex;flex-direction:column;gap:24px">
+      <figure style="margin:0">
+        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:16/9;overflow:hidden"><img src="planets/neptune.png" alt="Neptune as a deep blue disc with the Great Dark Spot near the centre" style="width:100%;height:100%;object-fit:contain;display:block"></div>
+        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Voyager 2, 1989. NASA/JPL-Caltech.</figcaption>
+      </figure>
+      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Deepest blue of the giants, with the strongest winds in the solar system (~2,000 km/h) and transient dark storms. A field tilted 47° and offset.</p>
+    </div>
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Eighth planet from the Sun</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 38px">Neptune</h2>
+      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">24,764 km — polar 24,341</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">1.024×10²⁶ kg — 17.1 Earths</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Surface gravity</dt><dd style="margin:0;font-size:26px;line-height:1.3">11.15 m/s²</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">15.9663 h (IAU 2015)</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">28.32°</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">72 K — −201 °C</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Atmosphere</dt><dd style="margin:0;font-size:26px;line-height:1.3">80% H₂, 19% He, 1.5% CH₄</dd></div>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">27× Earth's, tilted 47°</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-label="The moons" data-screen-label="12" data-speaker-notes="Two moons at real resolution: our own, and Io seen by JunoCam. The rest of the moon set is in the repo's moons.js if we want to expand this." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:flex;flex-direction:column;gap:46px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px">
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">The moons</h2>
+      <p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">Only two of them have been photographed close enough to fill a frame from a spacecraft in orbit around their primary. One is ours; the other is the most volcanic body in the solar system.</p>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:70px;min-height:0">
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="textures/moon.jpg" alt="The Moon's surface map, dark maria against bright highlands" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:24px;line-height:1.4;margin-top:20px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:30px;color:var(--color-text)">The Moon</span> — 1,737 km, tidally locked, no air and no field. Libration shows us 59% of it.</figcaption>
+      </figure>
+      <figure style="margin:0;display:flex;flex-direction:column;min-height:0">
+        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img src="images/25-io-tall.png" alt="Io as a small mottled disc just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <figcaption style="font-size:24px;line-height:1.4;margin-top:20px;color:var(--color-neutral-700)"><span style="font-family:var(--font-heading);font-size:30px;color:var(--color-text)">Io</span> — caught at Jupiter's limb by JunoCam, and processed by a volunteer. Its material feeds Jupiter's radiation belts.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section data-label="Sources" data-screen-label="13" data-speaker-notes="Where every number came from. The point of the table is that it is time-independent — the engine supplies positions, this supplies the bodies." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr);gap:100px;grid-template-rows:minmax(0,1fr);align-items:center">
+    <div style="min-height:0">
+      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:34px">Provenance</div>
+      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:96px;line-height:1;letter-spacing:-0.02em;margin:0 0 34px">Where the numbers come from</h2>
+      <p style="margin:0;font-size:30px;line-height:1.45;color:#bdb6ab">Every figure here is time-independent: size, shape, spin, gravity, field and atmosphere. Positions come from the ephemeris engine, not from this table.</p>
+    </div>
+    <dl style="margin:0;border-top:1px solid rgba(255,255,255,0.3);min-height:0">
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+        <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Physical data</dt>
+        <dd style="margin:0;font-size:28px;line-height:1.35;color:#e8e3da">NASA Planetary Fact Sheets, nssdc.gsfc.nasa.gov</dd>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+        <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Spin and pole</dt>
+        <dd style="margin:0;font-size:28px;line-height:1.35;color:#e8e3da">IAU Working Group on Cartographic Coordinates and Rotational Elements 2015 — Archinal et al. 2018</dd>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+        <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Surface maps</dt>
+        <dd style="margin:0;font-size:28px;line-height:1.35;color:#e8e3da">Solar System Scope (CC-BY 4.0), from NASA MESSENGER, Magellan, Viking, MGS/MOLA, Cassini, Juno, Voyager 2, LRO and Clementine</dd>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+        <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Earth and Sun</dt>
+        <dd style="margin:0;font-size:28px;line-height:1.35;color:#e8e3da">NASA Visible Earth Blue Marble; NASA/SDO HMI continuum — both public domain</dd>
+      </div>
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:22px 0">
+        <dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Io</dt>
+        <dd style="margin:0;font-size:28px;line-height:1.35;color:#e8e3da">NASA / JPL-Caltech / SwRI / MSSS, processed by a JunoCam citizen scientist</dd>
+      </div>
+    </dl>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>
