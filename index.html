@@ -101,6 +101,25 @@
   .row h4 { font-family: var(--heading); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
   .row p { margin: 0; color: var(--ink-2); font-size: 14px; }
 
+  .beta-strip { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 28px; align-items: center;
+    margin: 44px 0 0; padding: 26px 30px; border: 1px solid rgba(225,173,102,.3); border-radius: 18px;
+    background: linear-gradient(100deg, rgba(225,173,102,.09), rgba(26,24,21,.6) 55%);
+    transition: border-color .3s, transform .3s, box-shadow .3s; }
+  .beta-strip:hover { border-color: rgba(225,173,102,.6); transform: translateY(-2px);
+    box-shadow: 0 30px 60px -35px rgba(0,0,0,.9); }
+  .beta-orb { width: 64px; height: 64px; border-radius: 50%; background: url("site/hero-sun.jpg") center/cover;
+    box-shadow: 0 0 40px 6px rgba(225,173,102,.3), inset 0 0 24px rgba(0,0,0,.4); }
+  .beta-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--accent); }
+  .beta-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px 2px rgba(225,173,102,.6); }
+  .beta-body h3 { font-family: var(--heading); font-weight: 400; font-size: 30px; margin: 8px 0 8px; line-height: 1.05; }
+  .beta-body p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.55; max-width: 56em; }
+  .beta-go { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  @media (max-width: 980px) {
+    .beta-strip { grid-template-columns: 1fr; gap: 16px; }
+    .beta-orb { width: 52px; height: 52px; }
+  }
+
   .sol { margin: 90px 0 0; padding: 60px 0 70px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 40px; align-items: center; }
   .sol h2 { font-family: var(--heading); font-weight: 400; font-size: 46px; margin: 0 0 14px; line-height: 1.05; }
   .sol p { margin: 0; color: var(--ink-2); font-size: 17px; line-height: 1.55; max-width: 44em; }
@@ -133,6 +152,7 @@
     <nav class="top-nav">
       <a href="#decks">Decks</a>
       <a href="#more">Explorer</a>
+      <a href="beta.html">Beta</a>
       <a href="https://github.com/Protonmatter/cosmos">Source</a>
       <a href="https://protonmatter.github.io/sol/">Sol ↗</a>
     </nav>
@@ -208,6 +228,16 @@
       <div><h4>JunoCam Poster</h4><p>A single printable sheet on the same subject — print to PDF for one page.</p></div>
     </a>
   </div>
+
+  <a class="beta-strip" href="beta.html">
+    <div class="beta-orb" aria-hidden="true"></div>
+    <div class="beta-body">
+      <span class="beta-tag"><span class="beta-pulse"></span>Beta</span>
+      <h3>Pocket Planetarium</h3>
+      <p>An early iOS prototype: the same bodies and imagery, rebuilt as a phone app you scroll from the Sun out to Neptune. Rough edges are the point — go and have a look.</p>
+    </div>
+    <span class="beta-go">View the beta →</span>
+  </a>
 
   <section class="sol">
     <div>
