@@ -1,0 +1,130 @@
+/* ═══ Cinema layer for <deck-stage> decks ═══
+ *
+ * Turns the stage's hard cut into a cover-dissolve and gives each slide an
+ * entrance choreography, without touching deck-stage.js (which is a copied
+ * starter component — re-running copy_starter_component overwrites it).
+ *
+ * How it can override the engine at all: the shadow stylesheet marks the
+ * layout properties on ::slotted(*) !important (position/inset/width/height/
+ * box-sizing) but leaves opacity, visibility, z-index and transition plain.
+ * For normal declarations the outer tree wins over the inner tree, so the
+ * rules below take those four; the engine keeps the geometry.
+ *
+ * Everything is inside prefers-reduced-motion: no-preference — a
+ * reduced-motion viewer gets the engine's original instant cut, untouched.
+ * Every animation resolves to the authored end state, so print (which the
+ * engine forces to animation end + transition-duration:0) is unaffected.
+ *
+ * Per-deck tuning: override the custom properties on the deck-stage element.
+ * --cin-canvas must match the deck's dominant slide background.
+ */
+
+deck-stage {
+  /* Stage chrome — consumed by deck-cinema.js inside the shadow root. */
+  --cin-canvas: #f3f2f2;
+  --cin-stage: radial-gradient(ellipse 90% 70% at 50% 42%, #211d18 0%, #0a0908 72%);
+
+  /* Timing. */
+  --cin-dissolve: 700ms;
+  --cin-ease: cubic-bezier(.2, .8, .2, 1);
+
+  /* Travel distances. */
+  --cin-rise: 22px;
+  --cin-rise-head: 30px;
+  --cin-rise-row: 11px;
+
+  /* Ken Burns: images start slightly enlarged and settle to 1 over the dwell.
+   * Settling *to* the natural size (rather than pushing away from it) keeps
+   * the end state identical to the authored one, so print and reduced-motion
+   * both land on an uncropped image. */
+  --cin-img-from: 1.045;
+  --cin-img-dur: 22s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ── Cover dissolve ──────────────────────────────────────────────────────
+   * The incoming slide fades in *on top* of the outgoing one, which holds at
+   * full opacity underneath until the fade completes and then snaps away
+   * behind it. Cross-fading both at once would composite them against the
+   * canvas and wash the midpoint out; this way nothing shows through. */
+
+  deck-stage > section {
+    transition: opacity 0s linear var(--cin-dissolve),
+                visibility 0s linear var(--cin-dissolve);
+  }
+
+  deck-stage > section[data-deck-active] {
+    z-index: 2;
+    transition: opacity var(--cin-dissolve) cubic-bezier(.33, 0, .2, 1),
+                visibility 0s linear 0s;
+  }
+
+  /* ── Entrance choreography ───────────────────────────────────────────────
+   * Opacity is animated only at the column level; everything nested animates
+   * transform alone. Two nested opacity fades would multiply and make the
+   * inner content arrive muddy and late. */
+
+  deck-stage > section[data-deck-active] > * {
+    animation: cin-col 820ms var(--cin-ease) both;
+  }
+  deck-stage > section[data-deck-active] > *:nth-child(2) { animation-delay: 90ms; }
+  deck-stage > section[data-deck-active] > *:nth-child(3) { animation-delay: 165ms; }
+
+  deck-stage > section[data-deck-active] h1,
+  deck-stage > section[data-deck-active] h2 {
+    animation: cin-head 1s 130ms var(--cin-ease) both;
+  }
+
+  deck-stage > section[data-deck-active] figure {
+    animation: cin-plate 1.1s 60ms var(--cin-ease) both;
+  }
+
+  deck-stage > section[data-deck-active] p,
+  deck-stage > section[data-deck-active] figcaption {
+    animation: cin-row 700ms 300ms var(--cin-ease) both;
+  }
+
+  /* Data ledger fills row by row. */
+  deck-stage > section[data-deck-active] dl > div {
+    animation: cin-row 560ms var(--cin-ease) both;
+  }
+  deck-stage > section[data-deck-active] dl > div:nth-child(1) { animation-delay: 260ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(2) { animation-delay: 294ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(3) { animation-delay: 328ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(4) { animation-delay: 362ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(5) { animation-delay: 396ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(6) { animation-delay: 430ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(7) { animation-delay: 464ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(8) { animation-delay: 498ms; }
+  deck-stage > section[data-deck-active] dl > div:nth-child(n+9) { animation-delay: 532ms; }
+
+  /* ── Ken Burns ───────────────────────────────────────────────────────────
+   * The framed plates are overflow:hidden (engine sets it on ::slotted too),
+   * so the enlarged start state clips to the frame instead of spilling. */
+
+  deck-stage > section[data-deck-active] img {
+    animation: cin-settle var(--cin-img-dur) cubic-bezier(.16, .6, .3, 1) both;
+  }
+
+  @keyframes cin-col {
+    from { opacity: 0; transform: translate3d(0, var(--cin-rise), 0); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes cin-head {
+    from { transform: translate3d(0, var(--cin-rise-head), 0); }
+    to   { transform: none; }
+  }
+  @keyframes cin-row {
+    from { transform: translate3d(0, var(--cin-rise-row), 0); }
+    to   { transform: none; }
+  }
+  @keyframes cin-plate {
+    from { transform: scale(.985); }
+    to   { transform: none; }
+  }
+  @keyframes cin-settle {
+    from { transform: scale(var(--cin-img-from)); }
+    to   { transform: scale(1); }
+  }
+}
