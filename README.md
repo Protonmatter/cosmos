@@ -19,6 +19,8 @@ and nothing to install — open any file in a browser, or serve the folder.
 | [`junocam-poster.dc.html`](junocam-poster.dc.html) | 18 × 24 in | A single printable sheet on the same subject |
 
 The decks are 1920×1080 and scale to fit the window. The poster prints at 18 × 24 inches.
+The Beta feature page for iOS devices is in preview. Feel free to take a look on your iPhone for the best experience.
+<img width="696" height="1602" alt="image" src="https://github.com/user-attachments/assets/d77362b2-e4d8-465b-b79a-f47e87200c78" />
 
 ## Using them
 
