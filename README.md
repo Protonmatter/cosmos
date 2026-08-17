@@ -42,7 +42,7 @@ it and, on a desktop browser, presents it inside a simulated 390 × 844 device f
 On an iPhone, open [`pocket-planetarium.html`](pocket-planetarium.html) full screen
 instead for the intended experience:
 
-<img width="398" height="801" alt="Pocket Planetarium running full screen on an iPhone" src="https://github.com/user-attachments/assets/d77362b2-e4d8-465b-b79a-f47e87200c78" />
+<img width="299" height="601" alt="Pocket Planetarium running full screen on an iPhone" src="https://github.com/user-attachments/assets/d77362b2-e4d8-465b-b79a-f47e87200c78" />
 
 Its assets live under [`beta/pocket-planetarium/`](beta/pocket-planetarium/). This is a
 prototype, not a release — the decks are unaffected by anything in it.
