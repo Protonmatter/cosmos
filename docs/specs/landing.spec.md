@@ -54,7 +54,9 @@ CDN. A mandatory requirement would have made the build gate hostage to unpkg bei
 reachable, which is not a promise this project can keep.
 [RFC 0003](../rfcs/0003-vendored-runtime-for-the-beta.md) removed that dependency,
 so the only thing still holding the level down was the absence of a test. There is
-now one, and the level is mandatory.
+now one, and
+[RFC 0004](../rfcs/0004-enforcing-the-phone-viewport-requirement.md) raises the
+level.
 
 The requirement is about the viewport the prototype is actually designed for. On a
 desktop it draws a 402x874 device frame on a backdrop; below 560px it drops the
