@@ -159,7 +159,7 @@ carries `vendor/` paths under the same header and so was hand-edited too, and th
 requirement is what makes the drift loud instead of silent. It is recorded here
 because the honest fix is upstream: `dc-runtime` should either take the bundle
 URLs as build configuration or default them to `vendor/`. Until it does, a rebuild
-of either copy needs the same three strings reapplied.
+of either copy needs the same three strings reapplied. Tracked as issue #9.
 
 ## Alternatives considered
 
