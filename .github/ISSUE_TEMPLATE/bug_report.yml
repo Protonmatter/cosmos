@@ -1,0 +1,60 @@
+name: Bug report
+description: Something on the site does not work or does not look right
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. The decks scale to fit the window, so layout problems
+        are often specific to a viewport size — please include yours.
+
+  - type: dropdown
+    id: page
+    attributes:
+      label: Which page
+      options:
+        - Landing page (index.html)
+        - The Solar System deck
+        - The Moons deck
+        - JunoCam deck
+        - JunoCam explorer
+        - JunoCam poster
+        - Beta preview
+        - Pocket Planetarium prototype
+        - More than one, or not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce it
+      placeholder: |
+        1. Open …
+        2. Press …
+        3. The slide …
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, operating system, and window size
+      placeholder: Firefox 128, macOS 15, roughly 1280×800
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Anything in the browser console
+      description: Optional, but a blank page almost always has an error behind it.
+      render: text

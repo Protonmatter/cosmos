@@ -59,12 +59,37 @@ then visit `localhost:8000/` for the landing page (or any file above).
 
 Arrow keys or space advance the decks. Print to PDF gives one page per slide.
 
+## Development
+
+The site has no build step and never will — the pages open straight from the
+filesystem. The tooling below tests the site; it does not build it, and nothing it
+installs is served or deployed.
+
+```bash
+npm install
+npm run serve   # http://localhost:8000
+npm test        # validation, traceability, functional, e2e, regression
+```
+
+Substantive changes are proposed as an [RFC](docs/rfcs/), specified as numbered
+requirements in [`docs/specs/`](docs/specs/), and covered by tests that name the
+requirement they discharge. [`docs/SDLC.md`](docs/SDLC.md) walks through the whole
+path from idea to production, and [`CONTRIBUTING.md`](CONTRIBUTING.md) has the
+practical detail.
+
 ## Publishing on GitHub Pages
 
 [`.github/workflows/pages.yml`](.github/workflows/pages.yml) deploys the repo root on
-every push to `main` (Settings → Pages → Source: *GitHub Actions*). React, ReactDOM and
-Babel are vendored under `vendor/` so the pages have no CDN dependency; only the Google
-Fonts stylesheet is fetched remotely.
+every push to `main` (Settings → Pages → Source: *GitHub Actions*), but only after the
+same quality gate that guards pull requests has passed. If the gate is red the live
+site is left untouched.
+
+React, ReactDOM and Babel are vendored under `vendor/`, so the decks, the explorer,
+the poster and the landing page carry no CDN dependency and work offline; only the
+Google Fonts stylesheet is fetched remotely. The one exception is the Pocket
+Planetarium prototype, which is served by a separate copy of the runtime that still
+loads React and Babel from unpkg — recorded as deviation D-1 in
+[`docs/specs/site.spec.md`](docs/specs/site.spec.md).
 
 ## Where the numbers come from
 

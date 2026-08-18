@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # The site vendors its own runtime deliberately, so the only dependencies worth
+  # automating are the development tooling and the workflow actions.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: 'ci:'
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: 'dev:'
+    groups:
+      playwright:
+        patterns: ['@playwright/*', 'playwright*']

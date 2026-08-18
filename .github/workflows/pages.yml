@@ -1,26 +1,49 @@
 name: Deploy to GitHub Pages
+
+# Publishes the repository root to Pages — but only after the same gate that
+# guards pull requests has passed. A red gate leaves the live site untouched.
+#
+# Rollback is `git revert <sha> && git push`, which republishes in about thirty
+# seconds; the deploy always publishes the current tree, so there is no partial
+# state to reconcile.
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
+  gates:
+    name: Quality gate
+    uses: ./.github/workflows/ci.yml
+    permissions:
+      contents: read
+
   deploy:
+    name: Deploy
+    needs: gates
+    runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+
       - uses: actions/configure-pages@v5
+
+      # The site is the repository: no build step, nothing generated.
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+
       - id: deployment
         uses: actions/deploy-pages@v4
