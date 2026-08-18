@@ -43,17 +43,22 @@ visitors, a deck that does not exist.
 | `BETA-002` | MUST | The beta page asks search engines not to index it |
 | `BETA-003` | MUST | The beta page states that it is a prototype rather than a release |
 | `BETA-004` | MUST | The beta page offers a route back to the main collection |
-| `BETA-005` | SHOULD | The prototype renders its own content at an iPhone-sized viewport |
+| `BETA-005` | MUST | The prototype renders its own content at an iPhone-sized viewport |
 
 `BETA-002` matters more than it looks. The prototype is an unfinished draft of the
 same material the decks cover properly; indexed, it would compete with them in
 search results and give first-time readers the worst version of the work.
 
-`BETA-005` is advisory rather than mandatory because nothing yet renders the
-prototype and measures its layout automatically. It originally carried that level
-for a different reason: the runtime came from a third-party CDN, so a mandatory
-requirement would have made the build gate hostage to unpkg being reachable. That
-reason no longer applies, because
-[RFC 0003](../rfcs/0003-vendored-runtime-for-the-beta.md) moved the beta onto the
-vendored bundles. Raising the level now awaits a test, not a decision about
-dependencies.
+`BETA-005` was advisory until the prototype stopped depending on a third-party
+CDN. A mandatory requirement would have made the build gate hostage to unpkg being
+reachable, which is not a promise this project can keep.
+[RFC 0003](../rfcs/0003-vendored-runtime-for-the-beta.md) removed that dependency,
+so the only thing still holding the level down was the absence of a test. There is
+now one, and the level is mandatory.
+
+The requirement is about the viewport the prototype is actually designed for. On a
+desktop it draws a 402x874 device frame on a backdrop; below 560px it drops the
+frame and becomes the device. The second mode is what a phone visitor sees, and it
+is the mode a desktop-only check would never exercise: a frame left at its fixed
+width on a 390px screen overflows sideways, which is precisely the regression the
+test is written to catch.

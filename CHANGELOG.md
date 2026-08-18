@@ -40,6 +40,12 @@ and image swaps are left to the commit history.
   artefacts, so only the three URL constants changed and the integrity digests
   stayed as they were. No page on the site now fetches executable code from a third
   party, and the page joins the regression suite instead of being excluded from it.
+- **`BETA-005` is now mandatory.** It required that the Pocket Planetarium renders
+  its own content at an iPhone-sized viewport, but was advisory because the
+  prototype depended on unpkg and a mandatory requirement would have made the gate
+  hostage to that service. RFC 0003 removed the dependency; a test now covers the
+  requirement, and it is enforced. The prototype drops its device frame below
+  560px and becomes the device, a mode no desktop-viewport check exercised.
 - `SITE-016` now covers every copy of the runtime rather than `support.js` alone,
   and a new `SITE-019` requires each copy to resolve its bundle URLs locally. The
   static check for third-party code reads only `<script src>` attributes, so a URL
