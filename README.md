@@ -84,12 +84,12 @@ every push to `main` (Settings → Pages → Source: *GitHub Actions*), but only
 same quality gate that guards pull requests has passed. If the gate is red the live
 site is left untouched.
 
-React, ReactDOM and Babel are vendored under `vendor/`, so the decks, the explorer,
-the poster and the landing page carry no CDN dependency and work offline; only the
-Google Fonts stylesheet is fetched remotely. The one exception is the Pocket
-Planetarium prototype, which is served by a separate copy of the runtime that still
-loads React and Babel from unpkg — recorded as deviation D-1 in
-[`docs/specs/site.spec.md`](docs/specs/site.spec.md).
+React, ReactDOM and Babel are vendored under `vendor/`, so every page carries no CDN
+dependency and works offline; only the Google Fonts stylesheet is fetched remotely.
+That now includes the Pocket Planetarium prototype, which is served by a separate
+copy of the runtime: it was the one exception until
+[RFC 0003](docs/rfcs/0003-vendored-runtime-for-the-beta.md) pointed it at the same
+vendored bundles.
 
 ## Where the numbers come from
 

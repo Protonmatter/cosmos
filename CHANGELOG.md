@@ -31,15 +31,26 @@ and image swaps are left to the commit history.
   all, with no visible cause. The published site was never affected. `SITE-016`
   now detects the condition directly.
 
+### Changed
+
+- **The Pocket Planetarium is served from the vendored runtime**
+  ([RFC 0003](docs/rfcs/0003-vendored-runtime-for-the-beta.md)). Its copy of the
+  runtime loaded React, ReactDOM and Babel from unpkg while every other page loaded
+  the same three bundles from `vendor/`; the vendored files are byte-for-byte those
+  artefacts, so only the three URL constants changed and the integrity digests
+  stayed as they were. No page on the site now fetches executable code from a third
+  party, and the page joins the regression suite instead of being excluded from it.
+- `SITE-016` now covers every copy of the runtime rather than `support.js` alone,
+  and a new `SITE-019` requires each copy to resolve its bundle URLs locally. The
+  static check for third-party code reads only `<script src>` attributes, so a URL
+  held in a variable inside a `.js` file had been invisible to it.
+
 ### Documented
 
-- Two known deviations are now recorded in
-  [`docs/specs/site.spec.md`](docs/specs/site.spec.md) rather than left implicit:
-  the Pocket Planetarium prototype loads its runtime from a CDN (D-1), and the
-  deck runtime requests un-substituted `{{ }}` template placeholders before boot,
-  producing harmless 404s (D-2).
-- The README no longer claims the site as a whole has no CDN dependency, which was
-  untrue of the beta prototype.
+- Known deviations are now recorded in
+  [`docs/specs/site.spec.md`](docs/specs/site.spec.md) rather than left implicit.
+  One remains open: the deck runtime requests un-substituted `{{ }}` template
+  placeholders before boot, producing harmless 404s (D-2).
 
 ## Earlier
 

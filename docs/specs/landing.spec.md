@@ -49,7 +49,11 @@ visitors, a deck that does not exist.
 same material the decks cover properly; indexed, it would compete with them in
 search results and give first-time readers the worst version of the work.
 
-`BETA-005` is advisory rather than mandatory because the prototype depends on a
-third-party CDN for its runtime (deviation D-1 in the site specification), and a
-mandatory requirement whose outcome depends on unpkg being reachable would make the
-build gate hostage to a service the project does not control.
+`BETA-005` is advisory rather than mandatory because nothing yet renders the
+prototype and measures its layout automatically. It originally carried that level
+for a different reason: the runtime came from a third-party CDN, so a mandatory
+requirement would have made the build gate hostage to unpkg being reachable. That
+reason no longer applies, because
+[RFC 0003](../rfcs/0003-vendored-runtime-for-the-beta.md) moved the beta onto the
+vendored bundles. Raising the level now awaits a test, not a decision about
+dependencies.

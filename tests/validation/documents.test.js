@@ -29,6 +29,36 @@ const VENDORED = [
   'vendor/babel.min.js',
 ];
 
+/**
+ * Every copy of the runtime in the repository.
+ *
+ * The beta prototype carries its own build so it can move independently of the
+ * decks. Both copies declare the same three bundle URLs and the same three
+ * integrity digests, and both are checked below: a second copy is exactly where a
+ * remote URL can hide from the `<script src>` analysis SITE-001 performs.
+ */
+const RUNTIMES = ['support.js', 'beta/pocket-planetarium/support.js'];
+
+const BUNDLE_FILES = {
+  REACT: 'vendor/react.production.min.js',
+  REACT_DOM: 'vendor/react-dom.production.min.js',
+  BABEL: 'vendor/babel.min.js',
+};
+
+/** `var BABEL_URL = "vendor/babel.min.js"` -> { REACT, REACT_DOM, BABEL }. */
+function declaredUrls(source) {
+  return Object.fromEntries(
+    [...source.matchAll(/var (REACT|REACT_DOM|BABEL)_URL = "([^"]*)"/g)].map((m) => [m[1], m[2]]),
+  );
+}
+
+/** `var BABEL_SRI = "sha384-..."` -> { REACT, REACT_DOM, BABEL }. */
+function declaredDigests(source) {
+  return Object.fromEntries(
+    [...source.matchAll(/var (REACT|REACT_DOM|BABEL)_SRI = "sha384-([A-Za-z0-9+/=]+)"/g)].map((m) => [m[1], m[2]]),
+  );
+}
+
 test('no page loads a script from a third-party origin @REQ SITE-001', async () => {
   const remote = [];
   for (const page of await listPages()) {
@@ -63,31 +93,56 @@ test('the vendored runtime files are present and non-empty @REQ SITE-009', async
   }
 });
 
-test('each vendored bundle matches the SRI digest support.js declares @REQ SITE-016', async () => {
-  const runtime = await readRepoFile('support.js');
-  const declared = Object.fromEntries(
-    [...runtime.matchAll(/var (REACT|REACT_DOM|BABEL)_SRI = "sha384-([A-Za-z0-9+/=]+)"/g)].map((m) => [m[1], m[2]]),
+test('every runtime loads its bundles from vendor/ rather than a remote origin @REQ SITE-019', async () => {
+  const remote = [];
+  for (const runtime of RUNTIMES) {
+    const urls = declaredUrls(await readRepoFile(runtime));
+    assert.equal(
+      Object.keys(urls).length,
+      3,
+      `expected three bundle URL declarations in ${runtime}, found ${Object.keys(urls).length}`,
+    );
+    for (const [key, url] of Object.entries(urls)) {
+      if (!isLocalReference(url)) remote.push(`${runtime} -> ${key}_URL = "${url}"`);
+      else if (url !== BUNDLE_FILES[key]) {
+        remote.push(`${runtime} -> ${key}_URL = "${url}" (expected "${BUNDLE_FILES[key]}")`);
+      }
+    }
+  }
+  assert.deepEqual(
+    remote,
+    [],
+    'SITE-001 reads <script src> out of the HTML, so it cannot see a URL held in a variable\n' +
+      'inside a runtime. That is where the Pocket Planetarium hid a dependency on unpkg until\n' +
+      'RFC 0003. This check reads the runtimes themselves:\n' +
+      `  ${remote.join('\n  ')}`,
   );
-  assert.equal(Object.keys(declared).length, 3, 'expected three SRI declarations in support.js');
+});
 
-  const files = {
-    REACT: 'vendor/react.production.min.js',
-    REACT_DOM: 'vendor/react-dom.production.min.js',
-    BABEL: 'vendor/babel.min.js',
-  };
-
+test('each vendored bundle matches the SRI digest every runtime declares @REQ SITE-016', async () => {
   const mismatches = [];
-  for (const [key, file] of Object.entries(files)) {
-    const bytes = await readFile(join(REPO_ROOT, file));
-    const actual = createHash('sha384').update(bytes).digest('base64');
-    if (actual !== declared[key]) mismatches.push(`${file}\n      declared sha384-${declared[key]}\n      actual   sha384-${actual}`);
+  for (const runtime of RUNTIMES) {
+    const declared = declaredDigests(await readRepoFile(runtime));
+    assert.equal(
+      Object.keys(declared).length,
+      3,
+      `expected three SRI declarations in ${runtime}, found ${Object.keys(declared).length}`,
+    );
+
+    for (const [key, file] of Object.entries(BUNDLE_FILES)) {
+      const bytes = await readFile(join(REPO_ROOT, file));
+      const actual = createHash('sha384').update(bytes).digest('base64');
+      if (actual !== declared[key]) {
+        mismatches.push(`${runtime} -> ${file}\n      declared sha384-${declared[key]}\n      actual   sha384-${actual}`);
+      }
+    }
   }
 
   assert.deepEqual(
     mismatches,
     [],
     'Vendored bundle bytes do not match their integrity digests, so the browser will refuse to\n' +
-      'execute them and every .dc.html page will render blank.\n' +
+      'execute them and the affected pages will render blank.\n' +
       'The usual cause is a checkout that rewrote LF to CRLF; .gitattributes should prevent it.\n' +
       `  ${mismatches.join('\n  ')}`,
   );

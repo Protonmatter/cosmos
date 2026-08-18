@@ -26,18 +26,8 @@ export const PAGES = [
   ...DECKS.map((deck) => ({ ...deck, kind: 'deck' })),
   { path: '/junocam-explorer.dc.html', kind: 'component', name: 'junocam-explorer', title: 'JunoCam Explorer' },
   { path: '/junocam-poster.dc.html', kind: 'poster', name: 'junocam-poster', title: 'JunoCam Poster' },
+  { path: '/pocket-planetarium.html', kind: 'component', name: 'pocket-planetarium', title: 'Pocket Planetarium' },
 ];
-
-/**
- * Pages excluded from the offline/self-containment guarantees.
- *
- * `pocket-planetarium.html` is served by a separate copy of the runtime under
- * beta/pocket-planetarium/, which loads React, ReactDOM, and Babel from unpkg
- * rather than from vendor/. It is a labelled prototype, so this is a recorded
- * deviation rather than a failure — see the "Known deviations" section of
- * docs/specs/site.spec.md.
- */
-export const CDN_DEPENDENT_PAGES = ['/pocket-planetarium.html'];
 
 /** Origins the site may legitimately reach. */
 export const APPROVED_ORIGINS = ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'];
