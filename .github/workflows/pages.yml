@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
       # The site is the repository: no build step, nothing generated.
       - uses: actions/upload-pages-artifact@v3
