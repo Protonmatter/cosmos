@@ -1,0 +1,25 @@
+# Line endings are load-bearing in this repository.
+#
+# support.js loads the vendored React, ReactDOM, and Babel bundles with a
+# Subresource Integrity digest. SRI hashes exact bytes, so a checkout that
+# rewrites LF to CRLF — the Git default on Windows — produces files whose digest
+# no longer matches, the integrity check fails, React never loads, and every
+# .dc.html page renders completely blank. The site is fine; only that checkout is
+# broken, which makes it an unusually confusing failure to diagnose.
+#
+# Normalising to LF everywhere removes the whole class of problem.
+
+* text=auto eol=lf
+
+# Never transform the vendored bundles, whatever the platform or autocrlf setting.
+vendor/** -text
+
+# Binary assets: no conversion, no diffing as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
