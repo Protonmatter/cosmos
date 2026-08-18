@@ -150,6 +150,17 @@ repository with nothing enforcing that they stay identical. This RFC does not
 propose deduplicating them, because the beta is explicitly a prototype that may
 need to diverge. `SITE-019` and `SITE-016` constrain the part that matters.
 
+The sharper cost is that both files open with `GENERATED from dc-runtime/src/*.ts
+- do not edit`, and `dc-runtime/` is not in this repository. `SITE-019` therefore
+enforces a hand-edit against a generated artefact: someone who follows the header
+and rebuilds gets the upstream CDN URLs back, fails the check, and has no way to
+fix it here. That is not a new situation, since the root `support.js` already
+carries `vendor/` paths under the same header and so was hand-edited too, and the
+requirement is what makes the drift loud instead of silent. It is recorded here
+because the honest fix is upstream: `dc-runtime` should either take the bundle
+URLs as build configuration or default them to `vendor/`. Until it does, a rebuild
+of either copy needs the same three strings reapplied.
+
 ## Alternatives considered
 
 **Do nothing.** Leave D-1 recorded. Honest, and it was the right call until

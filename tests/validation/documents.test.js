@@ -23,11 +23,15 @@ import {
   REPO_ROOT,
 } from '../support/repo.js';
 
-const VENDORED = [
-  'vendor/react.production.min.js',
-  'vendor/react-dom.production.min.js',
-  'vendor/babel.min.js',
-];
+/** The vendored bundles, keyed by the constant each runtime declares for it. */
+const BUNDLE_FILES = {
+  REACT: 'vendor/react.production.min.js',
+  REACT_DOM: 'vendor/react-dom.production.min.js',
+  BABEL: 'vendor/babel.min.js',
+};
+
+/** The same three paths as a list. Derived, so the two cannot drift apart. */
+const VENDORED = Object.values(BUNDLE_FILES);
 
 /**
  * Every copy of the runtime in the repository.
@@ -38,12 +42,6 @@ const VENDORED = [
  * remote URL can hide from the `<script src>` analysis SITE-001 performs.
  */
 const RUNTIMES = ['support.js', 'beta/pocket-planetarium/support.js'];
-
-const BUNDLE_FILES = {
-  REACT: 'vendor/react.production.min.js',
-  REACT_DOM: 'vendor/react-dom.production.min.js',
-  BABEL: 'vendor/babel.min.js',
-};
 
 /** `var BABEL_URL = "vendor/babel.min.js"` -> { REACT, REACT_DOM, BABEL }. */
 function declaredUrls(source) {
@@ -120,6 +118,13 @@ test('every runtime loads its bundles from vendor/ rather than a remote origin @
 });
 
 test('each vendored bundle matches the SRI digest every runtime declares @REQ SITE-016', async () => {
+  // Hash each bundle once, not once per runtime: babel.min.js alone is 3MB.
+  const actualDigests = {};
+  for (const [key, file] of Object.entries(BUNDLE_FILES)) {
+    const bytes = await readFile(join(REPO_ROOT, file));
+    actualDigests[key] = createHash('sha384').update(bytes).digest('base64');
+  }
+
   const mismatches = [];
   for (const runtime of RUNTIMES) {
     const declared = declaredDigests(await readRepoFile(runtime));
@@ -130,10 +135,10 @@ test('each vendored bundle matches the SRI digest every runtime declares @REQ SI
     );
 
     for (const [key, file] of Object.entries(BUNDLE_FILES)) {
-      const bytes = await readFile(join(REPO_ROOT, file));
-      const actual = createHash('sha384').update(bytes).digest('base64');
-      if (actual !== declared[key]) {
-        mismatches.push(`${runtime} -> ${file}\n      declared sha384-${declared[key]}\n      actual   sha384-${actual}`);
+      if (actualDigests[key] !== declared[key]) {
+        mismatches.push(
+          `${runtime} -> ${file}\n      declared sha384-${declared[key]}\n      actual   sha384-${actualDigests[key]}`,
+        );
       }
     }
   }
