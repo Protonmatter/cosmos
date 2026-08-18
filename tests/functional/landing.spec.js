@@ -98,7 +98,12 @@ test.describe('Beta preview', () => {
  * worth asserting. On a desktop it draws a 402x874 device frame on a backdrop;
  * below 560px it drops the frame and becomes the device, filling the viewport.
  * That second mode is what a phone visitor actually sees and what nothing
- * previously checked.
+ * previously checked, because every other test runs at 1440x900.
+ *
+ * Both assertions below were checked against a deliberately broken build, with
+ * window.matchMedia stubbed to report no match so the frame stays at its desktop
+ * width. Each one fails in that state, which is the only evidence that either is
+ * worth keeping.
  */
 test.describe('Pocket Planetarium at phone size', () => {
   test.use({ viewport: { width: 390, height: 844 } });
@@ -117,12 +122,21 @@ test.describe('Pocket Planetarium at phone size', () => {
     // Its own content, not just a booted shell.
     expect((await page.locator('body').innerText()).trim().length).toBeGreaterThan(200);
 
-    // It becomes the device rather than letterboxing the desktop frame. A 402px
-    // frame left in place at 390px would overflow, which is the failure this
-    // catches.
-    const box = await host.boundingBox();
-    expect(box.width).toBeLessThanOrEqual(390);
-    expect(box.width).toBeGreaterThan(340);
+    // Nothing inside the prototype is wider than the screen it is being drawn on.
+    //
+    // Measure the descendants, not the host: the host is a full-width backdrop at
+    // every viewport, so its own width tracks the viewport in both layout modes
+    // and cannot tell them apart. The device frame inside it is what changes.
+    // With the sub-560px mode working, the widest descendant is exactly the
+    // viewport; with it defeated, the 402px frame stays put and 40 elements spill
+    // past the edge.
+    const { width: viewport } = page.viewportSize();
+    const tooWide = await host.evaluate(
+      (el, limit) =>
+        [...el.querySelectorAll('*')].filter((n) => n.getBoundingClientRect().width > limit).length,
+      viewport + 0.5,
+    );
+    expect(tooWide, `elements wider than the ${viewport}px viewport`).toBe(0);
 
     const overflows = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
