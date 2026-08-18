@@ -1,3 +1,9 @@
 node_modules/
 .DS_Store
 *.log
+
+# Test output — regenerated on every run, never committed.
+test-results/
+playwright-report/
+blob-report/
+.playwright/

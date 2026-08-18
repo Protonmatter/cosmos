@@ -1,0 +1,52 @@
+name: RFC proposal
+description: Propose a substantive change, or ask whether one needs an RFC
+labels: [rfc]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Substantive changes — new pages or features, changes to a documented
+        invariant, changes to the runtime contract or the release process — are
+        proposed as an RFC before they are built. See
+        [docs/SDLC.md](../blob/main/docs/SDLC.md).
+
+        Not sure whether yours qualifies? Open this anyway and ask. Deciding an
+        RFC is unnecessary takes a minute.
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you want to change
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why
+      description: What is broken, risky, or unclear today? Concrete evidence beats principle.
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Obligations this would introduce
+      description: |
+        Rough is fine. What must be true afterwards that is not true now? These
+        become the normative requirements, so it helps to think about them early.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Including doing nothing.
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This changes something the specifications currently guarantee
+        - label: This changes how the site is built, tested, or deployed
+        - label: This changes the runtime contract the pages depend on

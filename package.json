@@ -1,0 +1,31 @@
+{
+  "name": "cosmos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Presentation decks and interactive pages on the solar system. Static HTML; the tooling here is development-only and ships nothing to the site.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Protonmatter/cosmos.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "serve": "node tools/serve.js",
+    "test": "npm run test:validation && npm run test:trace && npm run test:browser",
+    "test:validation": "node --test \"tests/validation/*.test.js\"",
+    "test:trace": "node tools/spec-trace.js",
+    "test:browser": "playwright test --project=functional --project=e2e --project=regression",
+    "test:functional": "playwright test --project=functional",
+    "test:e2e": "playwright test --project=e2e",
+    "test:regression": "playwright test --project=regression",
+    "test:visual": "playwright test --project=visual",
+    "test:visual:update": "playwright test --project=visual --update-snapshots",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
+  }
+}
