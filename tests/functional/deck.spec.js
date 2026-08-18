@@ -112,19 +112,27 @@ for (const deck of DECKS) {
     test('dispatches slidechange when the slide changes @REQ DECK-012', async ({ page }) => {
       await open(page, { ...deck, kind: 'deck' });
 
-      const changed = page.evaluate(
-        () =>
-          new Promise((resolve) => {
-            document.addEventListener(
-              'slidechange',
-              (event) => resolve({ index: event.detail.index, total: event.detail.total, reason: event.detail.reason }),
-              { once: true },
-            );
-          }),
-      );
+      // Install the listener and await that it is installed before pressing the
+      // key. Holding the unawaited evaluate() promise instead races the keypress
+      // against the round trip that registers the listener: under parallel
+      // workers the press can win, the event fires with nobody listening, and the
+      // promise never settles.
+      await page.evaluate(() => {
+        window.__slidechange = new Promise((resolve) => {
+          document.addEventListener(
+            'slidechange',
+            (event) => resolve({ index: event.detail.index, total: event.detail.total, reason: event.detail.reason }),
+            { once: true },
+          );
+        });
+      });
       await page.keyboard.press('ArrowRight');
 
-      expect(await changed).toEqual({ index: 1, total: deck.slides, reason: 'keyboard' });
+      expect(await page.evaluate(() => window.__slidechange)).toEqual({
+        index: 1,
+        total: deck.slides,
+        reason: 'keyboard',
+      });
     });
 
     test('offers a way back to the landing page @REQ DECK-013', async ({ page }) => {
