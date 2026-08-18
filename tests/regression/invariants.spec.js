@@ -34,7 +34,7 @@ for (const descriptor of PAGES) {
       );
       expect(
         unexpected,
-        'Un-substituted {{ }} template placeholders are a recorded deviation (D-1); anything else is a defect.',
+        'Un-substituted {{ }} template placeholders are a recorded deviation (D-2); anything else is a defect.',
       ).toEqual([]);
     });
 

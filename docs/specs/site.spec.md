@@ -54,12 +54,20 @@ choose to follow it, whereas a subresource is fetched whether they want it or no
 | `SITE-015` | MUST | Every external subresource a page declares is served from an approved external origin |
 | `SITE-008` | MUST | The only external subresources any page requests at runtime are from approved external origins |
 | `SITE-009` | MUST | The vendored React, ReactDOM, and Babel files are present and non-empty |
-| `SITE-016` | MUST | The SHA-384 digest of each vendored bundle equals the Subresource Integrity hash `support.js` declares for it |
+| `SITE-019` | MUST | Every copy of the runtime resolves its React, ReactDOM, and Babel URLs to the vendored bundles rather than to a remote origin |
+| `SITE-016` | MUST | The SHA-384 digest of each vendored bundle equals the Subresource Integrity hash that every copy of the runtime declares for it |
 
 `SITE-001` and `SITE-015` are checked statically against the source; `SITE-008` is
 checked at runtime by observing the requests a real browser makes. Both kinds exist
 because either alone can be defeated — source analysis misses a script injected at
 runtime, and runtime observation misses a path that no test happens to exercise.
+
+`SITE-001` reads the `<script src>` attributes of a document, so it sees which
+runtime a page loads but not where that runtime then sends the browser. A URL held
+in a variable inside a `.js` file is invisible to it. `SITE-019` covers that blind
+spot by reading the runtime sources themselves, and exists because a remote URL
+hidden exactly there went unnoticed by a MUST-level requirement about third-party
+code until a runtime check caught it.
 
 ### Referential integrity
 
@@ -127,19 +135,6 @@ mode this site can suffer that every other check would miss.
 
 Recorded rather than hidden. Each is a defect with a decision attached, not a
 blessing of the current behaviour.
-
-### D-1 — The Pocket Planetarium loads its runtime from a CDN
-
-`pocket-planetarium.html` is served by a separate copy of the runtime at
-`beta/pocket-planetarium/support.js`, whose React, ReactDOM, and Babel URLs point
-at `unpkg.com` rather than at `vendor/`. That page therefore does not satisfy
-`SITE-001`, does not work offline, and does introduce a third-party dependency.
-
-It is excluded from the dependency requirements rather than exempted from
-scrutiny: it is an explicitly labelled prototype carrying `<meta name="robots"
-content="noindex">`, and pointing it at the existing vendored bundles is a change
-to the beta's runtime that deserves its own proposal. Until then the README must
-not claim the site as a whole is CDN-free.
 
 ### D-2 — Template placeholders are requested before boot
 

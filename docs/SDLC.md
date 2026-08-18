@@ -121,11 +121,14 @@ installs a copy of this site at a pinned version.
 ## Known deviations
 
 Recorded, not hidden — see the "Known deviations" section of
-[`specs/site.spec.md`](specs/site.spec.md). Two are open:
+[`specs/site.spec.md`](specs/site.spec.md). One is open:
 
-- **D-1** — the Pocket Planetarium prototype loads React and Babel from a CDN.
 - **D-2** — the deck runtime requests un-substituted `{{ }}` template placeholders
   before boot, producing harmless 404s.
+
+D-1, the Pocket Planetarium loading its runtime from a CDN, was resolved by
+[RFC 0003](rfcs/0003-vendored-runtime-for-the-beta.md). Identifiers are not reused,
+so the gap it leaves is deliberate.
 
 Each is excluded from the requirement it violates, in one named place, with a
 reason. That is the only acceptable way to carry a known defect: an exclusion that
