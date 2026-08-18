@@ -106,6 +106,22 @@ test('every page declares encoding, language, viewport, and a title @REQ SITE-00
   assert.deepEqual(problems, [], `Document conformance:\n  ${problems.join('\n  ')}`);
 });
 
+test('every page declares a meta description @REQ SITE-013', async () => {
+  const problems = [];
+  for (const page of await listPages()) {
+    const contents = await readRepoFile(page);
+    const tag = contents.match(/<meta\s+name="description"\s+content="([^"]*)"/i);
+    if (!tag) problems.push(`${page}: no meta description`);
+    else if (tag[1].trim().length < 40) {
+      // A description short enough to be a placeholder is worse than none: it
+      // satisfies the check while telling a search result or a shared link
+      // nothing. The shortest real one here is 118 characters.
+      problems.push(`${page}: meta description is only ${tag[1].trim().length} characters`);
+    }
+  }
+  assert.deepEqual(problems, [], `Pages needing a description:\n  ${problems.join('\n  ')}`);
+});
+
 test('every image carries an alt attribute @REQ SITE-012', async () => {
   const missing = [];
   for (const page of await listPages()) {
