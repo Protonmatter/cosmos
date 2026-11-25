@@ -8,6 +8,16 @@ and image swaps are left to the commit history.
 
 ### Added
 
+- **The Moons deck in the dark, photograph-led look**
+  ([RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 18 slides keep
+  their order, words and figures. Eight are now full-bleed, the line-ups are
+  drawn larger on black with each disc filling its circle, and every photograph
+  opens in the image viewer.
+- `deck-dark.css`: the slide patterns that are not one photograph (line-ups, a
+  two-column table, paired and inset pictures).
+- A link from the Moons deck's last slide to the JunoCam deck.
+- Requirements `DECK-024` to `DECK-026` and `FLOW-007`, with tests.
+
 - **Full-bleed slides for the Sun, the eight planets and the Moon**
   ([RFC 0005](docs/rfcs/0005-full-bleed-decks.md)). Each body's photograph now
   fills its slide on black, with the same facts over it and a button that opens
@@ -27,6 +37,9 @@ and image swaps are left to the commit history.
 
 ### Changed
 
+- The Moons deck's images are WebP. Reading the deck from first slide to last
+  at 1440 × 900 fetches 1.7 MB of images where it fetched 50.7 MB.
+- RFC 0005 is Accepted.
 - **Decks no longer download every image when they open.** A slide's images now
   load when the reader is within one slide of it. Measured at 1440 × 900, the
   images requested on opening went from 20.5 MB to 0.27 MB for the Solar System
