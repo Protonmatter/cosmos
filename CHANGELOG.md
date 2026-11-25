@@ -4,6 +4,27 @@ The site is continuously deployed from `main` and carries no version number, so
 entries are dated rather than released. Notable changes only — routine copy fixes
 and image swaps are left to the commit history.
 
+## 2026-11-25
+
+### Fixed
+
+- **A green gate could still fail to publish.** The deploy job uploaded the site
+  artifact and looked it up again in the same job, and `actions/deploy-pages` makes
+  that lookup once, with no retry. On 25 November it ran a fraction of a second
+  after the upload finished, did not find the artifact, and the deploy failed. The
+  live site stayed on the previous version. Re-running the failed job made things
+  worse: it uploaded a second artifact into the same run, which the action also
+  rejects. Packaging and publishing are now separate jobs, so the artifact has
+  settled before the deploy looks for it and a re-run reuses it.
+
+### Changed
+
+- The deploy no longer cancels a run that is already in progress when a newer push
+  arrives; the newer run waits its turn.
+- `actions/configure-pages` 5 to 6, `actions/upload-pages-artifact` 3 to 5, and
+  `actions/deploy-pages` 4 to 5. The artifact step sets `include-hidden-files`, so
+  the published tree, `.nojekyll` included, is unchanged.
+
 ## 2026-08-18
 
 ### Added
