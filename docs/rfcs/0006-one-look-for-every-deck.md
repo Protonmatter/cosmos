@@ -1,7 +1,7 @@
 ---
 rfc: 0006
 title: One look for every deck
-status: Draft
+status: Accepted
 author: Protonmatter
 created: 2026-11-25
 updated: 2026-11-25
@@ -192,7 +192,8 @@ RFC 0005, and the Pocket Planetarium, which already shows these moons on black.
 ## Unresolved questions
 
 - **The JunoCam deck** is the next pull request. Its slides are an argument with
-  diagrams, so it will add patterns of its own to `deck-dark.css`.
+  diagrams, so it will add patterns of its own to `deck-dark.css`. (Done: see the
+  addendum at the end.)
 - **The explorer, the poster and the landing page** are still as they were. The
   poster is a sheet meant for printing and may be right to stay light.
 - **Phones.** A deck is still a 1920 × 1080 canvas scaled down. That is a change
@@ -207,3 +208,81 @@ RFC 0005, and the Pocket Planetarium, which already shows these moons on black.
 One pull request for this deck. No address changes. To revert, revert the merge.
 
 Status moves to Accepted when the owner merges this.
+
+## Addendum: the JunoCam deck
+
+Added 25 November 2026, after the Moons deck was merged in #14, in the pull
+request that converts the JunoCam deck. The design above is unchanged; this
+records how it was applied to the second deck and the three requirements that
+came with it.
+
+### What is different about this deck
+
+It is an essay. Seven of its eleven slides are a column of prose beside one
+picture, one is three diagrams, and the pictures are not NASA originals but
+frames processed by volunteers, every one of them 960 pixels wide.
+
+That width decides the layout. Nothing here is full-bleed: a 960 pixel frame
+across a 1,920 pixel slide would be shown at twice its size. Instead:
+
+- The three tall frames (the title, the planet, the closing) run the full height
+  of the slide down its right side, which shows them whole at 60 to 90 per cent
+  of their size. The title and closing frames used to sit in boxes 767 and 835
+  pixels wide that cut off more than a third of their height.
+- The landscape frames sit beside their text at 900 to 920 pixels wide, close to
+  one for one. They were 770 to 790.
+- "What counts as processing" and "What comes back" are grids. A grid crops each
+  frame to one shape; the viewer shows it whole.
+- "Which one is Jupiter?" shows its two frames uncropped and side by side, since
+  comparing them is the slide. This is the one place a picture got smaller: each
+  was an 803 pixel crop and is now the whole frame at 570.
+
+`deck-dark.css` gains what that took: a right-hand `.dk-side`, `.dk-grid`,
+`.dk-stats`, label-and-text rows inside a text column, and a heading size for
+headings that are sentences. The three diagrams of the detector, the spin and
+time-delay integration are the same diagrams, redrawn in light rules on black.
+They are particular to this deck and live in its own style block.
+
+### Changes beyond layout
+
+- **The planet slide gains a picture.** It was a table of facts under the line
+  "Everything that follows is an argument about how to photograph this", with
+  nothing to look at. It now shows the deck's own near-full-disc frame, the one
+  that also appears on "What comes back".
+- **The closing slide links to the explorer** (`FLOW-008`). Its speaker notes
+  already say the explorer is where to browse the archive.
+- **Captions of the form "Name, dash, description"** now set the name in the
+  brighter ink and follow it with a full stop. Other dashes in the running text
+  are replaced with commas and colons. No figure and no claim was changed.
+
+### The frames are not adjusted
+
+The Moons deck took the background of two photographs down to black. Nothing of
+the kind is done here. These frames are other people's finished work, and the
+deck's subject is that every such picture is a set of choices. The near-full-disc
+frame sits on a dark grey of its author's choosing, so its panel reads as slightly
+lighter than the slide around it. That is left as it is.
+
+### Images
+
+WebP at 640 pixels and at each frame's own 960, for the 17 frames the deck uses:
+34 files, 2.1 MB. Reading the deck from first slide to last at 1440 × 900 fetches
+1.0 MB of images where it fetched 18.1 MB, and opening it fetches 0.12 MB. The
+PNG files stay: the explorer and the poster use them, and their names are pinned
+by tests.
+
+### Requirements
+
+| ID | Level | Requirement | Spec |
+| --- | --- | --- | --- |
+| `DECK-027` | MUST | Every photograph in the JunoCam deck can be opened in the image viewer | `docs/specs/deck.spec.md` |
+| `DECK-028` | MUST | The images the JunoCam deck requests on load total no more than 1 MB at the test viewport | `docs/specs/deck.spec.md` |
+| `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer | `docs/specs/journeys.spec.md` |
+
+Each test was run against the deck with its behaviour removed and failed as it
+should. `tests/functional/moons-deck.spec.js` is renamed
+`deck-photographs.spec.js`, since it now covers both decks.
+
+### Still open
+
+The explorer, the poster and the landing page, and phones, as listed above.
