@@ -104,6 +104,31 @@ end shows a blank screen to a room of people.
 | `DECK-013` | MUST | Each deck offers a link back to the landing page |
 | `DECK-014` | SHOULD | The overlay exposes previous, next, and reset controls with accessible names |
 
+### Full-bleed slides and the image viewer
+
+Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md). A full-bleed slide is a
+`<section class="fb">` holding one `.fb-plate > img`, and a `<button data-zoom="…">`
+naming the file the image viewer opens, with `data-zoom-w` and `data-zoom-h` giving
+its pixel size. The viewer is a `role="dialog"` element appended to `<body>` by
+`deck-cinema.js`; it exists only while it is open.
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-016` | MUST | Activating a viewer control by pointer, `Enter`, or `Space` opens the viewer and does not change the slide |
+| `DECK-017` | MUST | While the viewer is open, navigation keys do not change the slide, `Tab` cycles within the viewer, and the rest of the page is inert |
+| `DECK-018` | MUST | `Escape` closes the viewer and returns focus to the control that opened it |
+| `DECK-019` | MUST | A viewer file the slide does not itself display is requested only when the viewer is opened |
+
+`DECK-016` names `Space` because that is the key that broke. The engine advances on
+`Space` from a window-level handler and cancels the event, which also cancels the
+activation of whatever button has focus. `DECK-017` exists for the same reason from
+the other side: the engine does not know the viewer is there.
+
+`DECK-019` is worded around what the slide displays because the two can coincide. A
+slide offers its image in several widths, and on a large enough screen the widest of
+those may be the same file the viewer opens. What must not happen is a file that
+exists only for the viewer being fetched by a reader who never opens it.
+
 ### Image loading
 
 Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
