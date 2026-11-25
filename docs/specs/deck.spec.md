@@ -145,7 +145,7 @@ Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
 | `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
 
 `DECK-021`'s figure is a budget, not a measurement. The deck requested 20.5 MB of
-images on load before RFC 0005 and 0.34 MB after; 1 MB leaves room to work while
+images on load before RFC 0005 and 0.27 MB after; 1 MB leaves room to work while
 still failing loudly if a multi-megabyte original is linked again or the far slides
 start loading. The test viewport is 1440 × 900 at a device pixel ratio of 1.
 

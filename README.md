@@ -125,7 +125,8 @@ site uses, all NASA and in the public domain:
 | The Moon | [LRO wide-angle camera near-side mosaic](https://lroc.im-ldi.com/visit/exhibits/1/gallery/17) | NASA/GSFC/Arizona State University |
 | Jupiter | Cassini true-colour portrait, [PIA04866](https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/) | NASA/JPL/Space Science Institute |
 
-The deck's images are the `planets/<name>-<width>.webp` files, written by
+The deck's cover image, `planets/lineup-<width>.webp`, is drawn from the other images
+by `tools/cover-lineup.py`. The rest of the deck's images are the `planets/<name>-<width>.webp` files, written by
 `tools/image-variants.py`. The older `planets/*.png` files remain because the Pocket
 Planetarium still uses them.
 

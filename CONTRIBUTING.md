@@ -67,6 +67,11 @@ of the slide's `srcset` and use the largest only for the viewer. Credit the imag
 on the deck's Sources slide and in the README.
 [RFC 0005](docs/rfcs/0005-full-bleed-decks.md) has the reasoning.
 
+The deck's cover shows every body at one scale and is drawn from those files. If
+you replace one, or change a radius, redraw it with `python3 tools/cover-lineup.py`
+(it also needs NumPy), and move the names on the cover slide to the positions it
+prints.
+
 ## Writing tests
 
 The house rules, in full:

@@ -20,7 +20,7 @@ with the same facts over a scrim and a control that opens the image at full
 resolution. The images are served as WebP in several widths. All three decks stop
 downloading every image they contain when they open, and fetch only the current
 slide and its neighbours. Opening the Solar System deck used to cost 20.5 MB of
-images; it now costs 0.34 MB. Opening the Moons deck used to cost 50.7 MB; it now
+images; it now costs 0.27 MB. Opening the Moons deck used to cost 50.7 MB; it now
 costs nothing until the reader reaches a slide with a picture on it.
 
 Saturn was converted first, in pull request #11, as a worked example. This RFC is
@@ -195,6 +195,24 @@ rest of the page is `inert`, `Tab` cycles through its own controls, and it takes
 keyboard in the capture phase so the engine never sees a navigation key. This RFC
 adds no behaviour to it; it adds the requirements and tests.
 
+### The cover
+
+The cover shows the deck's eleven bodies in a row at one scale: the Sun's limb at
+the left edge, then the eight planets with the Moon beside Earth and Io beside
+Jupiter. Distances are not to scale and the slide says so. At a scale where Earth
+is 24 design pixels across, Jupiter is 252 pole to pole, Saturn's rings span 515,
+Mercury is 9, and the Sun would be 2,618, which is why only its limb fits.
+
+`tools/cover-lineup.py` draws it from the images already in the repository and
+the radii on the deck's own slides, plus two the deck does not state: the IAU
+nominal solar radius, and the outer edge of Saturn's A ring (136,780 km, NASA
+Saturnian Rings Fact Sheet), which the Saturn mosaic is measured by because the
+rings hide the planet's equator. It prints where each body sits so the names on
+the slide, which are text and not part of the image, can be placed under them.
+
+The cover has no viewer control and is not one of the body slides `DECK-015`
+covers.
+
 ### Between decks
 
 The "moons" slide of the Solar System deck gains a link to the Moons deck. Until
@@ -220,7 +238,7 @@ code with the guarded behaviour removed, to confirm that it fails when it should
 
 ## Drawbacks
 
-- **The repository grows.** 37 WebP files, about 16 MB, are added and no PNG is
+- **The repository grows.** 41 WebP files, about 16 MB, are added and no PNG is
   removed, because other pages still reference them. The Pages artifact grows by
   the same amount.
 - **Art direction is manual.** Each slide's four numbers were chosen by rendering
@@ -230,8 +248,12 @@ code with the guarded behaviour removed, to confirm that it fails when it should
   a slow one it is a visible load.
 - **`:has()`.** The loading rule depends on it. Every current browser has it. One
   that does not gets the old behaviour, not a broken deck.
-- **Python for one tool.** `tools/image-variants.py` needs Python and Pillow. The
-  rest of the tooling is Node. It is only needed when adding an image.
+- **Python for two tools.** `tools/image-variants.py` and `tools/cover-lineup.py`
+  need Python and Pillow, and the second needs NumPy. The rest of the tooling is
+  Node. They are only needed when adding an image or redrawing the cover.
+- **The cover's Sun is enlarged.** At that scale the Sun's disc is 2,618 design
+  pixels across and the source image holds it at 1,492, so its limb is softer
+  than the planets beside it.
 
 ## Alternatives considered
 
@@ -269,8 +291,13 @@ panels and almanacs set a figure with its qualifier.
   work.
 - **Phones.** A deck still scales its fixed canvas down on a phone. Reflowing it is
   a change to the engine and out of scope here.
-- **The cover slide** keeps its framed Sun. It is the one slide the visual tests
-  would capture, which leads to the next point.
+- **"Eleven bodies".** The cover's title counts eleven and its sentence names
+  ten: the Sun, the eight planets and the Moon. The cover image shows Io as the
+  eleventh, because the moons slide pairs it with the Moon. If the eleventh was
+  meant to be something else, the image is wrong and the script is where to
+  change it.
+- **The cover slide** is the one slide the visual tests would capture, which
+  leads to the next point.
 - **The visual tests cannot be seeded.** `tests/visual/appearance.spec.js` skips
   every test when no baseline is committed, and it does so even when run with
   `--update-snapshots`, which is what the "Update visual baselines" workflow runs.

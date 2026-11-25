@@ -121,7 +121,7 @@ for (const deck of DECKS) {
 /**
  * What the Solar System deck's images may cost to open, in bytes, at the test
  * viewport. Recorded in docs/specs/deck.spec.md beside DECK-021; change both
- * together. It was 20.5 MB before RFC 0005 and measured 0.34 MB after.
+ * together. It was 20.5 MB before RFC 0005 and measured 0.27 MB after.
  */
 const SOLAR_SYSTEM_OPENING_IMAGE_BUDGET = 1_000_000;
 

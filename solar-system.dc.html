@@ -20,6 +20,16 @@
      at any window shape other than 16:9 the letterbox bars are part of the sky. */
   deck-stage { --cin-canvas:#000; --cin-stage:#000; }
 
+  /* The cover: the deck's eleven bodies in a row at one scale (tools/cover-lineup.py
+     draws the image and prints where each body sits, for the names). */
+  .cover-copy { position:absolute; left:420px; right:84px; top:104px; }
+  .cover-copy h1 { font-family:var(--font-heading); font-weight:400; font-size:118px; line-height:1; letter-spacing:-0.025em; margin:24px 0 30px -4px; white-space:nowrap; }
+  .cover-copy p { margin:0; font-size:30px; line-height:1.45; color:var(--fb-ink-2); max-width:31em; }
+  .cover-names { list-style:none; margin:0; padding:0; }
+  .cover-names li { position:absolute; top:808px; transform:translateX(-50%); font-size:24px; line-height:1; white-space:nowrap; color:var(--fb-ink-2); }
+  .cover-names .cover-moon { color:var(--fb-ink-3); }
+  .cover-foot { position:absolute; left:420px; right:84px; bottom:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,.16); display:flex; justify-content:space-between; gap:40px; font-size:24px; color:var(--fb-ink-3); }
+
   /* "The moons": two photographs side by side, each filling its half, under a
      heading that carries the link on into the Moons deck. */
   .duo { background:#000; color:#f0ece5; font-family:var(--font-body); }
@@ -43,16 +53,26 @@
 
 <x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
 
-  <section data-label="Cover" data-screen-label="01" data-speaker-notes="One card per body: the Sun, the eight planets, the Moon, and the wider moon systems. Every figure comes from the same table the orrery renders from." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr)">
-    <div style="padding:110px;display:flex;flex-direction:column;justify-content:space-between;min-height:0">
-      <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">Sol · Body reference</div>
-      <div>
-        <h1 style="font-family:var(--font-heading);font-weight:400;font-size:126px;line-height:0.96;letter-spacing:-0.025em;margin:0 0 40px">Eleven bodies,<br>one table</h1>
-        <p style="margin:0;font-size:32px;line-height:1.45;color:#bdb6ab;max-width:22em">The Sun, the eight planets and the Moon, each with the size, spin, gravity, field and atmosphere the renderer works from.</p>
-      </div>
-      <div style="border-top:1px solid rgba(255,255,255,0.16);padding-top:26px;font-size:24px;color:#8e877c">Figures: NASA Planetary Fact Sheets · IAU WGCCRE 2015 (Archinal et al. 2018)</div>
+  <section class="fb cover" data-label="Cover" data-screen-label="01" data-speaker-notes="One card per body: the Sun, the eight planets, the Moon, and the wider moon systems. Every figure comes from the same table the orrery renders from." style="--fb-w:1920px; --fb-x:0px; --fb-y:0px; --fb-ar:16/9">
+    <div class="fb-plate"><img loading="lazy" src="planets/lineup-1920.webp" srcset="planets/lineup-960.webp 960w, planets/lineup-1440.webp 1440w, planets/lineup-1920.webp 1920w, planets/lineup-2560.webp 2560w" sizes="100vw" width="1920" height="1080" alt="The Sun's limb fills the left edge. To its right, in a row and drawn to one scale: Mercury, Venus, Earth with the Moon, Mars, Jupiter with Io, Saturn, Uranus and Neptune. The inner planets are specks beside Jupiter and Saturn."></div>
+    <div class="cover-copy">
+      <div class="fb-kicker">Sol · Body reference</div>
+      <h1>Eleven bodies, one table</h1>
+      <p>The Sun, the eight planets and the Moon, each with the size, spin, gravity, field and atmosphere the renderer works from.</p>
     </div>
-    <div style="padding:110px 110px 110px 0;min-height:0;display:flex;align-items:center"><div style="width:100%;border:16px solid #2a2723;outline:2px solid rgba(255,255,255,0.14);background:#000;aspect-ratio:1/1;overflow:hidden"><img loading="lazy" src="planets/sun-1920.webp" srcset="planets/sun-960.webp 960w, planets/sun-1440.webp 1440w, planets/sun-1920.webp 1920w" sizes="41vw" width="1920" height="1920" alt="The Sun as a full orange disc, mottled with active regions and a flare at the limb" style="width:100%;height:100%;object-fit:contain;display:block"></div></div>
+    <ul class="cover-names">
+      <li style="left:350px">Mercury</li>
+      <li style="left:454px">Venus</li>
+      <li style="left:558px">Earth</li>
+      <li style="left:662px">Mars</li>
+      <li style="left:882px">Jupiter</li>
+      <li style="left:1308px">Saturn</li>
+      <li style="left:1648px">Uranus</li>
+      <li style="left:1776px">Neptune</li>
+      <li class="cover-moon" style="left:587px; top:584px">Moon</li>
+      <li class="cover-moon" style="left:1033px; top:549px">Io</li>
+    </ul>
+    <div class="cover-foot"><span>Figures: NASA Planetary Fact Sheets · IAU WGCCRE 2015 (Archinal et al. 2018)</span><span>Sizes to scale. Distances are not.</span></div>
   </section>
 
   <section class="fb" data-label="The Sun" data-screen-label="02" data-speaker-notes="A G2V main-sequence star holding 99.86% of the system's mass. Rotates differentially — about 25 days at the equator, 34 at the poles." style="--fb-w:1852px; --fb-x:786px; --fb-y:-357px; --fb-ar:1920/1920; --fb-scrim:1000px">
