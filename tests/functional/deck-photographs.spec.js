@@ -1,11 +1,11 @@
 /**
- * Functional: the Moons deck's photographs.
+ * Functional: the photographs in the Moons and JunoCam decks.
  *
- * The deck compares bodies by putting their photographs side by side, so two
+ * Both decks put photographs side by side, in rows, grids and pairs, so two
  * things have to hold that nothing else checks. Every photograph can be opened
- * in the image viewer, whichever kind of slide it is on. And where a slide
- * says its bodies are to scale, the circles are sized by the radii printed
- * under them, not by eye.
+ * in the image viewer, whichever kind of slide it is on. And where a Moons
+ * slide says its bodies are to scale, the circles are sized by the radii
+ * printed under them, not by eye.
  *
  * See docs/rfcs/0006-one-look-for-every-deck.md and docs/specs/deck.spec.md.
  */
@@ -21,8 +21,16 @@ async function openSlide(page, index) {
   return active;
 }
 
-test('every photograph in the Moons deck can be opened in the image viewer @REQ DECK-024', async ({ page }) => {
-  await open(page, { ...MOONS, kind: 'deck' });
+// The requirement is written out in each name because the traceability tool
+// reads this file as text and would not see one assembled at run time.
+const EVERY_PHOTOGRAPH = [
+  { deck: 'the-moons', atLeast: 30, name: 'every photograph in the Moons deck can be opened in the image viewer @REQ DECK-024' },
+  { deck: 'junocam-deck', atLeast: 15, name: 'every photograph in the JunoCam deck can be opened in the image viewer @REQ DECK-027' },
+];
+
+for (const expectation of EVERY_PHOTOGRAPH) test(expectation.name, async ({ page }) => {
+  const deck = DECKS.find((candidate) => candidate.name === expectation.deck);
+  await open(page, { ...deck, kind: 'deck' });
 
   // A photograph is opened either by the button it sits inside, or, when it is
   // the full-bleed image of its slide, by that slide's "Explore the image".
@@ -49,7 +57,7 @@ test('every photograph in the Moons deck can be opened in the image viewer @REQ 
   });
 
   // Guard against passing on a deck that has lost its pictures.
-  expect(report.photographs.length, 'photographs in the deck').toBeGreaterThan(30);
+  expect(report.photographs.length, 'photographs in the deck').toBeGreaterThan(expectation.atLeast);
 
   const problems = report.photographs
     .filter((photograph) => !photograph.opens)
