@@ -10,10 +10,11 @@ and image swaps are left to the commit history.
 
 - **The JunoCam deck in the dark look** (the addendum to
   [RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 11 slides keep
-  their order, words and figures. The landscape frames are shown larger, the
-  tall ones whole at the full height of the slide, the diagrams are redrawn on
-  black, and every frame opens in the image viewer. The planet slide gains a
-  picture.
+  their order, words and figures. Four slides are built round one large
+  photograph each, the tall frames are shown whole at the full height of the
+  slide, the diagrams are redrawn on black, and every frame opens in the image
+  viewer. The edges of every photograph fade into the slide. The planet slide
+  gains a picture.
 - A link from the JunoCam deck's closing slide to the explorer.
 - Requirements `DECK-027`, `DECK-028` and `FLOW-008`, with tests.
 

@@ -277,3 +277,25 @@
 
 /* A rule between a lede and what follows it in a text column. */
 .dk-copy .dk-coda { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--dk-rule); }
+
+/* ── Edges ─────────────────────────────────────────────────────────────── */
+
+/* A photograph whose subject runs to the edge of its frame shows that edge as
+   a hard line on black. .dk-feather lays a shadow over the edges so the
+   picture fades into the slide instead. It goes on the button or the plate
+   that holds the image. Only the slide is shadowed: the viewer opens the
+   frame as it is. */
+.dk-zoom.dk-feather { position: relative; }
+.dk-feather::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  box-shadow: inset 0 0 var(--feather, 72px) var(--feather-spread, 30px) #000;
+}
+.dk-grid .dk-feather { --feather: 44px; --feather-spread: 16px; }
+
+/* A full-bleed slide whose heading is a sentence, and figures set in its text column. */
+.fb h2.fb-long { font-size: 68px; line-height: 1.06; margin: 0 0 26px; }
+.fb-copy .dk-lede { max-width: none; }
+.fb-copy .dk-stats, .dk-copy .dk-stats { position: static; margin-top: 34px; }

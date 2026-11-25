@@ -222,15 +222,21 @@ It is an essay. Seven of its eleven slides are a column of prose beside one
 picture, one is three diagrams, and the pictures are not NASA originals but
 frames processed by volunteers, every one of them 960 pixels wide.
 
-That width decides the layout. Nothing here is full-bleed: a 960 pixel frame
-across a 1,920 pixel slide would be shown at twice its size. Instead:
+That width decides the layout. A 960 pixel frame across a 1,920 pixel slide
+would be shown at twice its size, so no frame fills the slide edge to edge.
+Instead:
 
 - The three tall frames (the title, the planet, the closing) run the full height
   of the slide down its right side, which shows them whole at 60 to 90 per cent
   of their size. The title and closing frames used to sit in boxes 767 and 835
   pixels wide that cut off more than a third of their height.
-- The landscape frames sit beside their text at 900 to 920 pixels wide, close to
-  one for one. They were 770 to 790.
+- The four landscape frames (the stripes, the poles, the pushframe camera, eight
+  bits) are each the one large picture on their slide, 1,300 to 1,400 pixels
+  wide, with the text over the left of them as on a full-bleed slide. That is
+  1.35 to 1.46 times their size. They were first set at 900 to 920, one for one,
+  in a frame beside the text; the owner asked for larger pictures without visible
+  edges, and larger and slightly softer reads better than smaller and boxed.
+  Before this work they were 770 to 790.
 - "What counts as processing" and "What comes back" are grids. A grid crops each
   frame to one shape; the viewer shows it whole.
 - "Which one is Jupiter?" shows its two frames uncropped and side by side, since
@@ -254,6 +260,17 @@ They are particular to this deck and live in its own style block.
 - **Captions of the form "Name, dash, description"** now set the name in the
   brighter ink and follow it with a full stop. Other dashes in the running text
   are replaced with commas and colons. No figure and no claim was changed.
+
+### Edges
+
+Most of these frames run to the edge of the file: the planet is cut off by the
+frame, not surrounded by sky. On a black slide that edge is a hard straight line.
+`.dk-feather` lays a shadow over the edges of a picture so that it fades into the
+slide instead. Every photograph in this deck has it, the large ones and the grid
+tiles alike.
+
+The shadow is drawn over the picture on the slide. It is not in the file, and the
+viewer shows every frame as its author left it.
 
 ### The frames are not adjusted
 
