@@ -34,10 +34,19 @@ test.skip(
   'No visual baselines committed yet — run the "Update visual baselines" workflow to seed them.',
 );
 
-/** Screenshots are worthless while images are still arriving. */
+/**
+ * Screenshots are worthless while images are still arriving.
+ *
+ * Only images that are rendered are waited for. A deck does not render slides
+ * more than one step from the current one, and their lazy images are never
+ * requested (DECK-020), so waiting on every image in the document would wait
+ * forever. An image with no layout box cannot appear in a screenshot anyway.
+ */
 async function settle(page) {
   await page.waitForFunction(() =>
-    [...document.images].every((image) => image.complete && image.naturalWidth > 0),
+    [...document.images]
+      .filter((image) => image.getClientRects().length > 0)
+      .every((image) => image.complete && image.naturalWidth > 0),
   );
 }
 

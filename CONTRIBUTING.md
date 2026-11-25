@@ -50,6 +50,28 @@ npx playwright test --grep "@REQ DECK-005"
    `@REQ <ID>`. CI fails otherwise, on purpose.
 4. **Does `npm test` pass?**
 
+## Adding a full-bleed image
+
+The Solar System deck's body slides each show one photograph in several WebP
+widths. To add or replace one, run the image tool on the original:
+
+```bash
+python3 tools/image-variants.py path/to/original.jpg venus --max 4096
+```
+
+It needs Python 3 and Pillow (`pip install Pillow`). It writes
+`planets/venus-<width>.webp` and prints the `srcset` and the image viewer's
+attributes to paste into the slide. Commit the files it writes; the site has no
+build step, so nothing regenerates them. Keep widths above about 3000 pixels out
+of the slide's `srcset` and use the largest only for the viewer. Credit the image
+on the deck's Sources slide and in the README.
+[RFC 0005](docs/rfcs/0005-full-bleed-decks.md) has the reasoning.
+
+The deck's cover shows every body at one scale and is drawn from those files. If
+you replace one, or change a radius, redraw it with `python3 tools/cover-lineup.py`
+(it also needs NumPy), and move the names on the cover slide to the positions it
+prints.
+
 ## Writing tests
 
 The house rules, in full:

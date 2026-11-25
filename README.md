@@ -29,7 +29,9 @@ The decks are 1920 × 1080 and scale to fit the window. The poster prints at 18 
 
 The pages are plain HTML that declare their content declaratively; `support.js`,
 `deck-stage.js` and `deck-cinema.js` provide the slide runtime, and `classical.css` the
-shared look.
+shared look. `deck-full-bleed.css` is the layout the Solar System deck's body slides
+use: one photograph filling the slide, the facts over it, and a button that opens the
+image at full resolution ([RFC 0005](docs/rfcs/0005-full-bleed-decks.md)).
 
 ## Pocket Planetarium (beta)
 
@@ -112,6 +114,21 @@ Spacecraft imagery is NASA/JPL-Caltech and partner institutions, in the public d
   the [Mission Juno citizen-processing
   gallery](https://www.missionjuno.swri.edu/junocam/processing)
   (NASA/JPL-Caltech/SwRI/MSSS)
+
+The Solar System deck shows four bodies from larger originals than the rest of the
+site uses, all NASA and in the public domain:
+
+| Body | Image | Credit |
+| --- | --- | --- |
+| Venus | Magellan radar globe, [PIA00104](https://science.nasa.gov/photojournal/venus-computer-simulated-global-view-centered-at-180-degrees-east-longitude/) | NASA/JPL |
+| Earth | Blue Marble 2012, Suomi NPP, [PIA18033](https://www.jpl.nasa.gov/images/pia18033-earth/) | NASA |
+| The Moon | [LRO wide-angle camera near-side mosaic](https://lroc.im-ldi.com/visit/exhibits/1/gallery/17) | NASA/GSFC/Arizona State University |
+| Jupiter | Cassini true-colour portrait, [PIA04866](https://www.jpl.nasa.gov/images/pia04866-cassini-jupiter-portrait/) | NASA/JPL/Space Science Institute |
+
+The deck's cover image, `planets/lineup-<width>.webp`, is drawn from the other images
+by `tools/cover-lineup.py`. The rest of the deck's images are the `planets/<name>-<width>.webp` files, written by
+`tools/image-variants.py`. The older `planets/*.png` files remain because the Pocket
+Planetarium still uses them.
 
 Two files are **not** public domain and are used under **CC BY 4.0**: `textures/moon.jpg`
 and `textures/saturn_ring.png`, from [Solar System

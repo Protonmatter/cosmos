@@ -72,3 +72,18 @@ test('reach the poster from the landing page @REQ FLOW-005', async ({ page }) =>
   await waitForReady(page, { kind: 'poster' });
   await expect(page.locator('doc-page')).toBeAttached();
 });
+
+test('follow the Solar System deck through to the Moons deck @REQ FLOW-006', async ({ page }) => {
+  // The deck's last body slide is about moons; the deck about moons should be
+  // one step from it, not a trip back through the landing page.
+  await page.goto('/solar-system.dc.html#12');
+  await waitForReady(page, { kind: 'deck' });
+  const slide = page.locator('deck-stage > section[data-deck-active]');
+  await expect(slide).toHaveAttribute('data-label', 'The moons');
+
+  await slide.getByRole('link', { name: /The Moons/ }).click();
+
+  await expect(page).toHaveURL(/the-moons\.dc\.html/);
+  await waitForReady(page, { kind: 'deck' });
+  await expect(page.locator('deck-stage > section[data-deck-active]')).toHaveAttribute('data-deck-slide', '0');
+});

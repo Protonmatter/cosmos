@@ -1,7 +1,7 @@
 # Specification — The presentation decks
 
 **Area:** `DECK` · **Introduced by:** [RFC 0002](../rfcs/0002-quality-gates-and-cicd.md) ·
-**Status:** Active
+**Extended by:** [RFC 0005](../rfcs/0005-full-bleed-decks.md) · **Status:** Active
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are to be interpreted as
 described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and
@@ -45,8 +45,14 @@ children of `<deck-stage>`. The engine adds:
 | `data-deck-active` | Present on exactly one section — the visible slide |
 | `data-screen-label` | `"NN <label>"`, rebuilt from `data-label`; the authored value is overwritten |
 
-Slides are hidden with `visibility`/`opacity`, never unmounted: all sections are
-always in the DOM, and only the active one is visible or readable.
+Slides are never unmounted: all sections are always in the DOM, and only the active
+one is visible or readable. The engine hides the others with `visibility` and
+`opacity`. On screen, `deck-cinema.css` additionally stops rendering
+(`display: none`) every slide that is more than one step from the active one, so
+that its images are not fetched until the reader is near it (see Image loading,
+below). A slide that is not rendered is still in the DOM and still addressable by
+`data-deck-slide`, but it has no layout box: it cannot be measured, and a lazy image
+inside it has not loaded.
 
 **No slide is given an `id`, `class`, `role`, or `aria-hidden`.** Tests address
 slides through `data-deck-slide` and `data-deck-active`.
@@ -97,3 +103,52 @@ end shows a blank screen to a room of people.
 | --- | --- | --- |
 | `DECK-013` | MUST | Each deck offers a link back to the landing page |
 | `DECK-014` | SHOULD | The overlay exposes previous, next, and reset controls with accessible names |
+
+### Full-bleed slides and the image viewer
+
+Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md). A full-bleed slide is a
+`<section class="fb">` holding one `.fb-plate > img`, and a `<button data-zoom="…">`
+naming the file the image viewer opens, with `data-zoom-w` and `data-zoom-h` giving
+its pixel size. The viewer is a `role="dialog"` element appended to `<body>` by
+`deck-cinema.js`; it exists only while it is open.
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-015` | MUST | Each body slide of the Solar System deck presents one full-bleed image and a control that opens it in the image viewer |
+| `DECK-016` | MUST | Activating a viewer control by pointer, `Enter`, or `Space` opens the viewer and does not change the slide |
+| `DECK-017` | MUST | While the viewer is open, navigation keys do not change the slide, `Tab` cycles within the viewer, and the rest of the page is inert |
+| `DECK-018` | MUST | `Escape` closes the viewer and returns focus to the control that opened it |
+| `DECK-019` | MUST | A viewer file the slide does not itself display is requested only when the viewer is opened |
+| `DECK-022` | SHOULD | Full-bleed images are served as WebP in more than one width |
+
+The body slides are slides 2 to 11 of `solar-system.dc.html`: the Sun, Mercury,
+Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
+
+`DECK-016` names `Space` because that is the key that broke. The engine advances on
+`Space` from a window-level handler and cancels the event, which also cancels the
+activation of whatever button has focus. `DECK-017` exists for the same reason from
+the other side: the engine does not know the viewer is there.
+
+`DECK-019` is worded around what the slide displays because the two can coincide. A
+slide offers its image in several widths, and on a large enough screen the widest of
+those may be the same file the viewer opens. What must not happen is a file that
+exists only for the viewer being fetched by a reader who never opens it.
+
+### Image loading
+
+Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-020` | MUST | On load, a deck requests images only for the current slide and its immediate neighbours, and has a slide's images by the time that slide is shown |
+| `DECK-021` | MUST | The images the Solar System deck requests on load total no more than 1 MB at the test viewport |
+| `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
+
+`DECK-021`'s figure is a budget, not a measurement. The deck requested 20.5 MB of
+images on load before RFC 0005 and 0.27 MB after; 1 MB leaves room to work while
+still failing loudly if a multi-megabyte original is linked again or the far slides
+start loading. The test viewport is 1440 × 900 at a device pixel ratio of 1.
+
+`DECK-023` protects the README's promise that printing to PDF gives one page per
+slide. The engine marks every slide active before a print, which brings them all
+back into rendering; this requirement is what notices if that ever stops being true.

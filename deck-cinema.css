@@ -128,3 +128,26 @@ deck-stage {
     to   { transform: scale(1); }
   }
 }
+
+/* ── Far slides are not rendered ─────────────────────────────────────────────
+ * The engine stacks every slide in the same place and hides the inactive ones
+ * with visibility and opacity. A hidden slide still has a layout box inside
+ * the viewport, so a browser fetches its images whether or not they are marked
+ * lazy: opening a deck used to download every image in it.
+ *
+ * Slides more than one step from the active one are therefore taken out of
+ * rendering altogether. With no layout box their lazy images are not fetched;
+ * they load when the reader comes within one step. The immediate neighbours
+ * stay rendered so the next slide's image is already there on arrival and the
+ * cover dissolve still has its outgoing slide to fade over.
+ *
+ * Screen only: print lays every slide out as a page and needs them all.
+ * A browser without :has() drops this rule and behaves as before.
+ * !important because most slides set their own display inline (grid, flex),
+ * which would otherwise win.
+ * See docs/rfcs/0005-full-bleed-decks.md. */
+@media screen {
+  deck-stage > section:not([data-deck-active]):not([data-deck-active] + section):not(:has(+ section[data-deck-active])) {
+    display: none !important;
+  }
+}

@@ -27,7 +27,12 @@ that visitor could see.
 | `FLOW-003` | MUST | A visitor can reach the beta preview from the landing page and find the prototype from there |
 | `FLOW-004` | MUST | A deck opened at a shared `#N` address continues to work from that slide |
 | `FLOW-005` | SHOULD | A visitor can reach the poster from the landing page |
+| `FLOW-006` | MUST | A visitor can follow the Solar System deck's moons slide through to the Moons deck |
 
 `FLOW-004` exists because sharing a link to a particular slide is the main reason
 the fragment is in the URL at all. A deep link that opens the right slide but leaves
 navigation broken would satisfy `DECK-010` and still be useless.
+
+`FLOW-006` was added by [RFC 0005](../rfcs/0005-full-bleed-decks.md). Until then no
+slide in any deck contained a link, so the only way from one deck to the next was
+back through the landing page.

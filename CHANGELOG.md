@@ -6,6 +6,36 @@ and image swaps are left to the commit history.
 
 ## 2026-11-25
 
+### Added
+
+- **Full-bleed slides for the Sun, the eight planets and the Moon**
+  ([RFC 0005](docs/rfcs/0005-full-bleed-decks.md)). Each body's photograph now
+  fills its slide on black, with the same facts over it and a button that opens
+  the image at full resolution with pan and zoom. Saturn was converted first, in
+  pull request #11; the other nine follow it here.
+- **A new cover for the Solar System deck:** its eleven bodies in a row, drawn to
+  one scale, with the Sun's limb filling the left edge. `tools/cover-lineup.py`
+  draws the image.
+- New originals for Venus (Magellan, PIA00104), Earth (Blue Marble 2012,
+  PIA18033), the Moon (LRO near-side mosaic) and Jupiter (Cassini, PIA04866),
+  replacing images too small to fill a slide. Credits are on the deck's Sources
+  slide and in the README.
+- `tools/image-variants.py`, which writes the WebP files a full-bleed slide uses.
+- A link from the Solar System deck's moons slide to the Moons deck.
+- Requirements `DECK-015` to `DECK-023` and `FLOW-006`, with tests. The image
+  viewer that shipped in pull request #11 had neither until now.
+
+### Changed
+
+- **Decks no longer download every image when they open.** A slide's images now
+  load when the reader is within one slide of it. Measured at 1440 × 900, the
+  images requested on opening went from 20.5 MB to 0.27 MB for the Solar System
+  deck, from 50.7 MB to nothing for the Moons deck (its first two slides have no
+  pictures), and from 18.1 MB to 1.6 MB for the JunoCam deck. Printing still
+  loads everything.
+- The Solar System deck's stage and letterbox are black, to match the sky in its
+  photographs.
+
 ### Fixed
 
 - **A green gate could still fail to publish.** The deploy job uploaded the site
