@@ -260,8 +260,9 @@
  *
  * Delegated from the document and built lazily, for the same reason as the
  * chrome above: the dc runtime replaces <body> when it renders. While the
- * viewer is open it takes the keyboard in the capture phase so arrows and
- * Space pan the image rather than advancing the deck underneath.
+ * viewer is open it is modal: the rest of the page is inert, Tab cycles
+ * through its own controls, and it takes the keyboard in the capture phase
+ * so arrows and Space cannot advance the deck underneath.
  */
 (() => {
   'use strict';
@@ -288,6 +289,16 @@
 
   let root = null, img = null, out = null, styleEl = null, opener = null;
   let NW = 1, NH = 1, s = 1, tx = 0, ty = 0, min = 1, max = 1;
+  let inerted = [];
+  // Pointer bookkeeping lives out here, not in build(), so close() can clear
+  // it. A viewer closed mid-drag never sees that pointer's pointerup; a stale
+  // entry would make the next single touch look like the second finger of a
+  // pinch.
+  const pts = new Map(); let lastTap = { t: 0, x: 0, y: 0 }, moved = 0, pinch = 0;
+  const resetPointers = () => {
+    pts.clear(); pinch = 0; moved = 0; lastTap = { t: 0, x: 0, y: 0 };
+    if (root) root.classList.remove('dragging');
+  };
   const isOpen = () => !!(root && root.isConnected);
 
   const apply = () => {
@@ -332,10 +343,10 @@
       else close();
     });
 
-    const pts = new Map(); let lastTap = { t: 0, x: 0, y: 0 }, moved = 0, pinch = 0;
     root.addEventListener('pointerdown', (e) => {
       if (e.target.closest('.tools')) return;
-      root.setPointerCapture(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { root.setPointerCapture(e.pointerId); } catch (err) { /* pointer already gone */ }
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
       moved = 0; root.classList.add('dragging');
       if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); }
     });
@@ -364,6 +375,7 @@
       } else lastTap = { t: now, x: e.clientX, y: e.clientY };
     };
     root.addEventListener('pointerup', up); root.addEventListener('pointercancel', up);
+    root.addEventListener('lostpointercapture', up);
     root.addEventListener('wheel', (e) => {
       e.preventDefault(); e.stopPropagation();
       zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * .0016));
@@ -381,12 +393,20 @@
     if (img.getAttribute('src') !== src) img.setAttribute('src', src);
     root.setAttribute('aria-label', btn.getAttribute('data-zoom-label') || 'Image viewer');
     if (!styleEl.isConnected) document.head.appendChild(styleEl);
+    resetPointers();
     document.body.appendChild(root);
+    // aria-modal alone is only a hint. Make everything else inert so focus,
+    // clicks and assistive technology cannot reach the deck behind the viewer.
+    inerted = [...document.body.children].filter((el) => el !== root && !el.inert);
+    inerted.forEach((el) => { el.inert = true; });
     reset();
     root.querySelector('.close').focus();
   };
   const close = () => {
     if (!isOpen()) return;
+    inerted.forEach((el) => { el.inert = false; });
+    inerted = [];
+    resetPointers();
     root.remove();
     if (opener && opener.isConnected) opener.focus();
   };
@@ -399,7 +419,24 @@
   }, true);
 
   addEventListener('keydown', (e) => {
-    if (!isOpen() || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (!isOpen()) {
+      // The deck advances on Space from a window-level handler and cancels the
+      // event, which would also cancel a focused button's activation. Keep
+      // Space on an opener away from the deck so the button opens the viewer.
+      const t = e.composedPath ? e.composedPath()[0] : e.target;
+      if ((e.key === ' ' || e.key === 'Spacebar') && t && t.closest && t.closest('[data-zoom]')) e.stopImmediatePropagation();
+      return;
+    }
+    if (e.key === 'Tab') {
+      // Cycle through the viewer's own controls; never hand focus to the page.
+      const stops = [...root.querySelectorAll('button')];
+      const i = stops.indexOf(document.activeElement);
+      const next = e.shiftKey ? (i <= 0 ? stops.length - 1 : i - 1) : (i === stops.length - 1 ? 0 : i + 1);
+      stops[next].focus();
+      e.preventDefault(); e.stopImmediatePropagation();
+      return;
+    }
     const cx = innerWidth / 2, cy = innerHeight / 2, step = 80;
     if (e.key === 'Escape') close();
     else if (e.key === '+' || e.key === '=') zoomAt(cx, cy, 1.25);
@@ -409,7 +446,7 @@
     else if (e.key === 'ArrowRight') { tx -= step; apply(); }
     else if (e.key === 'ArrowUp') { ty += step; apply(); }
     else if (e.key === 'ArrowDown') { ty -= step; apply(); }
-    else if (e.key === 'Tab' || e.key === 'Enter') return;   // leave focus and activation alone
+    else if (e.key === 'Enter') return;   // leave button activation alone
     else if (e.key === ' ' && e.target.closest && e.target.closest('.deck-viewer button')) { e.stopImmediatePropagation(); return; }
     // Everything else (Space, PageDown, Home, End…) is swallowed too, so the
     // deck cannot change slide behind an open viewer.
