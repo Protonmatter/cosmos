@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="classical.css">
 <link rel="stylesheet" href="deck-cinema.css?v=3">
 <link rel="stylesheet" href="deck-full-bleed.css">
+<link rel="stylesheet" href="deck-dark.css">
 <style>
   html, body { margin:0; background:#000; }
   /* Every slide in this deck is dark, so the stage around the canvas is too:
@@ -31,20 +32,10 @@
   .cover-foot { position:absolute; left:420px; right:84px; bottom:60px; padding-top:24px; border-top:1px solid rgba(255,255,255,.16); display:flex; justify-content:space-between; gap:40px; font-size:24px; color:var(--fb-ink-3); }
 
   /* "The moons": two photographs side by side, each filling its half, under a
-     heading that carries the link on into the Moons deck. */
-  .duo { background:#000; color:#f0ece5; font-family:var(--font-body); }
-  .duo-head { position:absolute; left:110px; right:110px; top:0; height:230px; display:flex; align-items:center; gap:64px; }
-  .duo-head h2 { font-family:var(--font-heading); font-weight:400; font-size:96px; line-height:1; letter-spacing:-0.02em; margin:0; white-space:nowrap; }
-  .duo-head p { flex:1; margin:0; font-size:24px; line-height:1.45; color:#c9c2b6; }
-  .duo-next { cursor:pointer; white-space:nowrap; text-decoration:none; color:#f0ece5; }
-  .duo-panel { position:absolute; top:230px; bottom:0; width:958px; margin:0; overflow:hidden; background:#000; }
-  .duo-panel:first-of-type { left:0; }
-  .duo-panel:last-of-type { right:0; }
-  .duo-panel img { position:absolute; display:block; max-width:none; }
+     heading that carries the link on into the Moons deck. The layout is .duo in
+     deck-dark.css; these two rules place this slide's own photographs. */
   .duo-moon { width:1500px; height:1500px; left:-271px; top:-330px; }
   .duo-io { width:958px; height:1198px; left:0; top:-174px; }
-  .duo-panel figcaption { position:absolute; left:0; right:0; bottom:0; padding:150px 60px 46px; font-size:24px; line-height:1.4; color:#c9c2b6; background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.78) 52%, rgba(0,0,0,.9) 100%); }
-  .duo-panel figcaption b { display:block; font-family:var(--font-heading); font-weight:400; font-size:60px; line-height:1.1; color:#f0ece5; margin-bottom:6px; }
   a { color:var(--color-accent-700); text-decoration:none; }
   a:hover { color:var(--color-accent-600); }
 
