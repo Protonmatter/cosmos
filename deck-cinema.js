@@ -249,3 +249,172 @@
     tick();
   });
 })();
+
+/* ═══ Image viewer for full-bleed slides (prototype) ═══
+ *
+ * A slide opts in with a button:
+ *   <button data-zoom="planets/saturn-3545.webp" data-zoom-w="3545" data-zoom-h="1834">
+ * Clicking it opens the full-resolution file over the deck with pan and zoom
+ * (drag, wheel, pinch, double-tap, + - 0, arrows, Esc). The file is fetched
+ * on first open, not with the slide.
+ *
+ * Delegated from the document and built lazily, for the same reason as the
+ * chrome above: the dc runtime replaces <body> when it renders. While the
+ * viewer is open it takes the keyboard in the capture phase so arrows and
+ * Space pan the image rather than advancing the deck underneath.
+ */
+(() => {
+  'use strict';
+
+  const CSS = `
+    .deck-viewer { position: fixed; inset: 0; z-index: 60; background: #030303; overflow: hidden;
+      touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+    .deck-viewer.dragging { cursor: grabbing; }
+    .deck-viewer > img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none;
+      will-change: transform; pointer-events: none; }
+    .deck-viewer .tools { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 4px; padding: 4px; border-radius: 999px;
+      font: 500 15px/1 "Lora", Georgia, serif; color: #f0ece5;
+      background: rgba(12, 11, 10, .78); border: 1px solid rgba(240, 236, 229, .18);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .deck-viewer .tools button { -webkit-appearance: none; appearance: none; border: 0; background: transparent;
+      color: inherit; font: inherit; cursor: pointer; min-width: 44px; height: 44px; padding: 0 14px; border-radius: 999px; }
+    .deck-viewer .tools button:hover { background: rgba(240, 236, 229, .1); color: #e1ad66; }
+    .deck-viewer .tools button:focus-visible { outline: 2px solid #e1ad66; outline-offset: 2px; }
+    .deck-viewer .tools output { min-width: 62px; text-align: center; font-size: 13px; color: #c9c2b6; }
+    .deck-viewer .tools .close { background: #e1ad66; color: #1a1207; font-weight: 600; }
+    @media print { .deck-viewer { display: none !important; } }
+  `;
+
+  let root = null, img = null, out = null, styleEl = null, opener = null;
+  let NW = 1, NH = 1, s = 1, tx = 0, ty = 0, min = 1, max = 1;
+  const isOpen = () => !!(root && root.isConnected);
+
+  const apply = () => {
+    const w = NW * s, h = NH * s, vw = innerWidth, vh = innerHeight;
+    tx = w <= vw ? (vw - w) / 2 : Math.min(0, Math.max(vw - w, tx));
+    ty = h <= vh ? (vh - h) / 2 : Math.min(0, Math.max(vh - h, ty));
+    img.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,0) scale(' + s + ')';
+    out.textContent = Math.round((s / min) * 100) + '%';
+  };
+  const zoomAt = (cx, cy, factor) => {
+    const next = Math.min(max, Math.max(min, s * factor));
+    const f = next / s; tx = cx - (cx - tx) * f; ty = cy - (cy - ty) * f; s = next; apply();
+  };
+  // Never magnify far past the pixels the file actually has.
+  const reset = () => {
+    min = Math.min(innerWidth / NW, innerHeight / NH);
+    max = Math.max(min * 2.5, 1.25 / (window.devicePixelRatio || 1));
+    s = min; tx = ty = 0; apply();
+  };
+
+  const build = () => {
+    styleEl = document.createElement('style');
+    styleEl.setAttribute('data-deck-viewer', '');
+    styleEl.textContent = CSS;
+    root = document.createElement('div');
+    root.className = 'deck-viewer';
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-modal', 'true');
+    root.innerHTML = '<img alt="" draggable="false"><div class="tools">' +
+      '<button type="button" data-act="out" aria-label="Zoom out">−</button><output aria-live="polite"></output>' +
+      '<button type="button" data-act="in" aria-label="Zoom in">+</button>' +
+      '<button type="button" data-act="fit">Fit</button>' +
+      '<button type="button" data-act="close" class="close">Done</button></div>';
+    img = root.querySelector('img'); out = root.querySelector('output');
+
+    root.querySelector('.tools').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const cx = innerWidth / 2, cy = innerHeight / 2;
+      if (b.dataset.act === 'in') zoomAt(cx, cy, 1.5);
+      else if (b.dataset.act === 'out') zoomAt(cx, cy, 1 / 1.5);
+      else if (b.dataset.act === 'fit') reset();
+      else close();
+    });
+
+    const pts = new Map(); let lastTap = { t: 0, x: 0, y: 0 }, moved = 0, pinch = 0;
+    root.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('.tools')) return;
+      root.setPointerCapture(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      moved = 0; root.classList.add('dragging');
+      if (pts.size === 2) { const [a, b] = [...pts.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); }
+    });
+    root.addEventListener('pointermove', (e) => {
+      const p = pts.get(e.pointerId); if (!p) return;
+      const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      if (pts.size === 1) { tx += dx; ty += dy; apply(); }
+      else if (pts.size === 2) {
+        const [a, b] = [...pts.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+        tx += dx / 2; ty += dy / 2;
+        if (pinch > 0) zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, d / pinch); else apply();
+        pinch = d;
+      }
+    });
+    const up = (e) => {
+      if (!pts.delete(e.pointerId)) return;
+      if (pts.size < 2) pinch = 0;
+      if (pts.size) return;
+      root.classList.remove('dragging');
+      if (e.type !== 'pointerup' || moved >= 8) return;
+      const now = performance.now();
+      if (now - lastTap.t < 320 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 30) {
+        if (s < min * 1.8) zoomAt(e.clientX, e.clientY, Math.min(max, min * 3) / s); else reset();
+        lastTap.t = 0;
+      } else lastTap = { t: now, x: e.clientX, y: e.clientY };
+    };
+    root.addEventListener('pointerup', up); root.addEventListener('pointercancel', up);
+    root.addEventListener('wheel', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      zoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * .0016));
+    }, { passive: false });
+    // Clicks inside the viewer must not reach the deck's tap-to-advance.
+    root.addEventListener('click', (e) => e.stopPropagation());
+  };
+
+  const open = (btn) => {
+    if (!root) build();
+    opener = btn;
+    NW = +btn.getAttribute('data-zoom-w') || 1; NH = +btn.getAttribute('data-zoom-h') || 1;
+    img.width = NW; img.height = NH;
+    const src = btn.getAttribute('data-zoom');
+    if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+    root.setAttribute('aria-label', btn.getAttribute('data-zoom-label') || 'Image viewer');
+    if (!styleEl.isConnected) document.head.appendChild(styleEl);
+    document.body.appendChild(root);
+    reset();
+    root.querySelector('.close').focus();
+  };
+  const close = () => {
+    if (!isOpen()) return;
+    root.remove();
+    if (opener && opener.isConnected) opener.focus();
+  };
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest && e.target.closest('[data-zoom]');
+    if (!btn) return;
+    e.preventDefault(); e.stopPropagation();
+    open(btn);
+  }, true);
+
+  addEventListener('keydown', (e) => {
+    if (!isOpen() || e.metaKey || e.ctrlKey || e.altKey) return;
+    const cx = innerWidth / 2, cy = innerHeight / 2, step = 80;
+    if (e.key === 'Escape') close();
+    else if (e.key === '+' || e.key === '=') zoomAt(cx, cy, 1.25);
+    else if (e.key === '-' || e.key === '_') zoomAt(cx, cy, 1 / 1.25);
+    else if (e.key === '0') reset();
+    else if (e.key === 'ArrowLeft') { tx += step; apply(); }
+    else if (e.key === 'ArrowRight') { tx -= step; apply(); }
+    else if (e.key === 'ArrowUp') { ty += step; apply(); }
+    else if (e.key === 'ArrowDown') { ty -= step; apply(); }
+    else if (e.key === 'Tab' || e.key === 'Enter') return;   // leave focus and activation alone
+    else if (e.key === ' ' && e.target.closest && e.target.closest('.deck-viewer button')) { e.stopImmediatePropagation(); return; }
+    // Everything else (Space, PageDown, Home, End…) is swallowed too, so the
+    // deck cannot change slide behind an open viewer.
+    e.preventDefault(); e.stopImmediatePropagation();
+  }, true);
+
+  addEventListener('resize', () => { if (isOpen()) reset(); });
+})();
