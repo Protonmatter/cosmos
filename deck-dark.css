@@ -241,3 +241,39 @@
    whose subject is at the bottom right. */
 .fb-aside.fb-aside-left { left: 110px; right: auto; text-align: left; }
 .fb-aside-left .fb-credit { text-align: left; }
+
+/* ── Additions for slides that argue rather than compare ───────────────── */
+
+/* A heading that is a sentence. */
+.dk h2.dk-long { font-size: 68px; line-height: 1.06; }
+
+/* The photograph on the right instead of the left. */
+.dk-side.dk-side-right { left: auto; right: 0; }
+.dk-side-right::after { right: auto; left: 0; background: linear-gradient(270deg, rgba(0, 0, 0, 0), #000); }
+
+/* Label and text rows inside a text column. */
+.dk-copy .dk-rows { position: static; margin: 30px 0 0; }
+.dk-copy .dk-rows > div:last-child { border-bottom: 1px solid var(--dk-rule); }
+
+/* One or two large figures with what they measure. */
+.dk-stats { position: absolute; display: flex; gap: 72px; margin: 0; }
+.dk-stats > div { margin: 0; }
+.dk-stats dt { font-family: var(--font-heading); font-size: 84px; line-height: 1; letter-spacing: -0.01em; font-feature-settings: 'tnum'; }
+.dk-stats dd { margin: 10px 0 0; font-size: 24px; color: var(--fb-ink-3); }
+
+/* Pictures in a grid, each cropped to the same shape. The viewer shows them whole. */
+.dk-grid {
+  position: absolute;
+  left: 110px;
+  right: 110px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: var(--dk-grid-gap, 30px 32px);
+}
+.dk-grid figure { margin: 0; }
+.dk-grid .dk-zoom { width: 100%; height: var(--h); }
+.dk-grid figcaption { margin-top: 14px; font-size: 24px; line-height: 1.35; color: var(--fb-ink-3); }
+.dk-grid figcaption b { font-weight: 400; color: var(--fb-ink); }
+
+/* A rule between a lede and what follows it in a text column. */
+.dk-copy .dk-coda { margin-top: 30px; padding-top: 28px; border-top: 1px solid var(--dk-rule); }
