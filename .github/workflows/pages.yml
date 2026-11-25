@@ -19,7 +19,11 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # One deploy at a time, and never cancel one that has started: a publish cut
+  # off part-way is worse than one that finishes just before its successor. A
+  # newer push waits for the run in progress; pushes queued behind that are
+  # collapsed to the latest.
+  cancel-in-progress: false
 
 jobs:
   gates:
@@ -28,22 +32,43 @@ jobs:
     permissions:
       contents: read
 
+  # Packaging and publishing are separate jobs on purpose.
+  #
+  # deploy-pages looks the artifact up exactly once, with no retry. When both
+  # steps shared a job that lookup ran a fraction of a second after the upload
+  # finished, missed it, and failed the deploy with "No artifacts named
+  # github-pages". Re-running the failed job then uploaded a second artifact
+  # into the same run, which the action also rejects ("Multiple artifacts").
+  #
+  # As separate jobs the artifact has long settled before the deploy starts
+  # looking, and re-running a failed deploy reuses it instead of uploading again.
+  package:
+    name: Package site
+    needs: gates
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/configure-pages@v6
+
+      # The site is the repository: no build step, nothing generated.
+      #
+      # include-hidden-files keeps the published tree identical to what v3 of
+      # this action produced. From v4 it leaves dotfiles out by default, which
+      # would drop .nojekyll (SITE-004) from the artifact. .git and .github are
+      # excluded either way.
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+          include-hidden-files: true
+
   deploy:
     name: Deploy
-    needs: gates
+    needs: package
     runs-on: ubuntu-24.04
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/configure-pages@v5
-
-      # The site is the repository: no build step, nothing generated.
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
