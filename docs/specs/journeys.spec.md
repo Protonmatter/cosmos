@@ -29,6 +29,7 @@ that visitor could see.
 | `FLOW-005` | SHOULD | A visitor can reach the poster from the landing page |
 | `FLOW-006` | MUST | A visitor can follow the Solar System deck's moons slide through to the Moons deck |
 | `FLOW-007` | MUST | A visitor can follow the Moons deck's last slide through to the JunoCam deck |
+| `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer |
 
 `FLOW-004` exists because sharing a link to a particular slide is the main reason
 the fragment is in the URL at all. A deep link that opens the right slide but leaves
@@ -40,3 +41,6 @@ back through the landing page.
 
 `FLOW-007` was added by [RFC 0006](../rfcs/0006-one-look-for-every-deck.md), for
 the same reason: the decks are numbered and meant to be read in order.
+
+`FLOW-008` completes the chain. The JunoCam deck's own speaker notes say the
+explorer is where to browse the archive; the slide now links to it.

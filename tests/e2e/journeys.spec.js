@@ -102,3 +102,16 @@ test('follow the Moons deck through to the JunoCam deck @REQ FLOW-007', async ({
   await waitForReady(page, { kind: 'deck' });
   await expect(page.locator('deck-stage > section[data-deck-active]')).toHaveAttribute('data-deck-slide', '0');
 });
+
+test('follow the JunoCam deck through to the explorer @REQ FLOW-008', async ({ page }) => {
+  // The deck makes the argument; the explorer is where the frames are. The
+  // closing slide should say so with a link, not leave it to the landing page.
+  await page.goto('/junocam-deck.dc.html#11');
+  await waitForReady(page, { kind: 'deck' });
+  const slide = page.locator('deck-stage > section[data-deck-active]');
+  await expect(slide).toHaveAttribute('data-label', 'Closing');
+
+  await slide.getByRole('link', { name: /explorer/i }).click();
+
+  await expect(page).toHaveURL(/junocam-explorer\.dc\.html/);
+});
