@@ -32,6 +32,9 @@ The pages are plain HTML that declare their content declaratively; `support.js`,
 shared look. `deck-full-bleed.css` is the layout the Solar System deck's body slides
 use: one photograph filling the slide, the facts over it, and a button that opens the
 image at full resolution ([RFC 0005](docs/rfcs/0005-full-bleed-decks.md)).
+`deck-dark.css` is the rest of that look, for slides that compare several bodies, set
+out a table or pair two photographs; the Moons deck is built from it
+([RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)).
 
 ## Pocket Planetarium (beta)
 
@@ -127,8 +130,9 @@ site uses, all NASA and in the public domain:
 
 The deck's cover image, `planets/lineup-<width>.webp`, is drawn from the other images
 by `tools/cover-lineup.py`. The rest of the deck's images are the `planets/<name>-<width>.webp` files, written by
-`tools/image-variants.py`. The older `planets/*.png` files remain because the Pocket
-Planetarium still uses them.
+`tools/image-variants.py`. The Moons deck's images are the `moons/<name>-<width>.webp`
+files, written the same way. The older `planets/*.png` and `moons/*.png` files remain
+because the Pocket Planetarium still uses them.
 
 Two files are **not** public domain and are used under **CC BY 4.0**: `textures/moon.jpg`
 and `textures/saturn_ring.png`, from [Solar System

@@ -87,3 +87,18 @@ test('follow the Solar System deck through to the Moons deck @REQ FLOW-006', asy
   await waitForReady(page, { kind: 'deck' });
   await expect(page.locator('deck-stage > section[data-deck-active]')).toHaveAttribute('data-deck-slide', '0');
 });
+
+test('follow the Moons deck through to the JunoCam deck @REQ FLOW-007', async ({ page }) => {
+  // The decks are meant to be read in order. The last slide of one should
+  // hand over to the next, as the Solar System deck's moons slide does.
+  await page.goto('/the-moons.dc.html#18');
+  await waitForReady(page, { kind: 'deck' });
+  const slide = page.locator('deck-stage > section[data-deck-active]');
+  await expect(slide).toHaveAttribute('data-label', 'Sources');
+
+  await slide.getByRole('link', { name: /JunoCam/ }).click();
+
+  await expect(page).toHaveURL(/junocam-deck\.dc\.html/);
+  await waitForReady(page, { kind: 'deck' });
+  await expect(page.locator('deck-stage > section[data-deck-active]')).toHaveAttribute('data-deck-slide', '0');
+});

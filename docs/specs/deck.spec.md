@@ -1,7 +1,7 @@
 # Specification — The presentation decks
 
 **Area:** `DECK` · **Introduced by:** [RFC 0002](../rfcs/0002-quality-gates-and-cicd.md) ·
-**Extended by:** [RFC 0005](../rfcs/0005-full-bleed-decks.md) · **Status:** Active
+**Extended by:** [RFC 0005](../rfcs/0005-full-bleed-decks.md), [RFC 0006](../rfcs/0006-one-look-for-every-deck.md) · **Status:** Active
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are to be interpreted as
 described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and
@@ -144,11 +144,37 @@ Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
 | `DECK-021` | MUST | The images the Solar System deck requests on load total no more than 1 MB at the test viewport |
 | `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
 
+| `DECK-026` | MUST | The images the Moons deck requests on load total no more than 1 MB at the test viewport |
+
 `DECK-021`'s figure is a budget, not a measurement. The deck requested 20.5 MB of
 images on load before RFC 0005 and 0.27 MB after; 1 MB leaves room to work while
 still failing loudly if a multi-megabyte original is linked again or the far slides
 start loading. The test viewport is 1440 × 900 at a device pixel ratio of 1.
 
+`DECK-026` is the same budget for the Moons deck, added by
+[RFC 0006](../rfcs/0006-one-look-for-every-deck.md). That deck asked for 50.7 MB
+before RFC 0005, nothing after it while its opening slides had no pictures, and
+0.02 MB now that its cover has one.
+
 `DECK-023` protects the README's promise that printing to PDF gives one page per
 slide. The engine marks every slide active before a print, which brings them all
 back into rendering; this requirement is what notices if that ever stops being true.
+
+### Comparing bodies
+
+Introduced by [RFC 0006](../rfcs/0006-one-look-for-every-deck.md). The Moons deck
+sets photographs side by side: in a row, in pairs, and as a smaller picture beside
+a full-bleed one. Each is a `<button data-zoom="…">` around its `<img>`. A row of
+bodies is a `.dk-lineup` of `<figure class="dk-body">`, each holding a `.dk-disc`
+button and a caption whose `.dk-fig` begins with the body's radius in kilometres.
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-024` | MUST | Every photograph in the Moons deck can be opened in the image viewer |
+| `DECK-025` | MUST | In a line-up, each disc is drawn in proportion to the radius printed beneath it |
+
+`DECK-025` is what the word "scale" on those slides promises. A disc is a circle
+cut from a photograph, so a body photographed as a crescent still shows its size,
+but nothing about the photograph enforces that size: it is a number in the markup,
+and this requirement is what holds it to the radius beside it. The test allows a
+difference of one pixel, or two per cent on the larger discs, which is rounding.

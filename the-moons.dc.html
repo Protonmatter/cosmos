@@ -13,343 +13,439 @@
 <helmet>
 <link rel="stylesheet" href="classical.css">
 <link rel="stylesheet" href="deck-cinema.css?v=3">
+<link rel="stylesheet" href="deck-full-bleed.css">
+<link rel="stylesheet" href="deck-dark.css">
 <style>
-  html, body { margin:0; background:#0a0908; }
-  a { color:var(--color-accent-700); text-decoration:none; }
-  a:hover { color:var(--color-accent-600); }
+  html, body { margin:0; background:#000; }
+  /* Every slide in this deck is dark, so the stage around the canvas is too. */
+  deck-stage { --cin-canvas:#000; --cin-stage:#000; }
+
+  /* The cover: a title over one photograph, and how many moons each planet has. */
+  .mc-copy { position:absolute; left:110px; top:100px; width:1100px; }
+  .mc-copy h1 { font-family:var(--font-heading); font-weight:400; font-size:150px; line-height:1; letter-spacing:-0.025em; margin:20px 0 30px -5px; white-space:nowrap; }
+  .mc-copy p { margin:0; font-size:30px; line-height:1.45; color:var(--fb-ink-2); max-width:27em; }
+  .mc-copy .mc-source { margin-top:22px; font-size:24px; color:var(--fb-ink-3); }
+  .mc-count { position:absolute; right:110px; top:112px; width:360px; margin:0; border-top:1px solid rgba(240,236,229,.5); }
+  .mc-count > div { display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid rgba(240,236,229,.16); }
+  .mc-count dt { font-size:24px; letter-spacing:0.14em; text-transform:uppercase; color:var(--fb-ink-2); }
+  .mc-count dd { margin:0; font-family:var(--font-heading); font-size:44px; line-height:1; }
+  .mc-next { margin:40px 0 0; }
 </style>
 </helmet>
 
 <x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
 
-  <section data-label="Cover" data-screen-label="01" data-speaker-notes="Twenty-two moons carried in the orrery's satellite table, plus our own from the body table. Every figure in this deck is from that data." style="background: #1a1815; color: #f0ece5; font-family: var(--font-body); padding: 110px; display: flex; flex-direction: column; justify-content: space-between; position: relative">
-    <div style="font-size:24px;letter-spacing:0.22em;text-transform:uppercase;color:var(--color-accent-400)">Sol · Satellite reference</div>
-    <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:100px;align-items:end">
-      <div>
-        <h1 style="font-family:var(--font-heading);font-weight:400;font-size:132px;line-height:0.96;letter-spacing:-0.025em;margin:0 0 40px">Twenty-two<br>moons</h1>
-        <p style="margin:0;font-size:32px;line-height:1.45;color:#bdb6ab">Two of them larger than Mercury. One with weather. One running backwards. Two that are barely more than gravel.</p>
-      </div>
-      <dl style="margin:0;border-top:1px solid rgba(255,255,255,0.3);font-feature-settings:'tnum'">
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Earth</dt><dd style="margin:0;font-size:28px;color:#e8e3da">1</dd></div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Mars</dt><dd style="margin:0;font-size:28px;color:#e8e3da">2</dd></div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Jupiter</dt><dd style="margin:0;font-size:28px;color:#e8e3da">4</dd></div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Saturn</dt><dd style="margin:0;font-size:28px;color:#e8e3da">7</dd></div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Uranus</dt><dd style="margin:0;font-size:28px;color:#e8e3da">5</dd></div>
-        <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;padding:18px 0"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Neptune</dt><dd style="margin:0;font-size:28px;color:#e8e3da">3</dd></div>
-      </dl>
+  <section class="fb" data-label="Cover" data-screen-label="01" data-speaker-notes="Twenty-two moons carried in the orrery's satellite table, plus our own from the body table. Every figure in this deck is from that data." style="--fb-w:1920px; --fb-x:0px; --fb-y:-70px; --fb-ar:1580/977">
+    <div class="fb-plate"><img loading="lazy" src="moons/enceladus-geysers-1580.webp" srcset="moons/enceladus-geysers-960.webp 960w, moons/enceladus-geysers-1580.webp 1580w" sizes="100vw" width="1580" height="977" alt="Jets of ice rising from the night side of Enceladus, lit from behind by the Sun"></div>
+    <div class="mc-copy">
+      <div class="fb-kicker">Sol · Satellite reference</div>
+      <h1>Twenty-two moons</h1>
+      <p>Two of them larger than Mercury. One with weather. One running backwards. Two that are barely more than gravel.</p>
+      <p class="mc-source">Orbits and radii from the orrery's satellite table; the Moon from the body table.</p>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,0.16);padding-top:26px;font-size:24px;color:#8e877c">Orbits and radii from the orrery's satellite table; the Moon from the body table</div>
+    <dl class="mc-count">
+      <div><dt>Earth</dt><dd>1</dd></div>
+      <div><dt>Mars</dt><dd>2</dd></div>
+      <div><dt>Jupiter</dt><dd>4</dd></div>
+      <div><dt>Saturn</dt><dd>7</dd></div>
+      <div><dt>Uranus</dt><dd>5</dd></div>
+      <div><dt>Neptune</dt><dd>3</dd></div>
+    </dl>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/enceladus-geysers-1580.webp" data-zoom-w="1580" data-zoom-h="977" data-zoom-label="Enceladus venting">Explore the image</button>
+      <p class="fb-credit">Enceladus venting water ice into space, backlit by the Sun. NASA / JPL-Caltech / Space Science Institute.</p>
+    </div>
   </section>
 
-  <section data-label="The roster" data-screen-label="02" data-speaker-notes="The whole set on one page. Radius and orbital period are the two columns that separate a Ganymede from a Deimos." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:90px 100px;display:flex;flex-direction:column;gap:38px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px">
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">The roster</h2>
-      <p style="margin:0;font-size:25px;line-height:1.4;color:var(--color-neutral-700);text-align:justify">Radius in kilometres, orbital period in days. The spread runs from Deimos, six kilometres across, to Ganymede, which would be counted a planet if it went round the Sun instead.</p>
+  <section class="dk" data-label="The roster" data-screen-label="02" data-speaker-notes="The whole set on one page. Radius and orbital period are the two columns that separate a Ganymede from a Deimos.">
+    <div class="dk-head dk-row">
+      <h2>The roster</h2>
+      <p class="dk-lede">Radius in kilometres, orbital period in days. The spread runs from Deimos, six kilometres across, to Ganymede, which would be counted a planet if it went round the Sun instead.</p>
     </div>
-    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:70px;min-height:0;font-feature-settings:'tnum'">
-      <table style="width:100%;border-collapse:collapse;font-size:24px">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Moon</th>
-            <th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Primary</th>
-            <th style="text-align:right;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Radius</th>
-            <th style="text-align:right;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Period</th>
-          </tr>
-        </thead>
+    <div class="dk-tables">
+      <table>
+        <thead><tr><th>Moon</th><th>Primary</th><th>Radius</th><th>Period</th></tr></thead>
         <tbody>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">The Moon</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Earth</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1,737.4</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">27.322</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Phobos</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Mars</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">11.1</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">0.319</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Deimos</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Mars</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">6.2</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.262</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Io</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Jupiter</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1,821.5</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.769</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Europa</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Jupiter</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1,560.8</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">3.551</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Ganymede</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Jupiter</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">2,631.2</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">7.155</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Callisto</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Jupiter</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">2,410.3</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">16.689</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Mimas</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">198.2</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">0.942</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Enceladus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">252.1</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.370</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Tethys</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">531.1</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.888</td></tr>
-          <tr><td style="padding:8px 0">Dione</td><td style="padding:8px 0;color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;text-align:right">561.4</td><td style="padding:8px 0;text-align:right">2.737</td></tr>
+          <tr><td>The Moon</td><td>Earth</td><td>1,737.4</td><td>27.322</td></tr>
+          <tr><td>Phobos</td><td>Mars</td><td>11.1</td><td>0.319</td></tr>
+          <tr><td>Deimos</td><td>Mars</td><td>6.2</td><td>1.262</td></tr>
+          <tr><td>Io</td><td>Jupiter</td><td>1,821.5</td><td>1.769</td></tr>
+          <tr><td>Europa</td><td>Jupiter</td><td>1,560.8</td><td>3.551</td></tr>
+          <tr><td>Ganymede</td><td>Jupiter</td><td>2,631.2</td><td>7.155</td></tr>
+          <tr><td>Callisto</td><td>Jupiter</td><td>2,410.3</td><td>16.689</td></tr>
+          <tr><td>Mimas</td><td>Saturn</td><td>198.2</td><td>0.942</td></tr>
+          <tr><td>Enceladus</td><td>Saturn</td><td>252.1</td><td>1.370</td></tr>
+          <tr><td>Tethys</td><td>Saturn</td><td>531.1</td><td>1.888</td></tr>
+          <tr><td>Dione</td><td>Saturn</td><td>561.4</td><td>2.737</td></tr>
         </tbody>
       </table>
-      <table style="width:100%;border-collapse:collapse;font-size:24px">
-        <thead>
-          <tr>
-            <th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Moon</th>
-            <th style="text-align:left;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Primary</th>
-            <th style="text-align:right;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Radius</th>
-            <th style="text-align:right;padding:8px 0;border-bottom:1px solid var(--color-text);font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Period</th>
-          </tr>
-        </thead>
+      <table>
+        <thead><tr><th>Moon</th><th>Primary</th><th>Radius</th><th>Period</th></tr></thead>
         <tbody>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Rhea</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">763.5</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">4.518</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Titan</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">2,574.8</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">15.945</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Iapetus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Saturn</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">734.3</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">79.333</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Miranda</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Uranus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">235.8</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.413</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Ariel</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Uranus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">578.9</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">2.520</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Umbriel</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Uranus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">584.7</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">4.144</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Titania</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Uranus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">788.9</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">8.706</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Oberon</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Uranus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">761.4</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">13.463</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Triton</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Neptune</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1,352.6</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">5.877</td></tr>
-          <tr><td style="padding:8px 0;border-bottom:1px solid var(--color-divider)">Proteus</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);color:var(--color-neutral-700)">Neptune</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">208.0</td><td style="padding:8px 0;border-bottom:1px solid var(--color-divider);text-align:right">1.122</td></tr>
-          <tr><td style="padding:8px 0">Nereid</td><td style="padding:8px 0;color:var(--color-neutral-700)">Neptune</td><td style="padding:8px 0;text-align:right">170.0</td><td style="padding:8px 0;text-align:right">360.068</td></tr>
+          <tr><td>Rhea</td><td>Saturn</td><td>763.5</td><td>4.518</td></tr>
+          <tr><td>Titan</td><td>Saturn</td><td>2,574.8</td><td>15.945</td></tr>
+          <tr><td>Iapetus</td><td>Saturn</td><td>734.3</td><td>79.333</td></tr>
+          <tr><td>Miranda</td><td>Uranus</td><td>235.8</td><td>1.413</td></tr>
+          <tr><td>Ariel</td><td>Uranus</td><td>578.9</td><td>2.520</td></tr>
+          <tr><td>Umbriel</td><td>Uranus</td><td>584.7</td><td>4.144</td></tr>
+          <tr><td>Titania</td><td>Uranus</td><td>788.9</td><td>8.706</td></tr>
+          <tr><td>Oberon</td><td>Uranus</td><td>761.4</td><td>13.463</td></tr>
+          <tr><td>Triton</td><td>Neptune</td><td>1,352.6</td><td>5.877</td></tr>
+          <tr><td>Proteus</td><td>Neptune</td><td>208.0</td><td>1.122</td></tr>
+          <tr><td>Nereid</td><td>Neptune</td><td>170.0</td><td>360.068</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <section data-label="Scale" data-screen-label="03" data-speaker-notes="True relative sizes. Ganymede and Titan both beat Mercury on radius while carrying a fraction of its mass — they are ice, not rock and iron." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:24px">True relative size</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0 0 26px">The seven largest, and Mercury</h2>
-      <p style="margin:0;font-size:27px;line-height:1.45;color:var(--color-neutral-800);max-width:44em">Two moons are wider than the innermost planet. Neither is remotely as heavy: Mercury is rock and iron, while Ganymede and Titan are roughly half water ice.</p>
+  <section class="dk" data-label="Scale" data-screen-label="03" data-speaker-notes="True relative sizes. Ganymede and Titan both beat Mercury on radius while carrying a fraction of its mass — they are ice, not rock and iron.">
+    <div class="dk-head">
+      <div class="fb-kicker">True relative size</div>
+      <h2>The seven largest, and Mercury</h2>
+      <p class="dk-lede">Two moons are wider than the innermost planet. Neither is remotely as heavy: Mercury is rock and iron, while Ganymede and Titan are roughly half water ice.</p>
     </div>
-    <div data-om-raster="true" style="display:grid;grid-template-columns:repeat(8,auto);justify-content:space-between;align-items:end;justify-items:center;gap:26px 30px">
-      <div style="width:220px;height:220px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/gp-ganymede.png" alt="Ganymede: grey, cratered, with bright ray craters" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:215px;height:215px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/disc-titan.png" alt="Titan: a featureless orange haze" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:204px;height:204px;border-radius:50%;overflow:hidden;border:2px dashed var(--color-neutral-500);background:#000"><img loading="lazy" src="moons/disc-mercury.png" alt="Mercury: grey and cratered pole to pole" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:202px;height:202px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/disc-callisto.png" alt="Callisto: dark, speckled with bright craters" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:152px;height:152px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/gp-io.png" alt="Io: mottled sulfur yellows and whites" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:145px;height:145px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/moon.png" alt="The Moon: grey maria and bright ray craters" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:131px;height:131px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/gp-europa.png" alt="Europa: pale ice cut by rust-coloured cracks" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="width:113px;height:113px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/triton.png" alt="Triton: pale nitrogen ice, its southern cap dimpled like a cantaloupe" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Ganymede</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,631 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Titan</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,575 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15;color:var(--color-neutral-700)">Mercury</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,440 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Callisto</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,410 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Io</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">1,822 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">The Moon</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">1,737 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Europa</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">1,561 km</div></div>
-      <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px;line-height:1.15">Triton</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">1,353 km</div></div>
+    <div class="dk-lineup" style="--dk-top:470px; --dk-row:250px">
+      <figure class="dk-body" style="--w:240px; --d:240px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/gp-ganymede-258.webp" data-zoom-w="258" data-zoom-h="258" data-zoom-label="Ganymede"><img loading="lazy" src="moons/gp-ganymede-258.webp" width="258" height="258" alt="Ganymede: grey, cratered, with bright ray craters" style="width:100.0%; height:100.0%; margin-left:-0.0%; margin-top:-0.0%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Ganymede</b><span class="dk-fig">2,631 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:235px; --d:235px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/disc-titan-500.webp" data-zoom-w="500" data-zoom-h="500" data-zoom-label="Titan"><img loading="lazy" src="moons/disc-titan-500.webp" srcset="moons/disc-titan-256.webp 256w, moons/disc-titan-500.webp 500w" sizes="12vw" width="500" height="500" alt="Titan: a featureless orange haze" style="width:100.0%; height:100.0%; margin-left:-0.0%; margin-top:-1.1%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Titan</b><span class="dk-fig">2,575 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:223px; --d:223px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc dk-planet" data-zoom="moons/disc-mercury-1987.webp" data-zoom-w="1987" data-zoom-h="1987" data-zoom-label="Mercury"><img loading="lazy" src="moons/disc-mercury-1987.webp" srcset="moons/disc-mercury-256.webp 256w, moons/disc-mercury-512.webp 512w, moons/disc-mercury-1987.webp 1987w" sizes="12vw" width="1987" height="1987" alt="Mercury: grey and cratered pole to pole" style="width:101.7%; height:101.7%; margin-left:-0.9%; margin-top:-0.9%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Mercury</b><span class="dk-fig">2,440 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:220px; --d:220px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/disc-callisto-539.webp" data-zoom-w="539" data-zoom-h="539" data-zoom-label="Callisto"><img loading="lazy" src="moons/disc-callisto-539.webp" srcset="moons/disc-callisto-256.webp 256w, moons/disc-callisto-539.webp 539w" sizes="11vw" width="539" height="539" alt="Callisto: dark, speckled with bright craters" style="width:101.3%; height:101.3%; margin-left:-0.8%; margin-top:-0.8%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Callisto</b><span class="dk-fig">2,410 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:166px; --d:166px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/gp-io-202.webp" data-zoom-w="202" data-zoom-h="202" data-zoom-label="Io"><img loading="lazy" src="moons/gp-io-202.webp" width="202" height="202" alt="Io: mottled sulfur yellows and whites" style="width:100.0%; height:100.0%; margin-left:-0.0%; margin-top:-0.0%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Io</b><span class="dk-fig">1,822 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:158px; --d:158px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/moon-1920.webp" data-zoom-w="1920" data-zoom-h="1825" data-zoom-label="The Moon"><img loading="lazy" src="moons/moon-1920.webp" srcset="moons/moon-256.webp 256w, moons/moon-512.webp 512w, moons/moon-1920.webp 1920w" sizes="8vw" width="1920" height="1825" alt="The Moon: grey maria and bright ray craters" style="width:120.1%; height:114.1%; margin-left:-10.2%; margin-top:-8.1%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>The Moon</b><span class="dk-fig">1,737 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:142px; --d:142px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/gp-europa-180.webp" data-zoom-w="180" data-zoom-h="180" data-zoom-label="Europa"><img loading="lazy" src="moons/gp-europa-180.webp" width="180" height="180" alt="Europa: pale ice cut by rust-coloured cracks" style="width:100.0%; height:100.0%; margin-left:-0.0%; margin-top:-0.3%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Europa</b><span class="dk-fig">1,561 km</span></figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:123px; --d:123px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/triton-1920.webp" data-zoom-w="1920" data-zoom-h="1920" data-zoom-label="Triton"><img loading="lazy" src="moons/triton-1920.webp" srcset="moons/triton-256.webp 256w, moons/triton-512.webp 512w, moons/triton-1920.webp 1920w" sizes="6vw" width="1920" height="1920" alt="Triton: pale nitrogen ice, its southern cap dimpled like a cantaloupe" style="width:114.3%; height:114.3%; margin-left:-5.8%; margin-top:-8.7%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Triton</b><span class="dk-fig">1,353 km</span></figcaption>
+      </figure>
     </div>
-    <div style="border-top:1px solid var(--color-divider);padding-top:24px;font-size:24px;color:var(--color-neutral-600)">All eight are to scale with each other, and all eight are photographs. Mercury is ringed with a dashed line — it is a planet, included only for comparison.</div>
+    <p class="dk-foot">All eight are to scale with each other, and all eight are photographs. Mercury is ringed with a dashed line: it is a planet, included only for comparison.</p>
   </section>
 
-  <section data-label="Mars" data-screen-label="04" data-speaker-notes="Two rocks, probably captured. Phobos orbits faster than Mars rotates, so it rises in the west, and it is spiralling in." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:90px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:24px">Mars</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:82px;line-height:1.02;letter-spacing:-0.02em;margin:0 0 34px">Two rocks on short leashes</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Phobos is eleven kilometres across and orbits in under eight hours — faster than Mars turns, so from the surface it rises in the west and sets in the east twice a day.</p>
-      <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">It is also falling. Tidal drag is pulling it inward, and it will break up or strike the planet within about fifty million years.</p>
-    </div>
-    <div style="min-height:0">
-      <div data-om-raster="true" style="display:flex;align-items:center;gap:60px;padding-bottom:44px;border-bottom:1px solid var(--color-divider);margin-bottom:36px">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
-          <div style="width:150px;height:150px;overflow:hidden;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:#000"><img loading="lazy" src="moons/phobos.png" alt="Phobos, a battered grey-pink lump with a large crater at one edge" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-          <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px">Phobos</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">11.1 km</div></div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
-          <div style="width:84px;height:84px;overflow:hidden;border:6px solid var(--color-surface);outline:1px solid var(--color-divider);background:#000"><img loading="lazy" src="moons/deimos.png" alt="Deimos, a smooth pale wedge with a few shallow craters" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-          <div style="text-align:center"><div style="font-family:var(--font-heading);font-size:28px">Deimos</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">6.2 km</div></div>
-        </div>
-        <p style="margin:0;font-size:24px;line-height:1.45;color:var(--color-neutral-600)">Both photographs, to scale with each other. At the scale of the previous slide, either would be smaller than this full stop.</p>
-      </div>
-      <dl style="margin:0;font-feature-settings:'tnum'">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Phobos — orbit</dt><dd style="margin:0;font-size:26px">9,379 km, 0.319 d</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Phobos — density</dt><dd style="margin:0;font-size:26px">1.872 g/cm³</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Deimos — orbit</dt><dd style="margin:0;font-size:26px">23,459 km, 1.262 d</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Deimos — density</dt><dd style="margin:0;font-size:26px">1.471 g/cm³</dd></div>
+  <section class="dk" data-label="Mars" data-screen-label="04" data-speaker-notes="Two rocks, probably captured. Phobos orbits faster than Mars rotates, so it rises in the west, and it is spiralling in.">
+    <div class="dk-copy" style="--dk-copy-w:720px">
+      <div class="fb-kicker">Mars</div>
+      <h2>Two rocks on short leashes</h2>
+      <p class="dk-lede">Phobos is eleven kilometres across and orbits in under eight hours. That is faster than Mars turns, so from the surface it rises in the west and sets in the east twice a day.</p>
+      <p class="dk-lede">It is also falling. Tidal drag is pulling it inward, and it will break up or strike the planet within about fifty million years.</p>
+      <dl class="fb-ledger">
+        <div><dt>Phobos, orbit</dt><dd>9,379 km<span class="fb-note">0.319 d</span></dd></div>
+        <div><dt>Phobos, density</dt><dd>1.872 g/cm³</dd></div>
+        <div><dt>Deimos, orbit</dt><dd>23,459 km<span class="fb-note">1.262 d</span></dd></div>
+        <div><dt>Deimos, density</dt><dd>1.471 g/cm³</dd></div>
       </dl>
     </div>
-  </section>
-
-  <section data-label="Phobos and Deimos" data-screen-label="05" data-speaker-notes="Two captured lumps. Phobos orbits faster than Mars rotates, so it rises in the west; it is spiralling in and will break up in tens of millions of years." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Mars I and II</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Two lumps</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Neither is round — both are too small for gravity to pull them into a sphere. Phobos orbits closer to its planet than any other moon in the solar system, and faster than Mars turns, so from the surface it rises in the west.</p>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">It is also spiralling inwards. In tens of millions of years it will break apart into a ring.</p>
-      <figure style="margin:0;flex:none;display:flex;gap:26px;align-items:flex-start"><div style="flex:none;height:196px;aspect-ratio:732/520;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/phobos.png" alt="Phobos in close-up, a battered grey-pink lump with a large crater at its edge" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:1;min-width:0;font-size:24px;line-height:1.45;margin:0;color:var(--color-neutral-600)">Phobos, 22.5 km across. NASA / JPL-Caltech / University of Arizona.</figcaption></figure>
-    </div>
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column"><div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/mars-moons.png" alt="Mars with Phobos and Deimos alongside, shown at their relative sizes" style="width:100%;height:100%;object-fit:contain;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">Mars with both moons at their relative sizes. Deimos, upper right, is 12.4 km across. NASA / JPL-Caltech / Malin Space Science Systems.</figcaption></figure>
-  </section>
-
-  <section data-label="The Galileans" data-screen-label="06" data-speaker-notes="Four worlds found in 1610. Density falls with distance from Jupiter: rock at Io, half ice by Callisto. This is a real Voyager composite, so the sizes are the true ratios." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,0.72fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column">
-      <div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/galileans-portrait.png" alt="Jupiter's Great Red Spot with Io, Europa, Ganymede and Callisto arranged beside it at their true relative sizes" style="width:100%;height:100%;object-fit:contain;display:block"></div>
-      <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Io, Europa, Ganymede and Callisto at their true relative sizes, beside the Great Red Spot. NASA / JPL / DLR.</figcaption>
+    <figure class="dk-pair" style="left:930px; top:170px; width:540px; --h:540px">
+      <button type="button" class="dk-zoom" data-zoom="moons/phobos-732.webp" data-zoom-w="732" data-zoom-h="520" data-zoom-label="Phobos"><img loading="lazy" src="moons/phobos-732.webp" width="732" height="520" alt="Phobos, a battered grey-pink lump with a large crater at one edge"></button>
+      <figcaption><b>Phobos</b>11.1 km</figcaption>
     </figure>
-    <div style="min-height:0">
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:84px;line-height:1;letter-spacing:-0.02em;margin:0 0 26px">The Galileans</h2>
-      <p style="margin:0 0 40px;font-size:27px;line-height:1.5;text-align:justify;hyphens:auto">Density falls steadily outward — 3.53 g/cm³ at Io, 1.83 at Callisto. The inner two are rock; the outer two are about half water ice. Distance from Jupiter set how much ice survived.</p>
-      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 50px;border-top:1px solid var(--color-text);padding-top:34px">
-        <div><div style="font-family:var(--font-heading);font-size:34px;line-height:1.1">Io</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin:6px 0 8px">1,822 km · 1.77 d · 3.53 g/cm³</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">The most volcanically active world in the solar system — sulfur frosts, 400+ volcanoes.</div></div>
-        <div><div style="font-family:var(--font-heading);font-size:34px;line-height:1.1">Europa</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin:6px 0 8px">1,561 km · 3.55 d · 3.01 g/cm³</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">A cracked ice shell over a global salt-water ocean holding twice Earth’s water.</div></div>
-        <div><div style="font-family:var(--font-heading);font-size:34px;line-height:1.1">Ganymede</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin:6px 0 8px">2,631 km · 7.15 d · 1.94 g/cm³</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Largest moon in the solar system — bigger than Mercury, and the only one with its own magnetic field.</div></div>
-        <div><div style="font-family:var(--font-heading);font-size:34px;line-height:1.1">Callisto</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin:6px 0 8px">2,410 km · 16.69 d · 1.83 g/cm³</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">The most heavily cratered object known; geologically dead for ~4 billion years.</div></div>
-      </div>
+    <figure class="dk-pair" style="left:1508px; top:409px; width:302px; --h:302px">
+      <button type="button" class="dk-zoom" data-zoom="moons/deimos-448.webp" data-zoom-w="448" data-zoom-h="448" data-zoom-label="Deimos"><img loading="lazy" src="moons/deimos-448.webp" width="448" height="448" alt="Deimos, a smooth pale wedge with a few shallow craters"></button>
+      <figcaption><b>Deimos</b>6.2 km</figcaption>
+    </figure>
+    <p class="dk-foot" style="left:930px">Both photographs, to scale with each other. At the scale of the previous slide, either would be smaller than this full stop. Phobos: NASA / JPL-Caltech / University of Arizona. Deimos: NASA / JPL-Caltech / MSSS.</p>
+  </section>
+
+  <section class="fb" data-label="Phobos and Deimos" data-screen-label="05" data-speaker-notes="Two captured lumps. Phobos orbits faster than Mars rotates, so it rises in the west; it is spiralling in and will break up in tens of millions of years." style="--fb-w:1920px; --fb-x:0px; --fb-y:0px; --fb-ar:1536/863; --fb-scrim:1000px">
+    <div class="fb-plate"><img loading="lazy" src="moons/mars-moons-1536.webp" srcset="moons/mars-moons-960.webp 960w, moons/mars-moons-1536.webp 1536w" sizes="100vw" width="1536" height="863" alt="Mars with Phobos and Deimos alongside, shown at their relative sizes"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Mars I and II</div>
+      <h2>Two lumps</h2>
+      <p class="fb-hook">Neither is round: both are too small for gravity to pull them into a sphere. Phobos orbits closer to its planet than any other moon in the solar system, and faster than Mars turns, so from the surface it rises in the west.</p>
+      <p class="fb-hook">It is also spiralling inwards. In tens of millions of years it will break apart into a ring.</p>
+    </div>
+    <div class="fb-aside fb-aside-left">
+      <button type="button" class="fb-explore" data-zoom="moons/mars-moons-1536.webp" data-zoom-w="1536" data-zoom-h="863" data-zoom-label="Mars, Phobos and Deimos">Explore the image</button>
+      <p class="fb-credit">Mars with both moons at their relative sizes. Deimos, upper right, is 12.4 km across. NASA / JPL-Caltech / Malin Space Science Systems.</p>
     </div>
   </section>
 
-  <section data-label="Io" data-screen-label="07" data-speaker-notes="The only moon in this deck we have a real close photograph of. Its volcanism feeds Jupiter's radiation belts, which is what is destroying JunoCam." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:90px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <div style="height:100%;min-height:0;display:grid;grid-template-rows:repeat(2,minmax(0,1fr));gap:34px">
-      <figure style="margin:0;min-height:0;display:flex;flex-direction:column">
-        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="images/25-io-tall.png" alt="Io as a small mottled disc just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-        <figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:14px;color:var(--color-neutral-600)">At Jupiter&rsquo;s limb, JunoCam. NASA / JPL-Caltech / SwRI / MSSS, processed by a citizen scientist.</figcaption>
-      </figure>
-      <figure style="margin:0;min-height:0;display:flex;flex-direction:column">
-        <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/io-plume.png" alt="Io in mottled sulfur yellows with a blue volcanic plume rising above the limb" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-        <figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:14px;color:var(--color-neutral-600)">A plume standing 140 km above the limb, seen by Galileo. NASA / JPL / University of Arizona.</figcaption>
-      </figure>
-    </div>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:24px">Jupiter I</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:96px;line-height:1;letter-spacing:-0.025em;margin:0 0 32px">Io</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The most volcanically active world in the solar system — sulfur frosts, 400+ volcanoes. Squeezed by Jupiter and pulled on by Europa and Ganymede, its interior is kneaded hard enough to stay molten.</p>
-      <p style="margin:0 0 34px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The material it throws off feeds the plasma torus that powers Jupiter's radiation belts — the same belts steadily wrecking the camera that took this picture.</p>
-      
-      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Radius</dt><dd style="margin:0;font-size:26px">1,821.5 km</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Orbit</dt><dd style="margin:0;font-size:26px">422,019 km, 1.769 d</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Density</dt><dd style="margin:0;font-size:26px">3.528 g/cm³ — the densest moon</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Eccentricity</dt><dd style="margin:0;font-size:26px">0.0036 — small, and enough</dd></div>
+  <section class="dk" data-label="The Galileans" data-screen-label="06" data-speaker-notes="Four worlds found in 1610. Density falls with distance from Jupiter: rock at Io, half ice by Callisto. This is a real Voyager composite, so the sizes are the true ratios.">
+    <figure class="dk-side">
+      <button type="button" class="dk-zoom" data-zoom="moons/galileans-portrait-800.webp" data-zoom-w="800" data-zoom-h="1182" data-zoom-label="The Galilean moons"><img loading="lazy" src="moons/galileans-portrait-800.webp" width="800" height="1182" alt="Jupiter&#x27;s Great Red Spot with Io, Europa, Ganymede and Callisto arranged beside it at their true relative sizes"></button>
+    </figure>
+    <div class="dk-copy" style="left:830px; --dk-copy-w:980px">
+      <h2>The Galileans</h2>
+      <p class="dk-lede">Density falls steadily outward: 3.53 g/cm³ at Io, 1.83 at Callisto. The inner two are rock; the outer two are about half water ice. Distance from Jupiter set how much ice survived.</p>
+      <dl class="dk-entries">
+        <div><dt>Io</dt><dd><span class="dk-fig">1,822 km · 1.77 d · 3.53 g/cm³</span>The most volcanically active world in the solar system: sulfur frosts, 400+ volcanoes.</dd></div>
+        <div><dt>Europa</dt><dd><span class="dk-fig">1,561 km · 3.55 d · 3.01 g/cm³</span>A cracked ice shell over a global salt-water ocean holding twice Earth’s water.</dd></div>
+        <div><dt>Ganymede</dt><dd><span class="dk-fig">2,631 km · 7.15 d · 1.94 g/cm³</span>Largest moon in the solar system, bigger than Mercury, and the only one with its own magnetic field.</dd></div>
+        <div><dt>Callisto</dt><dd><span class="dk-fig">2,410 km · 16.69 d · 1.83 g/cm³</span>The most heavily cratered object known; geologically dead for ~4 billion years.</dd></div>
       </dl>
     </div>
+    <p class="dk-foot" style="left:830px">Io, Europa, Ganymede and Callisto at their true relative sizes, beside the Great Red Spot. NASA / JPL / DLR.</p>
   </section>
 
-  <section data-label="Europa" data-screen-label="08" data-speaker-notes="The smoothest object in the solar system. A shell of water ice over a global salt-water ocean holding roughly twice the water of all Earth's oceans. The red streaks are salts dragged up through the cracks." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column">
-      <div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/europa.png" alt="Europa's pale ice shell criss-crossed by long rust-coloured cracks" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Galileo imagery, reprocessed in 2014 to approximate natural colour. NASA / JPL-Caltech / SETI Institute.</figcaption>
-    </figure>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Jupiter II</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Europa</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The smoothest body in the solar system: an ice shell over a global salt-water ocean holding roughly twice the water of every ocean on Earth. Almost no craters, because the surface keeps renewing itself.</p>
-      <p style="margin:0 0 34px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">The rust-coloured streaks are salts and sulfur compounds carried up through the cracks — the ocean, sampled at the surface.</p>
-      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'"><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Radius</dt><dd style="margin:0;font-size:26px">1,560.8 km</dd></div><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Orbit</dt><dd style="margin:0;font-size:26px">671,100 km, 3.551 d</dd></div><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Density</dt><dd style="margin:0;font-size:26px">3.013 g/cm³</dd></div></dl>
+  <section class="fb" data-label="Io" data-screen-label="07" data-speaker-notes="The only moon in this deck we have a real close photograph of. Its volcanism feeds Jupiter's radiation belts, which is what is destroying JunoCam." style="--fb-w:1920px; --fb-x:240px; --fb-y:0px; --fb-ar:1920/1080; --fb-scrim:1250px">
+    <div class="fb-plate"><img loading="lazy" src="moons/io-plume-1440.webp" srcset="moons/io-plume-960.webp 960w, moons/io-plume-1440.webp 1440w, moons/io-plume-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Io in mottled sulfur yellows with a blue volcanic plume rising above the limb"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Jupiter I</div>
+      <h2>Io</h2>
+      <p class="fb-hook">The most volcanically active world in the solar system: sulfur frosts, 400+ volcanoes. Squeezed by Jupiter and pulled on by Europa and Ganymede, its interior is kneaded hard enough to stay molten.</p>
+      <p class="fb-hook">The material it throws off feeds the plasma torus that powers Jupiter's radiation belts, the same belts steadily wrecking the camera that took the smaller picture.</p>
+      <dl class="fb-ledger">
+        <div><dt>Radius</dt><dd>1,821.5 km</dd></div>
+        <div><dt>Orbit</dt><dd>422,019 km<span class="fb-note">1.769 d</span></dd></div>
+        <div><dt>Density</dt><dd>3.528 g/cm³<span class="fb-note">the densest moon</span></dd></div>
+        <div><dt>Eccentricity</dt><dd>0.0036<span class="fb-note">small, and enough</span></dd></div>
+      </dl>
     </div>
-  </section>
-
-  <section data-label="Ganymede and Callisto" data-screen-label="09" data-speaker-notes="The outer two Galileans. Ganymede is the largest moon in the solar system and the only one with its own magnetic field. Callisto is the most cratered object known and has been geologically dead for about four billion years." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:90px 100px;display:flex;flex-direction:column;gap:46px">
-    <h2 style="flex:none;font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0">Ganymede and Callisto</h2>
-    <div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:70px">
-      <figure style="margin:0;min-height:0;display:flex;flex-direction:column">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:40px;margin-bottom:20px"><h3 style="font-family:var(--font-heading);font-weight:400;font-size:56px;line-height:1;margin:0">Ganymede</h3><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,631 km · 7.15 d · 1.94 g/cm³</div></div>
-      <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/ganymede.png" alt="Ganymede, a grey cratered globe with bright ray craters and darker ancient terrain" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <p style="flex:none;margin:18px 0 0;font-size:26px;line-height:1.45;text-align:justify;hyphens:auto">Larger than Mercury, and the only moon known to generate its own magnetic field. Bright young craters cut across darker terrain four billion years old.</p>
-      <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Juno, 2021. NASA / JPL-Caltech / SwRI / MSSS.</figcaption>
-    </figure>
-      <figure style="margin:0;min-height:0;display:flex;flex-direction:column">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:40px;margin-bottom:20px"><h3 style="font-family:var(--font-heading);font-weight:400;font-size:56px;line-height:1;margin:0">Callisto</h3><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum'">2,410 km · 16.69 d · 1.83 g/cm³</div></div>
-      <div style="flex:1;min-height:0;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/callisto.png" alt="Callisto, densely speckled with bright impact craters across a dark surface" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-      <p style="flex:none;margin:18px 0 0;font-size:26px;line-height:1.45;text-align:justify;hyphens:auto">The most heavily cratered object known. Nothing has resurfaced it since the early solar system, so every impact it has ever taken is still there to count.</p>
-      <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Galileo, 2001. NASA / JPL / DLR.</figcaption>
-    </figure>
+      <figure class="fb-inset fb-inset-corner" style="--inset-w:300px; --inset-ar:960/1200">
+        <button type="button" class="dk-zoom" data-zoom="planets/io-960.webp" data-zoom-w="960" data-zoom-h="1200" data-zoom-label="Io at the limb of Jupiter"><img loading="lazy" src="planets/io-960.webp" width="960" height="1200" alt="Io as a small mottled disc just clear of Jupiter&#x27;s shadowed limb"></button>
+        <figcaption>At Jupiter’s limb, JunoCam. NASA / JPL-Caltech / SwRI / MSSS, processed by a citizen scientist.</figcaption>
+      </figure>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/io-plume-1920.webp" data-zoom-w="1920" data-zoom-h="1080" data-zoom-label="Io and its plume">Explore the image</button>
+      <p class="fb-credit">A plume standing 140 km above the limb, seen by Galileo. NASA / JPL / University of Arizona.</p>
     </div>
   </section>
 
-  <section data-label="Saturn's ice" data-screen-label="10" data-speaker-notes="Seven moons, six of them ice. Tethys is less dense than water. Iapetus takes 79 days and is two-toned." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:flex;flex-direction:column;gap:60px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px">
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">Saturn's ice moons</h2>
-      <p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">Six small worlds made mostly of water ice. Tethys, at 0.98 g/cm³, is barely denser than the stuff it is made of. Titan is left out of this row — at the same scale it would be three and a third times Rhea's width.</p>
+  <section class="fb" data-label="Europa" data-screen-label="08" data-speaker-notes="The smoothest object in the solar system. A shell of water ice over a global salt-water ocean holding roughly twice the water of all Earth's oceans. The red streaks are salts dragged up through the cracks." style="--fb-w:1980px; --fb-x:340px; --fb-y:-60px; --fb-ar:2300/1700">
+    <div class="fb-plate"><img loading="lazy" src="moons/europa-1440.webp" srcset="moons/europa-960.webp 960w, moons/europa-1440.webp 1440w, moons/europa-1920.webp 1920w, moons/europa-2300.webp 2300w" sizes="103vw" width="2300" height="1700" alt="Europa&#x27;s pale ice shell criss-crossed by long rust-coloured cracks"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Jupiter II</div>
+      <h2>Europa</h2>
+      <p class="fb-hook">The smoothest body in the solar system: an ice shell over a global salt-water ocean holding roughly twice the water of every ocean on Earth. Almost no craters, because the surface keeps renewing itself.</p>
+      <p class="fb-hook">The rust-coloured streaks are salts and sulfur compounds carried up through the cracks. They are the ocean, sampled at the surface.</p>
+      <dl class="fb-ledger">
+        <div><dt>Radius</dt><dd>1,560.8 km</dd></div>
+        <div><dt>Orbit</dt><dd>671,100 km<span class="fb-note">3.551 d</span></dd></div>
+        <div><dt>Density</dt><dd>3.013 g/cm³</dd></div>
+      </dl>
     </div>
-    <div data-om-raster="true" style="flex:1;align-content:center;display:grid;grid-template-columns:repeat(6,auto);justify-content:space-around;align-items:end;justify-items:center;gap:26px 40px">
-      <div style="width:39px;height:39px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/mimas.png" alt="Mimas, its huge Herschel crater catching the light" style="width:100%;height:100%;object-fit:cover;object-position:62% 50%;display:block"></div>
-      <div style="width:50px;height:50px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/enceladus-ice.png" alt="Enceladus, pale blue-white ice cut by long fractures" style="width:100%;height:100%;object-fit:cover;object-position:center 42%;display:block"></div>
-      <div style="width:104px;height:104px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/tethys.png" alt="Tethys, a bright cratered iceball" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/dione.png" alt="Dione, bright cratered ice streaked with wispy cliffs" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="width:150px;height:150px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/rhea.png" alt="Rhea, a heavily cratered grey-white iceball" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="width:144px;height:144px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/iapetus-globe.png" alt="Iapetus, its bright trailing hemisphere" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Mimas</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">198 km · 0.94 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Herschel crater spans a third of its diameter.</div></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Enceladus</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">252 km · 1.37 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Brightest surface in the solar system, venting water ice from a subsurface ocean.</div></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Tethys</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">531 km · 1.89 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Almost pure water ice, scarred by the vast Ithaca Chasma.</div></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Dione</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">561 km · 2.74 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Wispy ice cliffs streak its trailing hemisphere.</div></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Rhea</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">763 km · 4.52 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Saturn's second largest — an ancient, cratered iceball.</div></div>
-      <div style="align-self:start;text-align:center;max-width:230px"><div style="font-family:var(--font-heading);font-size:30px">Iapetus</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">734 km · 79.33 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Two-toned: one hemisphere as dark as coal, the other as bright as snow.</div></div>
-    </div>
-  </section>
-  <section data-label="Titan" data-screen-label="11" data-speaker-notes="The only moon with a thick atmosphere, and the only other world with standing liquid on its surface. Huygens landed in 2005 and sent back the second picture here." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column"><div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/titan-disc.png" alt="Titan as a hazy gold crescent with the cratered moon Rhea passing in front" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">Titan behind Rhea. The haze has no visible surface features at all in ordinary light. NASA / JPL-Caltech / Space Science Institute.</figcaption></figure>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Saturn VI</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 28px">Titan</h2>
-      <p style="margin:0 0 24px;font-size:27px;line-height:1.5;text-align:justify;hyphens:auto">The only moon with a thick atmosphere, and the only other world with standing liquid — methane lakes. Wider than Mercury, and the second largest moon in the solar system.</p>
-      <figure style="margin:0;flex:none;display:flex;gap:26px;align-items:flex-start"><div style="flex:none;height:248px;aspect-ratio:546/693;border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/titan-surface.png" alt="The view from Titan's surface: rounded pebbles of water ice on an orange plain" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:1;min-width:0;font-size:24px;line-height:1.45;margin:0;color:var(--color-neutral-600)">The surface, photographed by the Huygens probe after it landed in January 2005. The rounded stones are water ice. ESA / NASA / JPL / University of Arizona.</figcaption></figure>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/europa-2300.webp" data-zoom-w="2300" data-zoom-h="1700" data-zoom-label="Europa">Explore the image</button>
+      <p class="fb-credit">Galileo imagery, reprocessed in 2014 to approximate natural colour. NASA / JPL-Caltech / SETI Institute.</p>
     </div>
   </section>
 
-  <section data-label="Under the haze" data-screen-label="12" data-speaker-notes="In ordinary light Titan is a blank orange ball — the haze is opaque. Cassini carried an infrared spectrometer that sees straight through it, and these six views are the result: the bright equatorial dunes, the darker highlands, the methane lakes at the pole." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,0.78fr) minmax(0,1.22fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center">
-      <div style="border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1/1;overflow:hidden"><img loading="lazy" src="moons/titan-globe.png" alt="Titan in visible light: a featureless orange ball" style="width:100%;height:100%;object-fit:contain;display:block"></div>
-      <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Visible light. Nothing of the surface gets through. NASA / JPL-Caltech / Space Science Institute.</figcaption>
+  <section class="duo" data-label="Ganymede and Callisto" data-screen-label="09" data-speaker-notes="The outer two Galileans. Ganymede is the largest moon in the solar system and the only one with its own magnetic field. Callisto is the most cratered object known and has been geologically dead for about four billion years." style="--duo-top:190px">
+    <div class="duo-head">
+      <h2>Ganymede and Callisto</h2>
+    </div>
+    <figure class="duo-panel">
+      <button type="button" class="dk-zoom" data-zoom="moons/ganymede-1920.webp" data-zoom-w="1920" data-zoom-h="640" data-zoom-label="Ganymede"><img loading="lazy" src="moons/ganymede-1440.webp" srcset="moons/ganymede-960.webp 960w, moons/ganymede-1440.webp 1440w, moons/ganymede-1920.webp 1920w" sizes="140vw" width="1920" height="640" alt="Ganymede, a grey cratered globe with bright ray craters and darker ancient terrain" style="width:2520px; height:840px; left:-1005px; top:-40px"></button>
+      <figcaption><b>Ganymede</b><span class="dk-fig">2,631 km · 7.15 d · 1.94 g/cm³</span>Larger than Mercury, and the only moon known to generate its own magnetic field. Bright young craters cut across darker terrain four billion years old.<small>Juno, 2021. NASA / JPL-Caltech / SwRI / MSSS.</small></figcaption>
     </figure>
-    <div style="min-height:0;display:flex;flex-direction:column;justify-content:center;gap:34px">
-      <div style="flex:none">
-        <h2 style="font-family:var(--font-heading);font-weight:400;font-size:80px;line-height:1;letter-spacing:-0.02em;margin:0 0 24px">Under the haze</h2>
-        <p style="margin:0;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Cassini carried an infrared spectrometer that sees straight through the haze. Assembled from thirteen years of flybys, these six views show what the orange ball conceals: bright equatorial dune fields, darker highlands, and the methane lakes near the pole.</p>
-      </div>
-      <figure style="margin:0;flex:none">
-        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:1200/800;overflow:hidden"><img loading="lazy" src="moons/titan-infrared.png" alt="Six infrared views of Titan showing orange dune fields, pale highlands and dark polar regions" style="width:100%;height:100%;object-fit:contain;display:block"></div>
-        <figcaption style="flex:none;font-size:24px;line-height:1.45;margin-top:16px;color:var(--color-neutral-600)">Six infrared mosaics from the VIMS instrument, colour-composited. NASA / JPL-Caltech / University of Nantes / University of Arizona.</figcaption>
+    <figure class="duo-panel">
+      <button type="button" class="dk-zoom" data-zoom="moons/callisto-1920.webp" data-zoom-w="1920" data-zoom-h="640" data-zoom-label="Callisto"><img loading="lazy" src="moons/callisto-1440.webp" srcset="moons/callisto-960.webp 960w, moons/callisto-1440.webp 1440w, moons/callisto-1920.webp 1920w" sizes="140vw" width="1920" height="640" alt="Callisto, densely speckled with bright impact craters across a dark surface" style="width:2520px; height:840px; left:-925px; top:-40px"></button>
+      <figcaption><b>Callisto</b><span class="dk-fig">2,410 km · 16.69 d · 1.83 g/cm³</span>The most heavily cratered object known. Nothing has resurfaced it since the early solar system, so every impact it has ever taken is still there to count.<small>Galileo, 2001. NASA / JPL / DLR.</small></figcaption>
+    </figure>
+  </section>
+
+  <section class="dk" data-label="Saturn's ice" data-screen-label="10" data-speaker-notes="Seven moons, six of them ice. Tethys is less dense than water. Iapetus takes 79 days and is two-toned.">
+    <div class="dk-head dk-row">
+      <h2>Saturn's ice moons</h2>
+      <p class="dk-lede">Six small worlds made mostly of water ice. Tethys, at 0.98 g/cm³, is barely denser than the stuff it is made of. Titan is left out of this row: at the same scale it would be three and a third times Rhea's width.</p>
+    </div>
+    <div class="dk-lineup" style="--dk-top:300px; --dk-row:320px">
+      <figure class="dk-body" style="--w:236px; --d:80px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/mimas-990.webp" data-zoom-w="990" data-zoom-h="990" data-zoom-label="Mimas"><img loading="lazy" src="moons/mimas-990.webp" width="990" height="990" alt="Mimas, its huge Herschel crater catching the light" style="width:161.2%; height:161.2%; margin-left:-27.5%; margin-top:-30.5%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Mimas</b><span class="dk-fig">198 km · 0.94 d</span>Herschel crater spans a third of its diameter.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:236px; --d:102px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/enceladus-ice-1971.webp" data-zoom-w="1971" data-zoom-h="2848" data-zoom-label="Enceladus"><img loading="lazy" src="moons/enceladus-ice-1440.webp" srcset="moons/enceladus-ice-960.webp 960w, moons/enceladus-ice-1440.webp 1440w, moons/enceladus-ice-1971.webp 1971w" sizes="5vw" width="1971" height="2848" alt="Enceladus, pale blue-white ice cut by long fractures" style="width:76.7%; height:110.8%; margin-left:-4.5%; margin-top:-5.3%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Enceladus</b><span class="dk-fig">252 km · 1.37 d</span>Brightest surface in the solar system, venting water ice from a subsurface ocean.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:236px; --d:216px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/tethys-2048.webp" data-zoom-w="2048" data-zoom-h="2048" data-zoom-label="Tethys"><img loading="lazy" src="moons/tethys-2048.webp" srcset="moons/tethys-256.webp 256w, moons/tethys-512.webp 512w, moons/tethys-2048.webp 2048w" sizes="11vw" width="2048" height="2048" alt="Tethys, a bright cratered iceball" style="width:117.7%; height:117.7%; margin-left:-9.1%; margin-top:-9.1%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Tethys</b><span class="dk-fig">531 km · 1.89 d</span>Almost pure water ice, scarred by the vast Ithaca Chasma.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:236px; --d:228px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/dione-1019.webp" data-zoom-w="1019" data-zoom-h="1022" data-zoom-label="Dione"><img loading="lazy" src="moons/dione-1019.webp" srcset="moons/dione-256.webp 256w, moons/dione-512.webp 512w, moons/dione-1019.webp 1019w" sizes="12vw" width="1019" height="1022" alt="Dione, bright cratered ice streaked with wispy cliffs" style="width:115.1%; height:115.5%; margin-left:-8.2%; margin-top:-7.5%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Dione</b><span class="dk-fig">561 km · 2.74 d</span>Wispy ice cliffs streak its trailing hemisphere.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:310px; --d:310px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/rhea-1164.webp" data-zoom-w="1164" data-zoom-h="1164" data-zoom-label="Rhea"><img loading="lazy" src="moons/rhea-1164.webp" srcset="moons/rhea-256.webp 256w, moons/rhea-512.webp 512w, moons/rhea-1164.webp 1164w" sizes="16vw" width="1164" height="1164" alt="Rhea, a heavily cratered grey-white iceball" style="width:134.3%; height:134.3%; margin-left:-19.0%; margin-top:-17.5%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Rhea</b><span class="dk-fig">763 km · 4.52 d</span>Saturn's second largest: an ancient, cratered iceball.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:298px; --d:298px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/iapetus-globe-4000.webp" data-zoom-w="4000" data-zoom-h="4000" data-zoom-label="Iapetus"><img loading="lazy" src="moons/iapetus-globe-1440.webp" srcset="moons/iapetus-globe-960.webp 960w, moons/iapetus-globe-1440.webp 1440w, moons/iapetus-globe-1920.webp 1920w, moons/iapetus-globe-2560.webp 2560w" sizes="16vw" width="2560" height="2560" alt="Iapetus, its bright trailing hemisphere" style="width:120.6%; height:120.6%; margin-left:-10.1%; margin-top:-9.7%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Iapetus</b><span class="dk-fig">734 km · 79.33 d</span>Two-toned: one hemisphere as dark as coal, the other as bright as snow.</figcaption>
       </figure>
     </div>
   </section>
 
-  <section data-label="Enceladus" data-screen-label="13" data-speaker-notes="252 km across, brightest surface in the solar system, and venting water from a subsurface ocean through fractures at its south pole." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column"><div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/enceladus-ice.png" alt="Enceladus in close-up, its pale blue-white ice crust cut by long fractures" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">The fractured ice crust. NASA / JPL-Caltech / Space Science Institute.</figcaption></figure>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Saturn II</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 28px">Enceladus</h2>
-      <p style="margin:0 0 26px;font-size:27px;line-height:1.5;text-align:justify;hyphens:auto">Brightest surface in the solar system, venting water ice from a subsurface ocean. Two hundred and fifty kilometres across — small enough to sit inside the length of Britain — and geologically alive.</p>
-      <figure style="margin:0"><div style="border:10px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;aspect-ratio:21/9;overflow:hidden"><img loading="lazy" src="moons/enceladus-geysers.png" alt="Backlit jets of ice rising from fractures along the limb of Enceladus" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">Jets rising from the fractures near the south pole, backlit by the Sun. NASA / JPL-Caltech / Space Science Institute.</figcaption></figure>
+  <section class="fb" data-label="Titan" data-screen-label="11" data-speaker-notes="The only moon with a thick atmosphere, and the only other world with standing liquid on its surface. Huygens landed in 2005 and sent back the second picture here." style="--fb-w:1100px; --fb-x:840px; --fb-y:0px; --fb-ar:570/570">
+    <div class="fb-plate"><img loading="lazy" src="moons/titan-disc-570.webp" width="570" height="570" alt="Titan as a hazy gold crescent with the cratered moon Rhea passing in front"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Saturn VI</div>
+      <h2>Titan</h2>
+      <p class="fb-hook">The only moon with a thick atmosphere, and the only other world with standing liquid: methane lakes. Wider than Mercury, and the second largest moon in the solar system.</p>
+      <figure class="fb-inset" style="--inset-w:190px; --inset-ar:316/628">
+        <button type="button" class="dk-zoom" data-zoom="moons/titan-surface-316.webp" data-zoom-w="316" data-zoom-h="628" data-zoom-label="Titan&#x27;s surface from Huygens"><img loading="lazy" src="moons/titan-surface-316.webp" width="316" height="628" alt="The view from Titan&#x27;s surface: rounded pebbles of water ice on an orange plain"></button>
+        <figcaption>The surface, photographed by the Huygens probe after it landed in January 2005. The rounded stones are water ice. ESA / NASA / JPL / University of Arizona.</figcaption>
+      </figure>
+    </div>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/titan-disc-570.webp" data-zoom-w="570" data-zoom-h="570" data-zoom-label="Titan behind Rhea">Explore the image</button>
+      <p class="fb-credit">Titan behind Rhea. The haze has no visible surface features at all in ordinary light. NASA / JPL-Caltech / Space Science Institute.</p>
     </div>
   </section>
 
-  <section data-label="Mimas" data-screen-label="14" data-speaker-notes="198 km across, and one crater takes up a third of that. Herschel is 130 km wide." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column"><div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/mimas.png" alt="Mimas as a lit crescent, dominated by the vast Herschel crater" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">Herschel crater at the terminator. NASA / JPL-Caltech / Space Science Institute.</figcaption></figure>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Saturn I</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Mimas</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">Herschel crater spans a third of its diameter. Whatever struck Mimas came close to destroying it — the fractures on the far side may be from the same impact.</p>
-      <p style="margin:0 0 34px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">At 198 kilometres it is the smallest of Saturn’s round moons, and only just round: its own gravity barely wins.</p>
-      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'"><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Radius</dt><dd style="margin:0;font-size:26px">198.2 km</dd></div><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Orbit</dt><dd style="margin:0;font-size:26px">186,007 km, 0.942 d</dd></div><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Density</dt><dd style="margin:0;font-size:26px">1.150 g/cm³ — nearly all ice</dd></div></dl>
+  <section class="dk" data-label="Under the haze" data-screen-label="12" data-speaker-notes="In ordinary light Titan is a blank orange ball — the haze is opaque. Cassini carried an infrared spectrometer that sees straight through it, and these six views are the result: the bright equatorial dunes, the darker highlands, the methane lakes at the pole.">
+    <div class="dk-head dk-row">
+      <h2>Under the haze</h2>
+      <p class="dk-lede">Cassini carried an infrared spectrometer that sees straight through the haze. Assembled from thirteen years of flybys, these six views show what the orange ball conceals: bright equatorial dune fields, darker highlands, and the methane lakes near the pole.</p>
+    </div>
+    <figure class="dk-pair" style="left:110px; top:352px; width:540px; --h:540px">
+      <button type="button" class="dk-zoom" data-zoom="moons/titan-globe-1024.webp" data-zoom-w="1024" data-zoom-h="1024" data-zoom-label="Titan in visible light"><img loading="lazy" src="moons/titan-globe-1024.webp" width="1024" height="1024" alt="Titan in visible light: a featureless orange ball" style="width:153.8%; height:153.8%; margin-left:-28.1%; margin-top:-29.5%; max-width:none; object-fit:fill"></button>
+      <figcaption>Visible light. Nothing of the surface gets through. NASA / JPL-Caltech / Space Science Institute.</figcaption>
+    </figure>
+    <figure class="dk-pair" style="left:760px; top:262px; width:1050px; --h:710px">
+      <button type="button" class="dk-zoom" data-zoom="moons/titan-infrared-1200.webp" data-zoom-w="1200" data-zoom-h="812" data-zoom-label="Titan in infrared"><img loading="lazy" src="moons/titan-infrared-1200.webp" srcset="moons/titan-infrared-960.webp 960w, moons/titan-infrared-1200.webp 1200w" sizes="55vw" width="1200" height="812" alt="Six infrared views of Titan showing orange dune fields, pale highlands and dark polar regions"></button>
+      <figcaption>Six infrared mosaics from the VIMS instrument, colour-composited. NASA / JPL-Caltech / University of Nantes / University of Arizona.</figcaption>
+    </figure>
+  </section>
+
+  <section class="fb" data-label="Enceladus" data-screen-label="13" data-speaker-notes="252 km across, brightest surface in the solar system, and venting water from a subsurface ocean through fractures at its south pole." style="--fb-w:1040px; --fb-x:850px; --fb-y:-210px; --fb-ar:1971/2848">
+    <div class="fb-plate"><img loading="lazy" src="moons/enceladus-ice-1440.webp" srcset="moons/enceladus-ice-960.webp 960w, moons/enceladus-ice-1440.webp 1440w, moons/enceladus-ice-1971.webp 1971w" sizes="54vw" width="1971" height="2848" alt="Enceladus in close-up, its pale blue-white ice crust cut by long fractures"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Saturn II</div>
+      <h2>Enceladus</h2>
+      <p class="fb-hook">Brightest surface in the solar system, venting water ice from a subsurface ocean. Two hundred and fifty kilometres across, small enough to sit inside the length of Britain, and geologically alive.</p>
+      <figure class="fb-inset" style="--inset-w:380px; --inset-ar:1580/977">
+        <button type="button" class="dk-zoom" data-zoom="moons/enceladus-geysers-1580.webp" data-zoom-w="1580" data-zoom-h="977" data-zoom-label="The jets of Enceladus"><img loading="lazy" src="moons/enceladus-geysers-1580.webp" srcset="moons/enceladus-geysers-960.webp 960w, moons/enceladus-geysers-1580.webp 1580w" sizes="20vw" width="1580" height="977" alt="Backlit jets of ice rising from fractures along the limb of Enceladus"></button>
+        <figcaption>Jets rising from the fractures near the south pole, backlit by the Sun. NASA / JPL-Caltech / Space Science Institute.</figcaption>
+      </figure>
+    </div>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/enceladus-ice-1971.webp" data-zoom-w="1971" data-zoom-h="2848" data-zoom-label="Enceladus">Explore the image</button>
+      <p class="fb-credit">The fractured ice crust. NASA / JPL-Caltech / Space Science Institute.</p>
     </div>
   </section>
 
-  <section data-label="Iapetus" data-screen-label="15" data-speaker-notes="Two-toned: the leading hemisphere is as dark as coal, the trailing side as bright as snow. It also has an equatorial ridge, visible on both halves here." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <figure style="margin:0;height:100%;min-height:0;display:flex;flex-direction:column"><div style="flex:1;min-height:0;border:16px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden"><img loading="lazy" src="moons/iapetus.png" alt="Iapetus photographed twice: the dark leading hemisphere beside the bright trailing hemisphere" style="width:100%;height:100%;object-fit:contain;display:block"></div><figcaption style="flex:none;font-size:24px;line-height:1.4;margin-top:16px;color:var(--color-neutral-600)">The two hemispheres side by side. The ridge along the equator runs through both. NASA / JPL-Caltech / Space Science Institute.</figcaption></figure>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Saturn VIII</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:92px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Iapetus</h2>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">One hemisphere is as dark as coal, the other as bright as snow. The dark side always leads, sweeping up material as it goes; ice sublimates away from the warmed surface and refreezes on the cold bright side.</p>
-      <p style="margin:0 0 26px;font-size:28px;line-height:1.5;text-align:justify;hyphens:auto">A ridge twenty kilometres high runs most of the way around the equator. Nobody knows why it is there.</p>
-      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'"><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Radius</dt><dd style="margin:0;font-size:26px">734.5 km</dd></div><div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:30px;padding:13px 0"><dt style="font-size:24px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Orbit</dt><dd style="margin:0;font-size:26px">3,560,820 km, 79.33 d</dd></div></dl>
+  <section class="fb" data-label="Mimas" data-screen-label="14" data-speaker-notes="198 km across, and one crater takes up a third of that. Herschel is 130 km wide." style="--fb-w:1300px; --fb-x:640px; --fb-y:-107px; --fb-ar:990/990">
+    <div class="fb-plate"><img loading="lazy" src="moons/mimas-990.webp" width="990" height="990" alt="Mimas as a lit crescent, dominated by the vast Herschel crater"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Saturn I</div>
+      <h2>Mimas</h2>
+      <p class="fb-hook">Herschel crater spans a third of its diameter. Whatever struck Mimas came close to destroying it, and the fractures on the far side may be from the same impact.</p>
+      <p class="fb-hook">At 198 kilometres it is the smallest of Saturn’s round moons, and only just round: its own gravity barely wins.</p>
+      <dl class="fb-ledger">
+        <div><dt>Radius</dt><dd>198.2 km</dd></div>
+        <div><dt>Orbit</dt><dd>186,007 km<span class="fb-note">0.942 d</span></dd></div>
+        <div><dt>Density</dt><dd>1.150 g/cm³<span class="fb-note">nearly all ice</span></dd></div>
+      </dl>
+    </div>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/mimas-990.webp" data-zoom-w="990" data-zoom-h="990" data-zoom-label="Mimas">Explore the image</button>
+      <p class="fb-credit">Herschel crater at the terminator. NASA / JPL-Caltech / Space Science Institute.</p>
     </div>
   </section>
 
-  <section data-label="Uranus's five" data-screen-label="16" data-speaker-notes="Five moons orbiting in the plane of a planet tipped 98 degrees, so their orbits run over the poles as seen from the ecliptic." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:flex;flex-direction:column;gap:60px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">Uranus’s five</h2><p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">All five orbit in their planet’s equatorial plane — which, tipped 98°, means their inclinations read 97.7° to 99.2° and their orbits run over the poles as seen from the ecliptic.</p></div>
-    <div data-om-raster="true" style="flex:1;align-content:center;display:grid;grid-template-columns:repeat(5,auto);justify-content:space-around;align-items:end;justify-items:center;gap:26px 40px">
-      <div style="width:46px;height:46px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/miranda.png" alt="Miranda, a pale battered globe scored by enormous grooved terraces" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div><div style="width:114px;height:114px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/ariel.png" alt="Ariel, a grey globe cut by long branching rift valleys" style="width:100%;height:100%;object-fit:cover;object-position:38% 48%;display:block"></div><div style="width:115px;height:115px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/umbriel.png" alt="Umbriel, the darkest of Uranus’s moons, with one bright ring near its pole" style="width:100%;height:100%;object-fit:cover;object-position:40% 48%;display:block"></div><div style="width:155px;height:155px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/titania.png" alt="Titania, a grey cratered globe with a long scarp running down its terminator" style="width:100%;height:100%;object-fit:cover;object-position:38% 50%;display:block"></div><div style="width:150px;height:150px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/oberon.png" alt="Oberon, a pale cratered globe with dark patches on several crater floors" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Miranda</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">236 km · 1.41 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Cliffs up to 20 km high — the tallest known anywhere.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Ariel</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">579 km · 2.52 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">The brightest Uranian moon, resurfaced by past tectonics.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Umbriel</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">585 km · 4.14 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">The darkest of the five, with one puzzlingly bright ring-shaped feature.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Titania</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">789 km · 8.71 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Largest Uranian moon, cut by enormous rift valleys.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Oberon</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">761 km · 13.46 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">The outermost large Uranian moon, its crater floors filled with dark material.</div></div>
+  <section class="fb" data-label="Iapetus" data-screen-label="15" data-speaker-notes="Two-toned: the leading hemisphere is as dark as coal, the trailing side as bright as snow. It also has an equatorial ridge, visible on both halves here." style="--fb-w:1460px; --fb-x:760px; --fb-y:-190px; --fb-ar:4000/4000">
+    <div class="fb-plate"><img loading="lazy" src="moons/iapetus-globe-1440.webp" srcset="moons/iapetus-globe-960.webp 960w, moons/iapetus-globe-1440.webp 1440w, moons/iapetus-globe-1920.webp 1920w, moons/iapetus-globe-2560.webp 2560w" sizes="76vw" width="2560" height="2560" alt="Iapetus, its bright trailing hemisphere pocked with craters and splashed with dark material"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Saturn VIII</div>
+      <h2>Iapetus</h2>
+      <p class="fb-hook">One hemisphere is as dark as coal, the other as bright as snow. The dark side always leads, sweeping up material as it goes; ice sublimates away from the warmed surface and refreezes on the cold bright side.</p>
+      <p class="fb-hook">A ridge twenty kilometres high runs most of the way around the equator. Nobody knows why it is there.</p>
+      <dl class="fb-ledger">
+        <div><dt>Radius</dt><dd>734.5 km</dd></div>
+        <div><dt>Orbit</dt><dd>3,560,820 km<span class="fb-note">79.33 d</span></dd></div>
+      </dl>
+      <figure class="fb-inset" style="--inset-w:400px; --inset-ar:2000/980">
+        <button type="button" class="dk-zoom" data-zoom="moons/iapetus-2000.webp" data-zoom-w="2000" data-zoom-h="980" data-zoom-label="The two hemispheres of Iapetus"><img loading="lazy" src="moons/iapetus-1440.webp" srcset="moons/iapetus-960.webp 960w, moons/iapetus-1440.webp 1440w, moons/iapetus-2000.webp 2000w" sizes="21vw" width="2000" height="980" alt="Iapetus photographed twice: the dark leading hemisphere beside the bright trailing hemisphere"></button>
+        <figcaption>The two hemispheres side by side. The ridge along the equator runs through both.</figcaption>
+      </figure>
+    </div>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="moons/iapetus-globe-4000.webp" data-zoom-w="4000" data-zoom-h="4000" data-zoom-label="Iapetus">Explore the image</button>
+      <p class="fb-credit">The bright trailing hemisphere. NASA / JPL-Caltech / Space Science Institute.</p>
     </div>
   </section>
 
-  <section data-label="Neptune's three" data-screen-label="17" data-speaker-notes="Triton runs backwards — a captured Kuiper-belt object. Nereid has one of the most eccentric orbits of any moon." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:flex;flex-direction:column;gap:60px">
-    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:70px"><h2 style="font-family:var(--font-heading);font-weight:400;font-size:76px;line-height:1;letter-spacing:-0.02em;margin:0;white-space:nowrap">Neptune’s three</h2><p style="margin:0;font-size:26px;line-height:1.45;color:var(--color-neutral-700);text-align:justify">Two of these were almost certainly not born here. Triton orbits backwards at 129° inclination, and Nereid swings between 1.4 and 9.7 million kilometres on a 360-day loop.</p></div>
-    <div data-om-raster="true" style="flex:1;align-content:center;display:grid;grid-template-columns:repeat(3,auto);justify-content:space-around;align-items:end;justify-items:center;gap:28px 60px">
-      <div style="width:240px;height:240px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/triton.png" alt="Triton: pale nitrogen ice with a dimpled southern cap" style="width:100%;height:100%;object-fit:cover;display:block"></div><div style="width:37px;height:37px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/proteus.png" alt="Proteus, a lumpy grey body too small for gravity to have rounded it" style="width:100%;height:100%;object-fit:cover;object-position:44% 50%;display:block"></div><div style="width:30px;height:30px;border-radius:50%;overflow:hidden;border:2px solid var(--color-accent);background:#000"><img loading="lazy" src="moons/nereid.png" alt="Nereid, barely resolved: a faint irregular smudge" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Triton</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">1,353 km · 5.88 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">Orbits BACKWARDS — a captured Kuiper-belt object with nitrogen geysers and the coldest measured surface.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Proteus</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">208 km · 1.12 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">About as large as a body can get without gravity pulling it round.</div></div>
-      <div style="align-self:start;text-align:center;max-width:270px"><div style="font-family:var(--font-heading);font-size:30px">Nereid</div><div style="font-size:24px;color:var(--color-neutral-600);font-feature-settings:'tnum';margin-bottom:8px">170 km · 360.07 d</div><div style="font-size:24px;line-height:1.4;color:var(--color-neutral-700)">One of the most eccentric orbits of any moon: 1.4 to 9.7 million km.</div></div>
+  <section class="dk" data-label="Uranus's five" data-screen-label="16" data-speaker-notes="Five moons orbiting in the plane of a planet tipped 98 degrees, so their orbits run over the poles as seen from the ecliptic.">
+    <div class="dk-head dk-row">
+      <h2>Uranus’s five</h2>
+      <p class="dk-lede">All five orbit in their planet’s equatorial plane. Tipped 98°, that means their inclinations read 97.7° to 99.2° and their orbits run over the poles as seen from the ecliptic.</p>
+    </div>
+    <div class="dk-lineup" style="--dk-top:300px; --dk-row:350px">
+      <figure class="dk-body" style="--w:280px; --d:102px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/miranda-1920.webp" data-zoom-w="1920" data-zoom-h="1920" data-zoom-label="Miranda"><img loading="lazy" src="moons/miranda-1920.webp" srcset="moons/miranda-256.webp 256w, moons/miranda-512.webp 512w, moons/miranda-1920.webp 1920w" sizes="5vw" width="1920" height="1920" alt="Miranda, a pale battered globe scored by enormous grooved terraces" style="width:114.7%; height:114.7%; margin-left:-9.0%; margin-top:-9.0%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Miranda</b><span class="dk-fig">236 km · 1.41 d</span>Cliffs up to 20 km high, the tallest known anywhere.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:280px; --d:250px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/ariel-1151.webp" data-zoom-w="1151" data-zoom-h="1151" data-zoom-label="Ariel"><img loading="lazy" src="moons/ariel-1151.webp" srcset="moons/ariel-256.webp 256w, moons/ariel-512.webp 512w, moons/ariel-1151.webp 1151w" sizes="13vw" width="1151" height="1151" alt="Ariel, a grey globe cut by long branching rift valleys" style="width:106.4%; height:106.4%; margin-left:-3.2%; margin-top:-1.5%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Ariel</b><span class="dk-fig">579 km · 2.52 d</span>The brightest Uranian moon, resurfaced by past tectonics.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:280px; --d:252px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/umbriel-620.webp" data-zoom-w="620" data-zoom-h="620" data-zoom-label="Umbriel"><img loading="lazy" src="moons/umbriel-620.webp" srcset="moons/umbriel-256.webp 256w, moons/umbriel-512.webp 512w, moons/umbriel-620.webp 620w" sizes="13vw" width="620" height="620" alt="Umbriel, the darkest of Uranus’s moons, with one bright ring near its pole" style="width:109.3%; height:109.3%; margin-left:-4.4%; margin-top:-4.6%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Umbriel</b><span class="dk-fig">585 km · 4.14 d</span>The darkest of the five, with one puzzlingly bright ring-shaped feature.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:340px; --d:340px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/titania-646.webp" data-zoom-w="646" data-zoom-h="646" data-zoom-label="Titania"><img loading="lazy" src="moons/titania-646.webp" srcset="moons/titania-256.webp 256w, moons/titania-512.webp 512w, moons/titania-646.webp 646w" sizes="18vw" width="646" height="646" alt="Titania, a grey cratered globe with a long scarp running down its terminator" style="width:118.1%; height:118.1%; margin-left:-9.7%; margin-top:-9.9%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Titania</b><span class="dk-fig">789 km · 8.71 d</span>Largest Uranian moon, cut by enormous rift valleys.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:328px; --d:328px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/oberon-350.webp" data-zoom-w="350" data-zoom-h="350" data-zoom-label="Oberon"><img loading="lazy" src="moons/oberon-350.webp" srcset="moons/oberon-256.webp 256w, moons/oberon-350.webp 350w" sizes="17vw" width="350" height="350" alt="Oberon, a pale cratered globe with dark patches on several crater floors" style="width:120.3%; height:120.3%; margin-left:-10.7%; margin-top:-11.0%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Oberon</b><span class="dk-fig">761 km · 13.46 d</span>The outermost large Uranian moon, its crater floors filled with dark material.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section data-label="Sources" data-screen-label="18" data-speaker-notes="Where the numbers came from, and what is still missing: real imagery for these moons." style="background:#1a1815;color:#f0ece5;font-family:var(--font-body);padding:110px;display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1fr);gap:100px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-400);margin-bottom:34px">Provenance</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:88px;line-height:1;letter-spacing:-0.02em;margin:0 0 34px">Where the numbers come from</h2>
-      <p style="margin:0;font-size:30px;line-height:1.45;color:#bdb6ab">Radii, orbits, periods and densities are read straight from the orrery’s satellite table. Every disc is sized to true relative scale, so the size comparisons hold even where a moon is still a drawn circle.</p>
+  <section class="dk" data-label="Neptune's three" data-screen-label="17" data-speaker-notes="Triton runs backwards — a captured Kuiper-belt object. Nereid has one of the most eccentric orbits of any moon.">
+    <div class="dk-head dk-row">
+      <h2>Neptune’s three</h2>
+      <p class="dk-lede">Two of these were almost certainly not born here. Triton orbits backwards at 129° inclination, and Nereid swings between 1.4 and 9.7 million kilometres on a 360-day loop.</p>
     </div>
-    <dl style="margin:0;border-top:1px solid rgba(255,255,255,0.3);min-height:0">
-      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Satellite data</dt><dd style="margin:0;font-size:26px;line-height:1.25;color:#e8e3da">The orrery’s own satellite table — radius, semi-major axis, period, eccentricity, inclination and density for 21 moons</dd></div>
-      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">The Moon</dt><dd style="margin:0;font-size:26px;line-height:1.25;color:#e8e3da">The body constants table: NASA Planetary Fact Sheets and IAU WGCCRE 2015</dd></div>
-      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Descriptions</dt><dd style="margin:0;font-size:26px;line-height:1.25;color:#e8e3da">The satellite table’s own note fields, quoted unchanged</dd></div>
-      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.14)"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:#8e877c">Photographs</dt><dd style="margin:0;font-size:26px;line-height:1.25;color:#e8e3da">Cassini (Titan, Enceladus, Mimas, Tethys, Dione, Rhea, Iapetus): NASA / JPL-Caltech / Space Science Institute. Voyager 2 (Miranda, Ariel, Umbriel, Titania, Oberon, Triton, Proteus, Nereid): NASA / JPL / USGS. Juno (Io at the limb, Ganymede): NASA / JPL-Caltech / SwRI / MSSS, Io via a citizen scientist. Galileo (Galilean group portrait, Callisto): NASA / JPL / DLR; Io’s plume and Phobos: NASA / JPL / University of Arizona; Europa: NASA / JPL-Caltech / SETI Institute. Titan’s surface: ESA / NASA / JPL / University of Arizona; Titan in infrared: NASA / JPL-Caltech / University of Nantes. Mars and Deimos: NASA / JPL-Caltech / MSSS. Mercury: NASA / Johns Hopkins APL / Carnegie Institution. The Moon: NASA.</dd></div>
-      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:40px;padding:6px 0"><dt style="font-size:24px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-400)">Still needed</dt><dd style="margin:0;font-size:26px;line-height:1.25;color:#e8e3da">All twenty-two are photographs. Nereid is the weakest: Voyager 2 passed too far off to resolve more than a smudge, so it is shown enlarged from a few dozen pixels.</dd></div>
+    <div class="dk-lineup" style="--dk-top:290px; --dk-row:450px; --dk-gap:120px; --dk-justify:center">
+      <figure class="dk-body" style="--w:440px; --d:440px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/triton-1920.webp" data-zoom-w="1920" data-zoom-h="1920" data-zoom-label="Triton"><img loading="lazy" src="moons/triton-1920.webp" srcset="moons/triton-256.webp 256w, moons/triton-512.webp 512w, moons/triton-1920.webp 1920w" sizes="23vw" width="1920" height="1920" alt="Triton: pale nitrogen ice with a dimpled southern cap" style="width:114.3%; height:114.3%; margin-left:-5.8%; margin-top:-8.7%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Triton</b><span class="dk-fig">1,353 km · 5.88 d</span>Orbits BACKWARDS: a captured Kuiper-belt object with nitrogen geysers and the coldest measured surface.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:400px; --d:68px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/proteus-836.webp" data-zoom-w="836" data-zoom-h="840" data-zoom-label="Proteus"><img loading="lazy" src="moons/proteus-836.webp" srcset="moons/proteus-256.webp 256w, moons/proteus-512.webp 512w, moons/proteus-836.webp 836w" sizes="4vw" width="836" height="840" alt="Proteus, a lumpy grey body too small for gravity to have rounded it" style="width:135.1%; height:135.7%; margin-left:-21.2%; margin-top:-18.4%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Proteus</b><span class="dk-fig">208 km · 1.12 d</span>About as large as a body can get without gravity pulling it round.</figcaption>
+      </figure>
+      <figure class="dk-body" style="--w:400px; --d:55px">
+        <div class="dk-disc-row"><button type="button" class="dk-zoom dk-disc" data-zoom="moons/nereid-400.webp" data-zoom-w="400" data-zoom-h="400" data-zoom-label="Nereid"><img loading="lazy" src="moons/nereid-400.webp" srcset="moons/nereid-256.webp 256w, moons/nereid-400.webp 400w" sizes="3vw" width="400" height="400" alt="Nereid, barely resolved: a faint irregular smudge" style="width:191.4%; height:191.4%; margin-left:-46.4%; margin-top:-35.4%; max-width:none; object-fit:fill"></button></div>
+        <figcaption><b>Nereid</b><span class="dk-fig">170 km · 360.07 d</span>One of the most eccentric orbits of any moon: 1.4 to 9.7 million km.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="dk" data-label="Sources" data-screen-label="18" data-speaker-notes="Where the numbers came from, and what is still missing: real imagery for these moons.">
+    <div class="dk-copy" style="--dk-copy-w:640px">
+      <div class="fb-kicker">Provenance</div>
+      <h2>Where the numbers come from</h2>
+      <p class="dk-lede">Radii, orbits, periods and densities are read straight from the orrery’s satellite table. Every disc is sized to true relative scale, so the size comparisons hold even where a moon is still a drawn circle.</p>
+      <p class="mc-next"><a class="fb-explore duo-next" href="junocam-deck.dc.html">Continue to JunoCam <span aria-hidden="true">→</span></a></p>
+    </div>
+    <dl class="dk-rows" style="left:850px; right:110px; top:70px">
+      <div><dt>Satellite data</dt><dd>The orrery’s own satellite table: radius, semi-major axis, period, eccentricity, inclination and density for 21 moons</dd></div>
+      <div><dt>The Moon</dt><dd>The body constants table: NASA Planetary Fact Sheets and IAU WGCCRE 2015</dd></div>
+      <div><dt>Descriptions</dt><dd>The satellite table’s own note fields, quoted unchanged</dd></div>
+      <div><dt>Photographs</dt><dd>Cassini (Titan, Enceladus, Mimas, Tethys, Dione, Rhea, Iapetus): NASA / JPL-Caltech / Space Science Institute. Voyager 2 (Miranda, Ariel, Umbriel, Titania, Oberon, Triton, Proteus, Nereid): NASA / JPL / USGS. Juno (Io at the limb, Ganymede): NASA / JPL-Caltech / SwRI / MSSS, Io via a citizen scientist. Galileo (Galilean group portrait, Callisto): NASA / JPL / DLR; Io’s plume and Phobos: NASA / JPL / University of Arizona; Europa: NASA / JPL-Caltech / SETI Institute. Titan’s surface: ESA / NASA / JPL / University of Arizona; Titan in infrared: NASA / JPL-Caltech / University of Nantes. Mars and Deimos: NASA / JPL-Caltech / MSSS. Mercury: NASA / Johns Hopkins APL / Carnegie Institution. The Moon: NASA.</dd></div>
+      <div><dt>Still needed</dt><dd>All twenty-two are photographs. Nereid is the weakest: Voyager 2 passed too far off to resolve more than a smudge, so it is shown enlarged from a few dozen pixels.</dd></div>
     </dl>
   </section>
 </x-import></x-dc>

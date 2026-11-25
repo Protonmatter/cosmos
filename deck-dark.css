@@ -1,0 +1,243 @@
+/* ═══ Dark slides that are not one photograph ═══
+ *
+ * deck-full-bleed.css covers the slide that is a single image. This file is
+ * the rest of the same look: slides that compare several bodies, set out a
+ * table, or put two photographs side by side. They share the black ground,
+ * the ink colours and the 24px floor, and they reuse .fb-kicker, .fb-credit,
+ * .fb-explore and .fb-ledger from that file, so link both.
+ *
+ *   .dk            the ground. Every slide here starts with it.
+ *   .dk-head       kicker, heading and lede at the top of a slide
+ *   .dk-lineup     bodies in a row, each disc sized by --d
+ *   .dk-tables     one table split across two columns
+ *   .dk-copy       a column of text at the left
+ *   .dk-side       a photograph filling the left of the slide, top to bottom
+ *   .dk-pair       two framed photographs with captions
+ *   .duo           two photographs filling the slide below a heading
+ *   .fb-inset      a second, smaller photograph on a full-bleed slide
+ *
+ * A disc in a line-up is a circle cut from a photograph, so a body caught as
+ * a crescent still shows how large it is. Every picture is a button that
+ * opens it in the image viewer (deck-cinema.js).
+ *
+ * See docs/rfcs/0006-one-look-for-every-deck.md.
+ */
+
+.dk {
+  --fb-ink: #f0ece5;
+  --fb-ink-2: #c9c2b6;
+  --fb-ink-3: #958e82;
+  --dk-rule: rgba(240, 236, 229, .16);
+
+  background: #000;
+  color: var(--fb-ink);
+  font-family: var(--font-body);
+}
+
+.dk h2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 92px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px -3px;
+}
+.dk-lede { margin: 0; font-size: 26px; line-height: 1.45; color: var(--fb-ink-2); max-width: 46em; }
+.dk-lede + .dk-lede { margin-top: 18px; }
+
+.dk-head { position: absolute; left: 110px; right: 110px; top: 84px; }
+/* Heading and lede on one line, for a slide that needs the height. */
+.dk-head.dk-row { display: flex; align-items: center; gap: 64px; }
+.dk-head.dk-row h2 { margin-bottom: 0; white-space: nowrap; }
+.dk-head.dk-row .dk-lede { flex: 1; max-width: none; }
+
+.dk-foot {
+  position: absolute;
+  left: 110px;
+  right: 110px;
+  bottom: 60px;
+  padding-top: 22px;
+  border-top: 1px solid var(--dk-rule);
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--fb-ink-3);
+}
+
+/* A picture that opens in the viewer. */
+.dk-zoom {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: inherit;
+  font: inherit;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.dk-zoom img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dk-zoom:focus-visible { outline: 2px solid var(--color-accent-400); outline-offset: 4px; }
+
+/* ── Bodies in a row, to scale ─────────────────────────────────────────── */
+
+.dk-lineup {
+  position: absolute;
+  left: 110px;
+  right: 110px;
+  top: var(--dk-top, 400px);
+  display: flex;
+  justify-content: var(--dk-justify, space-between);
+  gap: var(--dk-gap, 0px);
+  align-items: flex-start;
+}
+.dk-body { width: var(--w); margin: 0; text-align: center; }
+.dk-disc-row { height: var(--dk-row, 260px); display: flex; align-items: center; justify-content: center; }
+.dk-disc {
+  flex: none; /* a disc is the size its radius gives it, whatever the column */
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  border: 1px solid rgba(240, 236, 229, .3);
+}
+.dk-disc:hover { border-color: var(--color-accent-400); }
+/* A planet standing in a row of moons, for comparison only. */
+.dk-disc.dk-planet { border: 2px dashed rgba(240, 236, 229, .55); }
+.dk-body figcaption { font-size: 24px; line-height: 1.35; color: var(--fb-ink-2); }
+.dk-body figcaption b {
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.15;
+  color: var(--fb-ink);
+}
+.dk-fig { display: block; margin: 4px 0 10px; color: var(--fb-ink-3); font-feature-settings: 'tnum'; white-space: nowrap; }
+
+/* ── A table across two columns ────────────────────────────────────────── */
+
+.dk-tables {
+  position: absolute;
+  left: 110px;
+  right: 110px;
+  top: 246px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  font-feature-settings: 'tnum';
+}
+.dk-tables table { width: 100%; border-collapse: collapse; font-size: 26px; }
+.dk-tables th {
+  padding: 10px 0;
+  text-align: left;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fb-ink-3);
+  border-bottom: 1px solid rgba(240, 236, 229, .5);
+}
+.dk-tables td { padding: 14px 0; border-bottom: 1px solid var(--dk-rule); }
+.dk-tables tr:last-child td { border-bottom: 0; }
+.dk-tables td:nth-child(2) { color: var(--fb-ink-2); }
+.dk-tables th:nth-child(n+3), .dk-tables td:nth-child(n+3) { text-align: right; }
+
+/* ── Text at the left, pictures at the right ───────────────────────────── */
+
+.dk-copy {
+  position: absolute;
+  left: 110px;
+  top: 0;
+  bottom: 0;
+  width: var(--dk-copy-w, 760px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dk-copy .fb-ledger { margin-top: 30px; }
+.dk-copy .fb-ledger > div { grid-template-columns: 300px minmax(0, 1fr); }
+
+/* Two or more framed pictures with captions, placed by the slide. */
+.dk-pair { position: absolute; margin: 0; }
+.dk-pair .dk-zoom { width: 100%; height: var(--h); }
+.dk-pair figcaption { margin-top: 16px; font-size: 24px; line-height: 1.4; color: var(--fb-ink-3); }
+.dk-pair figcaption b {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.15;
+  color: var(--fb-ink);
+}
+
+/* A photograph down the left side, fading into the ground at its right. */
+.dk-side { position: absolute; left: 0; top: 0; bottom: 0; width: var(--dk-side-w, 731px); margin: 0; }
+.dk-side .dk-zoom { width: 100%; height: 100%; }
+.dk-side::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0), #000);
+}
+.dk-side figcaption { position: absolute; left: 40px; bottom: 40px; max-width: 560px; z-index: 1; }
+.dk-side .fb-credit { text-align: left; margin: 0; }
+
+/* Four short entries in a grid. */
+.dk-entries { display: grid; grid-template-columns: 1fr 1fr; gap: 34px 60px; margin: 34px 0 0; padding-top: 30px; border-top: 1px solid var(--dk-rule); }
+.dk-entries > div { margin: 0; }
+.dk-entries dt { font-family: var(--font-heading); font-size: 44px; line-height: 1.1; }
+.dk-entries dd { margin: 0; font-size: 24px; line-height: 1.4; color: var(--fb-ink-2); }
+
+/* Label and text rows, for a sources slide. */
+.dk-rows { position: absolute; margin: 0; font-size: 24px; line-height: 1.4; }
+.dk-rows > div { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; padding: 16px 0; border-top: 1px solid var(--dk-rule); }
+.dk-rows dt { letter-spacing: 0.08em; text-transform: uppercase; color: var(--fb-ink-3); }
+.dk-rows dd { margin: 0; color: var(--fb-ink-2); }
+
+/* ── Two photographs filling the slide ─────────────────────────────────── */
+
+.duo { --duo-top: 230px; background: #000; color: #f0ece5; font-family: var(--font-body); }
+.duo-head { position: absolute; left: 110px; right: 110px; top: 0; height: var(--duo-top); display: flex; align-items: center; gap: 64px; }
+.duo-head h2 { font-family: var(--font-heading); font-weight: 400; font-size: 96px; line-height: 1; letter-spacing: -0.02em; margin: 0; white-space: nowrap; }
+.duo-head p { flex: 1; margin: 0; font-size: 24px; line-height: 1.45; color: #c9c2b6; }
+.duo-next { cursor: pointer; white-space: nowrap; text-decoration: none; color: #f0ece5; }
+.duo-panel { position: absolute; top: var(--duo-top); bottom: 0; width: 958px; margin: 0; overflow: hidden; background: #000; }
+.duo-panel:first-of-type { left: 0; }
+.duo-panel:last-of-type { right: 0; }
+.duo-panel img { position: absolute; display: block; max-width: none; }
+.duo-panel .dk-zoom { position: absolute; inset: 0; width: 100%; height: 100%; }
+.duo-panel figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 150px 60px 46px;
+  font-size: 24px;
+  line-height: 1.4;
+  color: #c9c2b6;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .78) 52%, rgba(0, 0, 0, .9) 100%);
+}
+.duo-panel figcaption b { display: block; font-family: var(--font-heading); font-weight: 400; font-size: 60px; line-height: 1.1; color: #f0ece5; margin-bottom: 6px; }
+.duo-panel figcaption .dk-fig { margin: 0 0 10px; }
+.duo-panel figcaption small { display: block; margin-top: 10px; font-size: 24px; color: #958e82; }
+
+/* ── A second photograph on a full-bleed slide ─────────────────────────── */
+
+.fb-inset { display: grid; grid-template-columns: var(--inset-w, 300px) minmax(0, 1fr); gap: 24px; align-items: end; margin: 34px 0 0; }
+.fb-inset .dk-zoom { width: 100%; aspect-ratio: var(--inset-ar, 16 / 9); border: 1px solid rgba(240, 236, 229, .3); }
+.fb-inset figcaption { font-size: 24px; line-height: 1.35; color: var(--fb-ink-3); }
+/* Where the text column is full, the inset goes in the top right corner. */
+.fb-inset.fb-inset-corner { position: absolute; right: 84px; top: 84px; width: var(--inset-w, 300px); display: block; margin: 0; }
+.fb-inset.fb-inset-corner figcaption { margin-top: 14px; padding: 10px 14px; border-radius: 12px; background: rgba(8, 8, 8, .68); color: var(--fb-ink-2); }
+
+/* The credit and the viewer control at the bottom left, for a photograph
+   whose subject is at the bottom right. */
+.fb-aside.fb-aside-left { left: 110px; right: auto; text-align: left; }
+.fb-aside-left .fb-credit { text-align: left; }

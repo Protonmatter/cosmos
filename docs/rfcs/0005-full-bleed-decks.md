@@ -1,7 +1,7 @@
 ---
 rfc: 0005
 title: Full-bleed decks, the image viewer, and loading on approach
-status: Draft
+status: Accepted
 author: Protonmatter
 created: 2026-11-25
 updated: 2026-11-25

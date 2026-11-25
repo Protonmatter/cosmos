@@ -119,32 +119,41 @@ for (const deck of DECKS) {
 }
 
 /**
- * What the Solar System deck's images may cost to open, in bytes, at the test
- * viewport. Recorded in docs/specs/deck.spec.md beside DECK-021; change both
- * together. It was 20.5 MB before RFC 0005 and measured 0.27 MB after.
+ * What a deck's images may cost to open, in bytes, at the test viewport. Each
+ * figure is recorded in docs/specs/deck.spec.md beside its requirement; change
+ * both together. They are budgets, not measurements: the Solar System deck
+ * asked for 20.5 MB before RFC 0005 and 0.27 MB after, and the Moons deck for
+ * 50.7 MB before it and 0.02 MB after RFC 0006.
  */
-const SOLAR_SYSTEM_OPENING_IMAGE_BUDGET = 1_000_000;
+const OPENING_IMAGE_BUDGETS = [
+  // The requirement is written out in each name because the traceability tool
+  // reads this file as text and would not see one assembled at run time.
+  { deck: 'solar-system', bytes: 1_000_000, name: 'the Solar System deck opens within its image budget @REQ DECK-021' },
+  { deck: 'the-moons', bytes: 1_000_000, name: 'the Moons deck opens within its image budget @REQ DECK-026' },
+];
 
-test('the Solar System deck opens within its image budget @REQ DECK-021', async ({ page }) => {
-  const solarSystem = DECKS.find((deck) => deck.name === 'solar-system');
-  const pending = [];
-  page.on('response', (response) => {
-    if (response.request().resourceType() !== 'image') return;
-    pending.push(response.body().then((body) => ({ path: sitePath(response.url()), bytes: body.length })).catch(() => null));
+for (const budget of OPENING_IMAGE_BUDGETS) {
+  test(budget.name, async ({ page }) => {
+    const deck = DECKS.find((candidate) => candidate.name === budget.deck);
+    const pending = [];
+    page.on('response', (response) => {
+      if (response.request().resourceType() !== 'image') return;
+      pending.push(response.body().then((body) => ({ path: sitePath(response.url()), bytes: body.length })).catch(() => null));
+    });
+
+    await open(page, { ...deck, kind: 'deck' });
+    await page.waitForFunction(() =>
+      [...document.querySelectorAll('deck-stage > section[data-deck-active] img')].every(
+        (image) => image.complete && image.naturalWidth > 0,
+      ),
+    );
+    await page.waitForLoadState('networkidle');
+
+    const images = (await Promise.all(pending)).filter(Boolean);
+    const total = images.reduce((sum, image) => sum + image.bytes, 0);
+    const breakdown = images.map((image) => `${image.path} ${(image.bytes / 1000).toFixed(0)} KB`).join(', ');
+
+    expect(images.length, 'the deck opened without requesting any image').toBeGreaterThan(0);
+    expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(budget.bytes);
   });
-
-  await open(page, { ...solarSystem, kind: 'deck' });
-  await page.waitForFunction(() =>
-    [...document.querySelectorAll('deck-stage > section[data-deck-active] img')].every(
-      (image) => image.complete && image.naturalWidth > 0,
-    ),
-  );
-  await page.waitForLoadState('networkidle');
-
-  const images = (await Promise.all(pending)).filter(Boolean);
-  const total = images.reduce((sum, image) => sum + image.bytes, 0);
-  const breakdown = images.map((image) => `${image.path} ${(image.bytes / 1000).toFixed(0)} KB`).join(', ');
-
-  expect(images.length, 'the deck opened without requesting any image').toBeGreaterThan(0);
-  expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(SOLAR_SYSTEM_OPENING_IMAGE_BUDGET);
-});
+}
