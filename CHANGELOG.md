@@ -8,6 +8,15 @@ and image swaps are left to the commit history.
 
 ### Added
 
+- **The JunoCam deck in the dark look** (the addendum to
+  [RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 11 slides keep
+  their order, words and figures. The landscape frames are shown larger, the
+  tall ones whole at the full height of the slide, the diagrams are redrawn on
+  black, and every frame opens in the image viewer. The planet slide gains a
+  picture.
+- A link from the JunoCam deck's closing slide to the explorer.
+- Requirements `DECK-027`, `DECK-028` and `FLOW-008`, with tests.
+
 - **The Moons deck in the dark, photograph-led look**
   ([RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 18 slides keep
   their order, words and figures. Eight are now full-bleed, the line-ups are
@@ -37,6 +46,9 @@ and image swaps are left to the commit history.
 
 ### Changed
 
+- The JunoCam deck's images are WebP. Reading the deck from first slide to last
+  at 1440 × 900 fetches 1.0 MB of images where it fetched 18.1 MB.
+- RFC 0006 is Accepted.
 - The Moons deck's images are WebP. Reading the deck from first slide to last
   at 1440 × 900 fetches 1.7 MB of images where it fetched 50.7 MB.
 - RFC 0005 is Accepted.
