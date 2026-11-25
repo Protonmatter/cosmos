@@ -117,3 +117,34 @@ for (const deck of DECKS) {
       .toBe(0);
   });
 }
+
+/**
+ * What the Solar System deck's images may cost to open, in bytes, at the test
+ * viewport. Recorded in docs/specs/deck.spec.md beside DECK-021; change both
+ * together. It was 20.5 MB before RFC 0005 and measured 0.34 MB after.
+ */
+const SOLAR_SYSTEM_OPENING_IMAGE_BUDGET = 1_000_000;
+
+test('the Solar System deck opens within its image budget @REQ DECK-021', async ({ page }) => {
+  const solarSystem = DECKS.find((deck) => deck.name === 'solar-system');
+  const pending = [];
+  page.on('response', (response) => {
+    if (response.request().resourceType() !== 'image') return;
+    pending.push(response.body().then((body) => ({ path: sitePath(response.url()), bytes: body.length })).catch(() => null));
+  });
+
+  await open(page, { ...solarSystem, kind: 'deck' });
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll('deck-stage > section[data-deck-active] img')].every(
+      (image) => image.complete && image.naturalWidth > 0,
+    ),
+  );
+  await page.waitForLoadState('networkidle');
+
+  const images = (await Promise.all(pending)).filter(Boolean);
+  const total = images.reduce((sum, image) => sum + image.bytes, 0);
+  const breakdown = images.map((image) => `${image.path} ${(image.bytes / 1000).toFixed(0)} KB`).join(', ');
+
+  expect(images.length, 'the deck opened without requesting any image').toBeGreaterThan(0);
+  expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(SOLAR_SYSTEM_OPENING_IMAGE_BUDGET);
+});

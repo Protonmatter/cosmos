@@ -114,10 +114,15 @@ its pixel size. The viewer is a `role="dialog"` element appended to `<body>` by
 
 | ID | Level | Requirement |
 | --- | --- | --- |
+| `DECK-015` | MUST | Each body slide of the Solar System deck presents one full-bleed image and a control that opens it in the image viewer |
 | `DECK-016` | MUST | Activating a viewer control by pointer, `Enter`, or `Space` opens the viewer and does not change the slide |
 | `DECK-017` | MUST | While the viewer is open, navigation keys do not change the slide, `Tab` cycles within the viewer, and the rest of the page is inert |
 | `DECK-018` | MUST | `Escape` closes the viewer and returns focus to the control that opened it |
 | `DECK-019` | MUST | A viewer file the slide does not itself display is requested only when the viewer is opened |
+| `DECK-022` | SHOULD | Full-bleed images are served as WebP in more than one width |
+
+The body slides are slides 2 to 11 of `solar-system.dc.html`: the Sun, Mercury,
+Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
 
 `DECK-016` names `Space` because that is the key that broke. The engine advances on
 `Space` from a window-level handler and cancels the event, which also cancels the
@@ -136,7 +141,13 @@ Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
 | ID | Level | Requirement |
 | --- | --- | --- |
 | `DECK-020` | MUST | On load, a deck requests images only for the current slide and its immediate neighbours, and has a slide's images by the time that slide is shown |
+| `DECK-021` | MUST | The images the Solar System deck requests on load total no more than 1 MB at the test viewport |
 | `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
+
+`DECK-021`'s figure is a budget, not a measurement. The deck requested 20.5 MB of
+images on load before RFC 0005 and 0.34 MB after; 1 MB leaves room to work while
+still failing loudly if a multi-megabyte original is linked again or the far slides
+start loading. The test viewport is 1440 × 900 at a device pixel ratio of 1.
 
 `DECK-023` protects the README's promise that printing to PDF gives one page per
 slide. The engine marks every slide active before a print, which brings them all

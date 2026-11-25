@@ -150,3 +150,62 @@ test('the full-resolution file is fetched when the viewer opens, not before @REQ
   await expect(viewer(page).locator('img')).toHaveJSProperty('complete', true);
   expect(requested).toContain(fullResolution);
 });
+
+/**
+ * The body slides of the Solar System deck, in order. Zero-based indexes 1 to
+ * 10: the cover is slide 0, and "The moons" and Sources follow Neptune.
+ */
+const BODIES = ['The Sun', 'Mercury', 'Venus', 'Earth', 'The Moon', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+
+test.describe('the body slides of the Solar System deck', () => {
+  test('each present one full-bleed image and a control that opens it @REQ DECK-015', async ({ page }) => {
+    await open(page, { ...SOLAR_SYSTEM, kind: 'deck' });
+
+    const problems = [];
+    for (const [offset, body] of BODIES.entries()) {
+      const slide = page.locator(`deck-stage > section[data-deck-slide="${offset + 1}"]`);
+      if ((await slide.getAttribute('data-label')) !== body) {
+        problems.push(`slide ${offset + 2} is not ${body}`);
+        continue;
+      }
+      const plates = await slide.locator('.fb-plate img').count();
+      if (plates !== 1) problems.push(`${body}: ${plates} full-bleed images, expected 1`);
+
+      const control = slide.locator('button[data-zoom]');
+      if ((await control.count()) !== 1) {
+        problems.push(`${body}: ${await control.count()} viewer controls, expected 1`);
+        continue;
+      }
+      // The viewer sizes itself from these before the file has loaded.
+      for (const dimension of ['data-zoom-w', 'data-zoom-h']) {
+        if (!(Number(await control.getAttribute(dimension)) > 0)) problems.push(`${body}: ${dimension} is not a size`);
+      }
+      // Nothing else checks that the file a control names is really there:
+      // it is not an <img src>, so the link checker never sees it.
+      const file = await control.getAttribute('data-zoom');
+      const response = await page.request.get(`/${file}`);
+      if (!response.ok()) problems.push(`${body}: ${file} answers ${response.status()}`);
+    }
+    expect(problems).toEqual([]);
+  });
+
+  test('each serve their image as WebP in more than one width @REQ DECK-022', async ({ page }) => {
+    await open(page, { ...SOLAR_SYSTEM, kind: 'deck' });
+
+    const problems = [];
+    for (const [offset, body] of BODIES.entries()) {
+      const image = page.locator(`deck-stage > section[data-deck-slide="${offset + 1}"] .fb-plate img`);
+      if ((await image.count()) !== 1) {
+        problems.push(`${body}: no full-bleed image`);
+        continue;
+      }
+      const candidates = ((await image.getAttribute('srcset')) || '')
+        .split(',')
+        .map((candidate) => candidate.trim().split(/\s+/)[0])
+        .filter(Boolean);
+      if (candidates.length < 2) problems.push(`${body}: ${candidates.length} width(s) offered`);
+      if (!candidates.every((file) => file.endsWith('.webp'))) problems.push(`${body}: not all WebP (${candidates.join(', ')})`);
+    }
+    expect(problems).toEqual([]);
+  });
+});
