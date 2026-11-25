@@ -6,7 +6,7 @@
 <title>The Solar System — Cosmos</title>
 <meta name="description" content="Thirteen slides on the Sun, the eight planets and the Moon: radius, mass, gravity, rotation, tilt, temperature, atmosphere and field strength, one card each.">
 <script src="./support.js"></script>
-<script src="./deck-cinema.js?v=2"></script>
+<script src="./deck-cinema.js?v=3"></script>
 </head>
 <body>
 <x-dc>
@@ -17,6 +17,29 @@
   html, body { margin:0; background:#0a0908; }
   a { color:var(--color-accent-700); text-decoration:none; }
   a:hover { color:var(--color-accent-600); }
+
+  /* Full-bleed slide (prototype): the photograph is the stage. */
+  .fb-plate { position:absolute; left:156px; top:-43px; width:2300px; aspect-ratio:3545/1834; }
+  .fb-plate img { display:block; width:100%; height:100%; }
+  .fb-scrim { position:absolute; left:0; top:0; bottom:0; width:1100px; pointer-events:none; background:linear-gradient(90deg, rgba(3,3,3,.96) 0%, rgba(3,3,3,.94) 22%, rgba(3,3,3,.80) 58%, rgba(3,3,3,0) 100%); }
+  .fb-copy { position:absolute; left:110px; top:0; bottom:0; width:760px; display:flex; flex-direction:column; justify-content:center; }
+  .fb-kicker { font-size:24px; letter-spacing:0.22em; text-transform:uppercase; color:var(--color-accent-400); margin-bottom:16px; }
+  .fb h2 { font-family:var(--font-heading); font-weight:400; font-size:150px; line-height:0.9; letter-spacing:-0.025em; margin:0 0 24px -5px; }
+  .fb-hook { margin:0 0 24px; font-size:26px; line-height:1.45; color:#c9c2b6; max-width:24em; }
+  .fb-ledger { margin:0; border-top:1px solid rgba(240,236,229,.5); font-feature-settings:'tnum'; }
+  .fb-ledger > div { display:grid; grid-template-columns:330px minmax(0,1fr); gap:20px; padding:7px 0; border-bottom:1px solid rgba(240,236,229,.16); align-items:baseline; }
+  .fb-ledger > div:last-child { border-bottom:0; }
+  .fb-ledger dt { font-size:24px; letter-spacing:0.07em; text-transform:uppercase; color:#958e82; }
+  .fb-ledger dd { margin:0; font-size:26px; line-height:1.28; }
+  .fb-note { color:#958e82; font-size:24px; margin-left:.5em; white-space:nowrap; }
+  .fb-v { white-space:nowrap; }
+  .fb-stack .fb-note { display:block; margin-left:0; white-space:normal; }
+  .fb-ringstrip { display:block; width:100%; height:14px; margin:8px 0 4px; object-fit:fill; background:#171614; animation:none !important; }
+  .fb-aside { position:absolute; right:84px; bottom:56px; width:560px; text-align:right; }
+  .fb-credit { margin:14px 0 0; font-size:24px; line-height:1.4; color:#958e82; text-shadow:0 1px 12px #000, 0 0 3px #000; }
+  .fb-explore { -webkit-appearance:none; appearance:none; cursor:zoom-in; font:inherit; font-size:24px; letter-spacing:0.04em; color:inherit; padding:14px 26px; border-radius:999px; background:rgba(12,11,10,.66); border:1px solid rgba(240,236,229,.28); }
+  .fb-explore:hover { border-color:var(--color-accent-400); color:var(--color-accent-400); }
+  .fb-explore:focus-visible { outline:2px solid var(--color-accent-400); outline-offset:2px; }
 </style>
 </helmet>
 
@@ -202,31 +225,27 @@
     </div>
   </section>
 
-  <section data-label="Saturn" data-screen-label="09" data-speaker-notes="Less dense than water, most oblate planet, and the ring system spanning 1.2 to 2.3 Saturn radii." style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:100px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:80px;grid-template-rows:minmax(0,1fr);align-items:center">
-    <div style="min-height:0;display:flex;flex-direction:column;gap:22px">
-      <figure style="margin:0">
-        <div style="border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#000;aspect-ratio:3545/1834;overflow:hidden"><img src="planets/saturn.png" alt="Saturn from above, its rings casting a hard shadow across the northern hemisphere" style="width:100%;height:100%;object-fit:contain;display:block"></div>
-        <figcaption style="font-size:24px;margin-top:16px;color:var(--color-neutral-600)">Cassini mosaic, 2016. NASA/JPL-Caltech/Space Science Institute.</figcaption>
-      </figure>
-      <figure style="margin:0">
-        <div style="border:8px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;height:70px;overflow:hidden"><img src="textures/saturn_ring.png" alt="Radial profile of Saturn's rings from Cassini photometry, showing the Cassini Division as a dark gap" style="width:100%;height:100%;object-fit:cover;display:block"></div>
-        <figcaption style="font-size:24px;margin-top:14px;color:var(--color-neutral-600)">Radial ring profile, C-ring inner edge to A-ring outer edge — the dark band is the Cassini Division. NASA/Cassini photometry.</figcaption>
-      </figure>
-    </div>
-    <div style="min-height:0">
-      <div style="font-size:24px;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:22px">Sixth planet from the Sun</div>
-      <h2 style="font-family:var(--font-heading);font-weight:400;font-size:104px;line-height:1;letter-spacing:-0.025em;margin:0 0 30px">Saturn</h2>
-      <p style="margin:0 0 30px;font-size:26px;line-height:1.45;color:var(--color-neutral-800)">Less dense than water. Rings of ice and rock from 1.2 to 2.3 Saturn-radii, split by the Cassini Division. The most oblate planet, flattened 9.8%.</p>
-      <dl style="margin:0;border-top:1px solid var(--color-text);font-feature-settings:'tnum'">
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Equatorial radius</dt><dd style="margin:0;font-size:26px;line-height:1.3">60,268 km — polar 54,364</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mass</dt><dd style="margin:0;font-size:26px;line-height:1.3">5.683×10²⁶ kg — 95 Earths</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Density</dt><dd style="margin:0;font-size:26px;line-height:1.3">0.687 g/cm³ — it would float</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rotation</dt><dd style="margin:0;font-size:26px;line-height:1.3">10.656 h</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Axial tilt</dt><dd style="margin:0;font-size:26px;line-height:1.3">26.73°</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Rings</dt><dd style="margin:0;font-size:26px;line-height:1.3">74,500 – 136,780 km from centre</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0;border-bottom:1px solid var(--color-divider)"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Mean temperature</dt><dd style="margin:0;font-size:26px;line-height:1.3">134 K — −139 °C</dd></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:28px;padding:12px 0"><dt style="font-size:24px;letter-spacing:0.09em;text-transform:uppercase;color:var(--color-neutral-600)">Magnetic field</dt><dd style="margin:0;font-size:26px;line-height:1.3">580× Earth's dipole</dd></div>
+  <section class="fb" data-label="Saturn" data-screen-label="09" data-speaker-notes="Less dense than water, most oblate planet, and the ring system spanning 1.2 to 2.3 Saturn radii." style="background:#030303;color:#f0ece5;font-family:var(--font-body)">
+    <div class="fb-plate"><img src="planets/saturn-1920.webp" srcset="planets/saturn-960.webp 960w, planets/saturn-1440.webp 1440w, planets/saturn-1920.webp 1920w, planets/saturn-2560.webp 2560w, planets/saturn-3545.webp 3545w" sizes="120vw" width="3545" height="1834" alt="Saturn from above, its rings casting a hard shadow across the northern hemisphere"></div>
+    <div class="fb-scrim"></div>
+    <div class="fb-copy">
+      <div class="fb-kicker">Sixth planet from the Sun</div>
+      <h2>Saturn</h2>
+      <p class="fb-hook">Less dense than water. Rings of ice and rock from 1.2 to 2.3 Saturn-radii, split by the Cassini Division. The most oblate planet, flattened 9.8%.</p>
+      <dl class="fb-ledger">
+        <div><dt>Equatorial radius</dt><dd>60,268 km<span class="fb-note">polar 54,364 km</span></dd></div>
+        <div><dt>Mass</dt><dd>5.683×10²⁶ kg<span class="fb-note">95 Earths</span></dd></div>
+        <div><dt>Density</dt><dd>0.687 g/cm³<span class="fb-note">it would float</span></dd></div>
+        <div><dt>Rotation</dt><dd>10.656 h</dd></div>
+        <div><dt>Axial tilt</dt><dd>26.73°</dd></div>
+        <div><dt>Rings</dt><dd class="fb-stack"><span class="fb-v">74,500 to 136,780 km</span><span class="fb-note">from centre; dark gap: Cassini Division</span><img class="fb-ringstrip" src="textures/saturn_ring.png" alt="Radial profile of Saturn's rings from Cassini photometry, showing the Cassini Division as a dark gap"></dd></div>
+        <div><dt>Mean temperature</dt><dd>134 K<span class="fb-note">−139 °C</span></dd></div>
+        <div><dt>Magnetic field</dt><dd>580× Earth's dipole</dd></div>
       </dl>
+    </div>
+    <div class="fb-aside">
+      <button type="button" class="fb-explore" data-zoom="planets/saturn-3545.webp" data-zoom-w="3545" data-zoom-h="1834" data-zoom-label="Saturn, full resolution">Explore the image</button>
+      <p class="fb-credit">Cassini mosaic, 2016. NASA/JPL-Caltech/Space Science Institute. Ring profile: NASA/Cassini photometry.</p>
     </div>
   </section>
 
