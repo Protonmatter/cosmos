@@ -1,7 +1,7 @@
 # Specification — The presentation decks
 
 **Area:** `DECK` · **Introduced by:** [RFC 0002](../rfcs/0002-quality-gates-and-cicd.md) ·
-**Status:** Active
+**Extended by:** [RFC 0005](../rfcs/0005-full-bleed-decks.md) · **Status:** Active
 
 The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY are to be interpreted as
 described in [RFC 2119](https://www.rfc-editor.org/rfc/rfc2119) and
@@ -45,8 +45,14 @@ children of `<deck-stage>`. The engine adds:
 | `data-deck-active` | Present on exactly one section — the visible slide |
 | `data-screen-label` | `"NN <label>"`, rebuilt from `data-label`; the authored value is overwritten |
 
-Slides are hidden with `visibility`/`opacity`, never unmounted: all sections are
-always in the DOM, and only the active one is visible or readable.
+Slides are never unmounted: all sections are always in the DOM, and only the active
+one is visible or readable. The engine hides the others with `visibility` and
+`opacity`. On screen, `deck-cinema.css` additionally stops rendering
+(`display: none`) every slide that is more than one step from the active one, so
+that its images are not fetched until the reader is near it (see Image loading,
+below). A slide that is not rendered is still in the DOM and still addressable by
+`data-deck-slide`, but it has no layout box: it cannot be measured, and a lazy image
+inside it has not loaded.
 
 **No slide is given an `id`, `class`, `role`, or `aria-hidden`.** Tests address
 slides through `data-deck-slide` and `data-deck-active`.
@@ -97,3 +103,16 @@ end shows a blank screen to a room of people.
 | --- | --- | --- |
 | `DECK-013` | MUST | Each deck offers a link back to the landing page |
 | `DECK-014` | SHOULD | The overlay exposes previous, next, and reset controls with accessible names |
+
+### Image loading
+
+Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-020` | MUST | On load, a deck requests images only for the current slide and its immediate neighbours, and has a slide's images by the time that slide is shown |
+| `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
+
+`DECK-023` protects the README's promise that printing to PDF gives one page per
+slide. The engine marks every slide active before a print, which brings them all
+back into rendering; this requirement is what notices if that ever stops being true.
