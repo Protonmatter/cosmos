@@ -4,6 +4,45 @@ The site is continuously deployed from `main` and carries no version number, so
 entries are dated rather than released. Notable changes only — routine copy fixes
 and image swaps are left to the commit history.
 
+## 2026-11-26
+
+### Changed
+
+- **The JunoCam explorer in the dark look**
+  ([RFC 0007](docs/rfcs/0007-explorer-poster-and-landing.md)). It opens on one
+  frame filling the window, the thirty frames come before the essay, and each
+  sits on the black ground with its edges faded into it. Its words are
+  unchanged. Opening it at 1440 by 900 fetches 0.35 MB of images where it
+  fetched 29.6 MB.
+- **Every explorer frame from its original, with a name on it.** The thirteen
+  frames the JunoCam deck does not use were traced to their gallery entries the
+  same way the other seventeen were. All thirty now name their processor in the
+  grid and the viewer, where twenty-seven used to read "Uncredited in this
+  set", and the viewer links to each frame's gallery entry. Zooming fetches a
+  larger file, up to 4,096 pixels wide.
+- **The explorer on a phone.** At 390 pixels the page was 618 pixels wide and its
+  narrowest paragraph 81. It now runs in one column of text and two of frames,
+  the viewer puts the picture above its panel with the controls under the
+  picture, and two fingers pinch to zoom.
+- **The poster on screen.** The sheet stays light, for paper, but lies on the
+  black ground, is scaled to the width of the window, and has a Print button.
+  Its pictures come from the originals (0.73 MB where it fetched 7.41 MB) and
+  each names its processor.
+
+### Fixed
+
+- **The poster's last line ran off the sheet's margin.** Its content was 78
+  pixels taller than its fixed sheet, leaving the footer 6 pixels from the
+  bottom edge instead of 84. The spacing is tightened so that everything fits
+  with 80 to spare.
+- **The explorer's frames could not be opened from the keyboard.** Each is now a
+  button, the viewer is a dialog that takes the focus and gives it back, and
+  the page behind it no longer scrolls.
+- **Deviation D-2 is closed.** No page requests an un-substituted `{{ }}`
+  placeholder any longer, and `SITE-017` forgives no failed request.
+- **The landing page's poster row had an empty box for a picture.** It shows the
+  poster.
+
 ## 2026-11-25
 
 ### Added
