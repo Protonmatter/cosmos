@@ -120,6 +120,7 @@ its pixel size. The viewer is a `role="dialog"` element appended to `<body>` by
 | `DECK-018` | MUST | `Escape` closes the viewer and returns focus to the control that opened it |
 | `DECK-019` | MUST | A viewer file the slide does not itself display is requested only when the viewer is opened |
 | `DECK-022` | SHOULD | Full-bleed images are served as WebP in more than one width |
+| `DECK-029` | SHOULD | Where the window is not 16:9, a full-bleed photograph fades out before it reaches a letterbox bar |
 
 The body slides are slides 2 to 11 of `solar-system.dc.html`: the Sun, Mercury,
 Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
@@ -128,6 +129,13 @@ Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
 `Space` from a window-level handler and cancels the event, which also cancels the
 activation of whatever button has focus. `DECK-017` exists for the same reason from
 the other side: the engine does not know the viewer is there.
+
+`DECK-029` was added with the addendum to
+[RFC 0006](../rfcs/0006-one-look-for-every-deck.md). A photograph that runs off
+the canvas is cut by the edge of the screen on a 16:9 window, which is the
+effect wanted. On any other window the same cut is a straight line against a
+bar. The fade is drawn only on the sides that have a bar, so a 16:9 window is
+unchanged.
 
 `DECK-019` is worded around what the slide displays because the two can coincide. A
 slide offers its image in several widths, and on a large enough screen the widest of

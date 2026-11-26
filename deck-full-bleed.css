@@ -160,3 +160,35 @@
 }
 .fb-explore:hover { border-color: var(--color-accent-400); color: var(--color-accent-400); }
 .fb-explore:focus-visible { outline: 2px solid var(--color-accent-400); outline-offset: 2px; }
+
+/* ── The edge of the canvas ────────────────────────────────────────────── */
+
+/* A full-bleed photograph runs off the canvas, which is the point: on a 16:9
+   screen the planet is cut by the edge of the screen itself. On any other
+   screen the canvas is letterboxed, and the same cut shows as a hard straight
+   line against the bar. Where there are bars, the photograph fades out before
+   it reaches them: top and bottom on a window narrower than 16:9, left and
+   right on a wider one. On a 16:9 window nothing is added. Text sits above
+   the fade. */
+.fb { isolation: isolate; }
+.fb > :not(.fb-plate):not(.fb-scrim) { z-index: 2; }
+@media screen and (max-aspect-ratio: 177/100) {
+  .fb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg, var(--fb-space) 0%, rgba(var(--fb-space-rgb), 0) 9%, rgba(var(--fb-space-rgb), 0) 91%, var(--fb-space) 100%);
+  }
+}
+@media screen and (min-aspect-ratio: 179/100) {
+  .fb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--fb-space) 0%, rgba(var(--fb-space-rgb), 0) 6%, rgba(var(--fb-space-rgb), 0) 94%, var(--fb-space) 100%);
+  }
+}

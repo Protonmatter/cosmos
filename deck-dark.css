@@ -231,11 +231,13 @@
 /* ── A second photograph on a full-bleed slide ─────────────────────────── */
 
 .fb-inset { display: grid; grid-template-columns: var(--inset-w, 300px) minmax(0, 1fr); gap: 24px; align-items: end; margin: 34px 0 0; }
-.fb-inset .dk-zoom { width: 100%; aspect-ratio: var(--inset-ar, 16 / 9); border: 1px solid rgba(240, 236, 229, .3); }
+.fb-inset .dk-zoom { width: 100%; aspect-ratio: var(--inset-ar, 16 / 9); }
+/* An inset has no frame: its edges fade like any other picture's. */
+.fb-inset .dk-feather { --feather: 36px; --feather-spread: 12px; }
 .fb-inset figcaption { font-size: 24px; line-height: 1.35; color: var(--fb-ink-3); }
 /* Where the text column is full, the inset goes in the top right corner. */
-.fb-inset.fb-inset-corner { position: absolute; right: 84px; top: 84px; width: var(--inset-w, 300px); display: block; margin: 0; }
-.fb-inset.fb-inset-corner figcaption { margin-top: 14px; padding: 10px 14px; border-radius: 12px; background: rgba(8, 8, 8, .68); color: var(--fb-ink-2); }
+.fb-inset.fb-inset-corner { position: absolute; right: 84px; top: 48px; width: var(--inset-total, 600px); grid-template-columns: minmax(0, 1fr) var(--inset-w, 300px); align-items: start; margin: 0; }
+.fb-inset.fb-inset-corner figcaption { order: -1; padding-top: 12px; text-align: right; color: var(--fb-ink-2); }
 
 /* The credit and the viewer control at the bottom left, for a photograph
    whose subject is at the bottom right. */

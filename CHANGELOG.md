@@ -47,6 +47,11 @@ and image swaps are left to the commit history.
 
 ### Changed
 
+- On a window that is not 16:9, a full-bleed photograph in any deck now fades
+  out before the letterbox bar instead of ending in a straight line
+  (`DECK-029`). A 16:9 window is unchanged.
+- The Moons deck's inset pictures lose their hairline frames and fade at the
+  edges like every other picture; Io's inset moves clear of the globe.
 - The JunoCam deck's images are WebP. Reading the deck from first slide to last
   at 1440 × 900 fetches 1.0 MB of images where it fetched 18.1 MB.
 - RFC 0006 is Accepted.

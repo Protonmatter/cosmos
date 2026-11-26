@@ -272,6 +272,19 @@ tiles alike.
 The shadow is drawn over the picture on the slide. It is not in the file, and the
 viewer shows every frame as its author left it.
 
+Two more edges were found by looking for them, and are treated the same way in
+this pull request although they are outside this deck:
+
+- **The Moons deck's four inset pictures** had a hairline frame. They now have
+  the shadow in its place. Io's inset also sat over the globe it accompanies; it
+  moves up into the sky beside its caption.
+- **A full-bleed photograph is cut by the edge of the canvas.** On a 16:9 screen
+  that is the edge of the screen and looks deliberate. On a 16:10 laptop or an
+  upright phone the canvas is letterboxed and the planet ends in a straight line
+  against the bar. `deck-full-bleed.css` now fades the photograph out on the
+  sides that have a bar, and adds nothing on a 16:9 window (`DECK-029`). This
+  applies to every full-bleed slide in all three decks.
+
 ### The frames are not adjusted
 
 The Moons deck took the background of two photographs down to black. Nothing of
@@ -295,6 +308,7 @@ by tests.
 | `DECK-027` | MUST | Every photograph in the JunoCam deck can be opened in the image viewer | `docs/specs/deck.spec.md` |
 | `DECK-028` | MUST | The images the JunoCam deck requests on load total no more than 1 MB at the test viewport | `docs/specs/deck.spec.md` |
 | `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer | `docs/specs/journeys.spec.md` |
+| `DECK-029` | SHOULD | Where the window is not 16:9, a full-bleed photograph fades out before it reaches a letterbox bar | `docs/specs/deck.spec.md` |
 
 Each test was run against the deck with its behaviour removed and failed as it
 should. `tests/functional/moons-deck.spec.js` is renamed
