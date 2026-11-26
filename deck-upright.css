@@ -1,10 +1,11 @@
 /* Decks on a phone held upright.
  *
  * Everything here applies only while deck-upright.js has marked the root with
- * `data-upright`, which it does when the window is upright and at most 640 px
- * wide. The stage is then 540 px wide and as tall as the window's shape makes
- * it (1169 px for a 390 by 844 phone), and every slide is one column: picture
- * first, words beneath, scrolling if it is taller than the page.
+ * `data-upright`, which it does when the window is upright and at most 900 px
+ * wide. On a phone the stage is then 540 px wide and as tall as the window's
+ * shape makes it (1169 px for a 390 by 844 phone), and every slide is one
+ * column: picture first, words beneath, scrolling if it is taller than the
+ * page. A window wider than 640 px gets a 720 px stage and `data-upright="wide"`.
  *
  * Sizes are stage pixels. On a 390 px phone one stage pixel is 0.72 of a CSS
  * pixel, so 24 here is drawn at 17. Nothing goes below 24, as on the wide stage.
@@ -79,6 +80,9 @@
   background: linear-gradient(180deg, rgba(var(--fb-space-rgb), 0), var(--fb-space));
 }
 [data-upright] .fb-scrim, [data-upright] .fb::after { display: none; }
+/* On the wider canvas, cropping a disc to the plate would leave a band through
+   its middle, so the whole picture is shown. Frames of cloud still fill it. */
+[data-upright="wide"] .fb-plate:not(.dk-feather) img { object-fit: contain; }
 [data-upright] .fb-copy, [data-upright] .mc-copy, [data-upright] .cover-copy { display: block; padding-top: 22px; }
 
 [data-upright] .fb-ledger > div, [data-upright] .dk-copy .fb-ledger > div { grid-template-columns: 196px minmax(0, 1fr); gap: 14px; padding: 8px 0; }

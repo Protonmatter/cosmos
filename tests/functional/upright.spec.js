@@ -28,6 +28,55 @@ const onActive = (page, measure) =>
     measure.toString(),
   );
 
+/* What is measured on a slide. Each runs in the page, on the active slide. */
+
+const boxOf = (slide) => {
+  const edge = slide.getBoundingClientRect();
+  return { left: edge.left, top: edge.top, width: edge.width, height: edge.height };
+};
+
+const smallText = (slide) => {
+  const scale = slide.getBoundingClientRect().width / slide.offsetWidth;
+  const found = [];
+  const walker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT);
+  for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+    const text = node.textContent.trim();
+    const parent = node.parentElement;
+    if (!text || !parent || parent.closest('svg')) continue;
+    const style = getComputedStyle(parent);
+    const box = parent.getBoundingClientRect();
+    if (style.visibility === 'hidden' || box.width === 0 || box.height === 0) continue;
+    // A block scaled with CSS zoom reports its font size before the zoom.
+    const drawn = parseFloat(style.fontSize) * (parent.currentCSSZoom ?? 1) * scale;
+    if (drawn < 15.95) found.push(`${drawn.toFixed(1)} px: ${text.slice(0, 40)}`);
+}
+  return found;
+};
+
+const widthAndScroll = (slide) => {
+  const edge = slide.getBoundingClientRect();
+  const outside = [...slide.querySelectorAll('*')]
+    .filter((element) => {
+      if (element.closest('svg') && element.tagName.toLowerCase() !== 'svg') return false;
+      const box = element.getBoundingClientRect();
+      if (box.width === 0 || box.height === 0) return false;
+      // A picture may be cropped by the box that holds it; the box is what counts.
+      let holder = element.parentElement;
+      while (holder && holder !== slide) {
+        if (getComputedStyle(holder).overflow !== 'visible') return false;
+        holder = holder.parentElement;
+      }
+      return box.left < edge.left - 1 || box.right > edge.right + 1;
+    })
+    .map((element) => `${element.tagName.toLowerCase()}.${element.className}`.slice(0, 50));
+  return {
+    outside: [...new Set(outside)],
+    taller: slide.scrollHeight > slide.clientHeight + 1,
+    overflowY: getComputedStyle(slide).overflowY,
+    overflowX: getComputedStyle(slide).overflowX,
+  };
+};
+
 /** Drag one finger across the stage, the way a swipe does. */
 async function swipe(page, fromX, toX, y = 600) {
   await page.evaluate(
@@ -62,10 +111,7 @@ for (const descriptor of DECKS) {
     test('draws every slide the full size of the window @REQ DECK-030', async ({ page }) => {
       for (let index = 0; index < descriptor.slides; index += 1) {
         await show(page, index);
-        const box = await onActive(page, (slide) => {
-          const edge = slide.getBoundingClientRect();
-          return { left: edge.left, top: edge.top, width: edge.width, height: edge.height };
-        });
+        const box = await onActive(page, boxOf);
         expect(Math.abs(box.left), `slide ${index + 1} left`).toBeLessThanOrEqual(1);
         expect(Math.abs(box.top), `slide ${index + 1} top`).toBeLessThanOrEqual(1);
         expect(Math.abs(box.width - PHONE.width), `slide ${index + 1} width`).toBeLessThanOrEqual(1);
@@ -76,23 +122,7 @@ for (const descriptor of DECKS) {
     test('draws no text smaller than 16 px @REQ DECK-031', async ({ page }) => {
       for (let index = 0; index < descriptor.slides; index += 1) {
         await show(page, index);
-        const small = await onActive(page, (slide) => {
-          const scale = slide.getBoundingClientRect().width / slide.offsetWidth;
-          const found = [];
-          const walker = document.createTreeWalker(slide, NodeFilter.SHOW_TEXT);
-          for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-            const text = node.textContent.trim();
-            const parent = node.parentElement;
-            if (!text || !parent || parent.closest('svg')) continue;
-            const style = getComputedStyle(parent);
-            const box = parent.getBoundingClientRect();
-            if (style.visibility === 'hidden' || box.width === 0 || box.height === 0) continue;
-            // A block scaled with CSS zoom reports its font size before the zoom.
-            const drawn = parseFloat(style.fontSize) * (parent.currentCSSZoom ?? 1) * scale;
-            if (drawn < 15.95) found.push(`${drawn.toFixed(1)} px: ${text.slice(0, 40)}`);
-          }
-          return found;
-        });
+        const small = await onActive(page, smallText);
         expect(small, `slide ${index + 1}`).toEqual([]);
       }
     });
@@ -100,29 +130,7 @@ for (const descriptor of DECKS) {
     test('keeps every slide within the width of the window and lets a tall one scroll @REQ DECK-032', async ({ page }) => {
       for (let index = 0; index < descriptor.slides; index += 1) {
         await show(page, index);
-        const measured = await onActive(page, (slide) => {
-          const edge = slide.getBoundingClientRect();
-          const outside = [...slide.querySelectorAll('*')]
-            .filter((element) => {
-              if (element.closest('svg') && element.tagName.toLowerCase() !== 'svg') return false;
-              const box = element.getBoundingClientRect();
-              if (box.width === 0 || box.height === 0) return false;
-              // A picture may be cropped by the box that holds it; the box is what counts.
-              let holder = element.parentElement;
-              while (holder && holder !== slide) {
-                if (getComputedStyle(holder).overflow !== 'visible') return false;
-                holder = holder.parentElement;
-              }
-              return box.left < edge.left - 1 || box.right > edge.right + 1;
-            })
-            .map((element) => `${element.tagName.toLowerCase()}.${element.className}`.slice(0, 50));
-          return {
-            outside: [...new Set(outside)],
-            taller: slide.scrollHeight > slide.clientHeight + 1,
-            overflowY: getComputedStyle(slide).overflowY,
-            overflowX: getComputedStyle(slide).overflowX,
-          };
-        });
+        const measured = await onActive(page, widthAndScroll);
         expect(measured.outside, `slide ${index + 1} has content beyond the sides`).toEqual([]);
         expect(measured.overflowX, `slide ${index + 1}`).toBe('hidden');
         if (measured.taller) expect(measured.overflowY, `slide ${index + 1} is cut off`).toBe('auto');
@@ -190,3 +198,54 @@ for (const descriptor of DECKS) {
     });
   });
 }
+
+/* ── Upright tablets (the RFC's addendum) ─────────────────────────────── */
+
+const TABLET = { width: 768, height: 1024 };
+
+for (const descriptor of DECKS) {
+  test.describe(`${descriptor.name} on an upright tablet`, () => {
+    test.use({ viewport: TABLET, hasTouch: true });
+
+    test('lays every slide out upright, readable, within the window @REQ DECK-036', async ({ page }) => {
+      await open(page, deck(descriptor));
+      await expect
+        .poll(() => page.evaluate(() => `${document.querySelector('deck-stage').getAttribute('width')} ${document.documentElement.getAttribute('data-upright')}`))
+        .toBe('720 wide');
+
+      for (let index = 0; index < descriptor.slides; index += 1) {
+        await show(page, index);
+        const box = await onActive(page, boxOf);
+        expect(Math.abs(box.width - TABLET.width), `slide ${index + 1} width`).toBeLessThanOrEqual(1);
+        expect(Math.abs(box.height - TABLET.height), `slide ${index + 1} height`).toBeLessThanOrEqual(2);
+
+        expect(await onActive(page, smallText), `slide ${index + 1} text`).toEqual([]);
+
+        const measured = await onActive(page, widthAndScroll);
+        expect(measured.outside, `slide ${index + 1} has content beyond the sides`).toEqual([]);
+        if (measured.taller) expect(measured.overflowY, `slide ${index + 1} is cut off`).toBe('auto');
+      }
+    });
+  });
+}
+
+test.describe('an upright window wider than a tablet', () => {
+  test.use({ viewport: { width: 1024, height: 1366 } });
+
+  test('keeps the 16:9 stage @REQ DECK-037', async ({ page }) => {
+    await open(page, deck(DECKS[0]));
+    const stage = await page.evaluate(() => {
+      const element = document.querySelector('deck-stage');
+      const slide = element.querySelector(':scope > section[data-deck-active]').getBoundingClientRect();
+      return {
+        size: `${element.getAttribute('width')}x${element.getAttribute('height')}`,
+        upright: document.documentElement.hasAttribute('data-upright'),
+        shape: slide.width / slide.height,
+      };
+    });
+    expect(stage.size).toBe('1920x1080');
+    expect(stage.upright).toBe(false);
+    expect(stage.shape).toBeCloseTo(16 / 9, 2);
+  });
+});
+

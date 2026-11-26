@@ -210,6 +210,8 @@ observes, and `deck-upright.css` lays each slide out again as one column.
 | `DECK-033` | MUST | On an upright phone a full-bleed slide's picture is above its words |
 | `DECK-034` | MUST | On an upright phone a swipe to the left shows the next slide and a swipe to the right the one before |
 | `DECK-035` | MUST | A window that is not an upright phone gets the 1920 by 1080 stage, including one that was upright a moment ago |
+| `DECK-036` | MUST | On an upright window 768 px wide and 1024 px high, every slide of every deck fills the window, draws no text under 16 px, keeps within the window's width, and scrolls if it is taller |
+| `DECK-037` | MUST | An upright window wider than 900 px gets the 1920 by 1080 stage |
 
 Before this the 16:9 stage was drawn 390 by 219 px on such a window and its 24 px
 labels at 4.9 px.
@@ -219,6 +221,11 @@ is written pattern by pattern, with a few rules for single slides, so it can be 
 on forty slides and wrong on one. What the tests cannot see is whether a page looks
 well: `DECK-032` caught a strip of six pictures running off the side of one slide, but
 nothing would catch a picture that is merely too small.
+
+`DECK-036` and `DECK-037` come from the RFC's addendum, which extends the layout to
+tablets held upright. Up to 900 px wide they get it on a canvas 720 px wide, so that
+their text is not drawn at large-print size. `DECK-035` reads "upright phone" as any
+window the layout applies to.
 
 `DECK-004` still holds. It is measured on a wide window, where the stage is the size
 the deck declares.

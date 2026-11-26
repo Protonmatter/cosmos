@@ -13,8 +13,12 @@ and image swaps are left to the commit history.
   phone a slide was a strip 219 pixels high with 4.9 pixel labels. Each slide is
   now a page the shape of the screen: the picture across the top, the same words
   beneath at 17 pixels or more, scrolling where there is more than fits. A
-  sideways swipe turns the page. Turned on its side, or on anything wider than a
-  phone, the deck is the 16:9 stage it was. The deck engine is not modified.
+  sideways swipe turns the page. Turned on its side, or on a laptop or desktop,
+  the deck is the 16:9 stage it was. The deck engine is not modified.
+- **The same on a tablet held upright**, up to 900 pixels wide (the addendum to
+  RFC 0008). On a 768 by 1024 tablet a slide was 432 pixels high with 9.6 pixel
+  labels. It gets the upright page on a wider canvas, with text at about 26
+  pixels and each planet shown whole.
 
 ### Changed
 
