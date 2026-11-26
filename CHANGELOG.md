@@ -41,6 +41,12 @@ and image swaps are left to the commit history.
 
 ### Fixed
 
+- **The Solar System cover counted eleven bodies and named ten.** The sentence
+  under the title now names Io, which the cover draws and the deck shows.
+- **The Moons deck's Sources slide said a moon was "still a drawn circle".** All
+  twenty-two have been photographs since RFC 0006. The clause is gone.
+- **The README said the Pocket Planetarium uses two of the PNG frames.** It uses
+  all thirty.
 - **The poster's last line ran off the sheet's margin.** Its content was 78
   pixels taller than its fixed sheet, leaving the footer 6 pixels from the
   bottom edge instead of 84. The spacing is tightened so that everything fits

@@ -162,7 +162,8 @@ name, that is what appears here.
 
 The pages serve these as `images/<frame>-<width>.webp`, at up to 4,096 pixels
 wide. The `images/*.png` files are 960 pixel copies of the same pictures, matching
-the previews the gallery serves. Only the Pocket Planetarium still uses them.
+the previews the gallery serves. The Pocket Planetarium shows all thirty of them in
+its gallery, through `beta/pocket-planetarium/cosmos-data.js`.
 
 The Solar System deck shows four bodies from larger originals than the rest of the
 site uses, all NASA and in the public domain:
@@ -180,7 +181,8 @@ by `tools/cover-lineup.py`. The rest of the deck's images are the `planets/<name
 files, and the JunoCam deck's, the explorer's and the poster's are
 `images/<frame>-<width>.webp`, written the same way.
 The older `planets/*.png`, `moons/*.png` and `images/*.png` files remain because the
-Pocket Planetarium still uses some of them.
+Pocket Planetarium still uses them: all thirty of the `images/` frames, and some of
+the others.
 
 Two files are **not** public domain and are used under **CC BY 4.0**: `textures/moon.jpg`
 and `textures/saturn_ring.png`, from [Solar System

@@ -158,8 +158,8 @@ that is not displayed is not requested, so the browser no longer asks for
 `{{ p.src }}`. With the explorer cured, no page makes such a request, and
 `SITE-017` stops forgiving them.
 
-`images/*.png` stay in the repository. The Pocket Planetarium still uses two of
-them, and removing files is a separate decision.
+`images/*.png` stay in the repository. The Pocket Planetarium shows all thirty
+of them in its gallery.
 
 ### The explorer's structure
 
@@ -275,7 +275,7 @@ their decisions to pages that are not decks.
   left open in RFC 0006 and still is.
 - Whether the five account names should be replaced with real names, if their
   owners publish them elsewhere.
-- `pocket-planetarium.html` still uses two of the PNG frames. It is a prototype
+- The Pocket Planetarium still shows the thirty PNG frames. It is a prototype
   with its own RFC and is not touched here, so the PNG copies stay.
 - Phones in an upright position still get the decks as a scaled 16:9 stage. That
   is the next RFC.
@@ -284,3 +284,12 @@ their decisions to pages that are not decks.
 
 One pull request. No URL changes. The explorer's two editor props keep their
 names and defaults.
+
+## Corrections
+
+- **2026-11-26.** This RFC first said that the Pocket Planetarium uses two of
+  the PNG frames. It uses all thirty: two are named in `pocket-planetarium.html`
+  and the rest are listed in `beta/pocket-planetarium/cosmos-data.js`, which the
+  search behind the first statement did not cover. The text above is corrected.
+  Nothing was removed on the strength of the wrong figure.
+
