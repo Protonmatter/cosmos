@@ -1,0 +1,203 @@
+/* Decks on a phone held upright.
+ *
+ * Everything here applies only while deck-upright.js has marked the root with
+ * `data-upright`, which it does when the window is upright and at most 640 px
+ * wide. The stage is then 540 px wide and as tall as the window's shape makes
+ * it (1169 px for a 390 by 844 phone), and every slide is one column: picture
+ * first, words beneath, scrolling if it is taller than the page.
+ *
+ * Sizes are stage pixels. On a 390 px phone one stage pixel is 0.72 of a CSS
+ * pixel, so 24 here is drawn at 17. Nothing goes below 24, as on the wide stage.
+ *
+ * `!important` appears where a slide sets a position inline.
+ *
+ * See docs/rfcs/0008-decks-on-an-upright-phone.md.
+ */
+
+[data-upright] deck-stage > section {
+  --up-pad: 30px;
+  box-sizing: border-box;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+}
+[data-upright] deck-stage > section::-webkit-scrollbar { display: none; }
+
+[data-upright] deck-stage > :is(.fb, .dk, .duo) {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 124px; /* clears the engine's slide counter */
+}
+[data-upright] deck-stage > :is(.fb, .dk, .duo) > * { flex: none; }
+
+/* Every positioned block goes back into the flow. */
+[data-upright] :is(.fb-copy, .fb-aside, .fb-inset.fb-inset-corner, .cover-copy, .cover-foot, .mc-copy, .mc-count,
+    .dk-head, .dk-foot, .dk-lineup, .dk-tables, .dk-copy, .dk-rows, .dk-stats, .dk-grid, .jc-diagrams, .duo-head) {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  height: auto;
+  margin-left: var(--up-pad) !important;
+  margin-right: var(--up-pad) !important;
+}
+
+/* ── Type ─────────────────────────────────────────────────────────────── */
+
+[data-upright] .fb-kicker { font-size: 24px; letter-spacing: 0.16em; margin-bottom: 10px; }
+[data-upright] .fb h2 { font-size: 76px; margin: 0 0 18px -2px; }
+[data-upright] .fb h2.fb-long { font-size: 44px; line-height: 1.08; margin: 0 0 18px; }
+[data-upright] .dk h2 { font-size: 52px; line-height: 1.04; margin: 0 0 16px -1px; white-space: normal !important; }
+[data-upright] .dk h2.dk-long, [data-upright] .dk h2.jc-close { font-size: 42px; line-height: 1.08; margin-bottom: 18px; }
+[data-upright] :is(.cover-copy, .mc-copy, .dk-copy) h1 { font-size: 72px; line-height: 1; margin: 12px 0 20px -2px; white-space: normal; }
+[data-upright] :is(.fb-hook, .dk-lede, .jc-lede, .cover-copy p, .mc-copy p) { font-size: 25px; line-height: 1.45; max-width: none; }
+[data-upright] .fb-hook { margin-bottom: 20px; }
+[data-upright] .mc-copy .mc-source, [data-upright] .jc-by { font-size: 24px; }
+
+/* ── Full bleed: the picture across the top ───────────────────────────── */
+
+[data-upright] .fb-plate {
+  position: relative;
+  left: auto;
+  top: auto;
+  order: -1;
+  width: 100% !important;
+  aspect-ratio: var(--fb-ar, 16 / 9);
+  max-height: 44%;
+  overflow: hidden;
+}
+[data-upright] .fb-plate img { width: 100%; height: 100%; object-fit: cover; }
+[data-upright] .fb-plate:not(.dk-feather)::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 26%;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(var(--fb-space-rgb), 0), var(--fb-space));
+}
+[data-upright] .fb-scrim, [data-upright] .fb::after { display: none; }
+[data-upright] .fb-copy, [data-upright] .mc-copy, [data-upright] .cover-copy { display: block; padding-top: 22px; }
+
+[data-upright] .fb-ledger > div, [data-upright] .dk-copy .fb-ledger > div { grid-template-columns: 196px minmax(0, 1fr); gap: 14px; padding: 8px 0; }
+[data-upright] .fb-ledger dt { font-size: 24px; letter-spacing: 0.03em; line-height: 1.25; }
+[data-upright] .fb-ledger dd { font-size: 25px; }
+[data-upright] .fb-note { display: block; margin-left: 0; font-size: 24px; white-space: normal; }
+[data-upright] .fb-v { white-space: normal; }
+
+[data-upright] .fb-aside { padding-top: 22px; text-align: left; }
+[data-upright] .fb-credit { display: block; margin: 14px 0 0; padding: 0; font-size: 24px; text-align: left; background: none; }
+[data-upright] .fb-explore { font-size: 24px; padding: 12px 22px; }
+[data-upright] .fb-inset { grid-template-columns: 190px minmax(0, 1fr); gap: 18px; margin-top: 24px; }
+[data-upright] .fb-inset.fb-inset-corner { margin-top: 24px !important; }
+[data-upright] .fb-inset.fb-inset-corner figcaption { order: 0; padding-top: 0; text-align: left; }
+
+/* The two covers. */
+[data-upright] .cover-names { display: none; }
+[data-upright] .cover-foot { display: block; margin-top: 26px; padding-top: 18px; }
+[data-upright] .cover-foot > * { display: block; }
+[data-upright] .cover-foot > * + * { margin-top: 8px; }
+[data-upright] .mc-count { margin-top: 26px !important; }
+[data-upright] .mc-count dt { font-size: 24px; }
+
+/* ── Dark slides ──────────────────────────────────────────────────────── */
+
+/* Room at the top for the link back to the landing page. */
+[data-upright] .dk > :first-child:not(.dk-side), [data-upright] .duo-head { padding-top: 96px; }
+[data-upright] .dk-head.dk-row, [data-upright] .dk-copy { display: block; }
+[data-upright] .dk-head.dk-row h2 { margin-bottom: 16px; }
+[data-upright] .dk-foot { margin-top: 28px; padding-top: 18px; font-size: 24px; }
+[data-upright] .dk-copy { padding-top: 26px; }
+
+/* A picture down one side becomes a picture across the top. */
+[data-upright] .dk-side {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  order: -1;
+  width: 100% !important;
+  height: 42%;
+}
+[data-upright] .dk-side::after, [data-upright] .dk-side-right::after {
+  top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 110px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #000);
+}
+[data-upright] .dk-side figcaption { left: var(--up-pad); right: var(--up-pad); bottom: 10px; max-width: none; }
+
+/* Line-ups wrap two to a row. Every disc keeps the same fraction of its
+   wide-screen size, so the line-up is still to scale. */
+[data-upright] .dk-lineup { --up: 0.5; flex-wrap: wrap; justify-content: space-between; gap: 30px 16px; margin-top: 30px; }
+[data-upright] .dk-body { width: 232px; }
+[data-upright] .dk-disc-row { height: calc(var(--dk-row, 260px) * var(--up)); }
+[data-upright] .dk-disc { width: calc(var(--d) * var(--up)); height: calc(var(--d) * var(--up)); }
+[data-upright] .dk-body figcaption b { margin-top: 12px; font-size: 32px; }
+[data-upright] .dk-fig { white-space: normal; }
+
+/* Tables one above the other. */
+[data-upright] .dk-tables { display: block; margin-top: 24px; }
+[data-upright] .dk-tables table { font-size: 24px; }
+[data-upright] .dk-tables table + table { margin-top: 30px; }
+[data-upright] .dk-tables th { font-size: 24px; letter-spacing: 0.03em; }
+[data-upright] .dk-tables td { padding: 10px 0; }
+
+[data-upright] .dk-entries { grid-template-columns: minmax(0, 1fr); gap: 22px; margin-top: 24px; padding-top: 22px; }
+[data-upright] .dk-entries dt { font-size: 36px; }
+[data-upright] .dk-rows { margin-top: 26px !important; }
+[data-upright] .dk-rows > div, [data-upright] .jc-facts > div { grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; }
+[data-upright] .dk-rows dt { font-size: 24px; }
+[data-upright] .dk-stats { flex-wrap: wrap; gap: 26px 44px; margin-top: 28px !important; }
+[data-upright] .dk-stats dt { font-size: 56px; }
+
+/* Pairs keep their inline sizes and are scaled as a whole, so two pictures
+   that are to scale with each other stay so. The caption is scaled back up. */
+[data-upright] .dk-pair { --up: 0.88; position: static !important; left: auto !important; top: auto !important; zoom: var(--up); margin: calc(26px / var(--up)) calc(var(--up-pad) / var(--up)) 0 !important; }
+[data-upright] .dk-pair figcaption { font-size: calc(24px / var(--up)); margin-top: calc(12px / var(--up)); }
+[data-upright] .dk-pair figcaption b { font-size: calc(32px / var(--up)); }
+
+[data-upright] .dk-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 24px 16px !important; margin-top: 28px !important; }
+[data-upright] .dk-grid .dk-zoom { height: auto; aspect-ratio: 4 / 3; }
+[data-upright] .dk-grid .dk-feather { --feather: 26px; --feather-spread: 9px; }
+[data-upright] .dk-grid figcaption { margin-top: 10px; }
+
+[data-upright] .jc-diagrams { display: block; margin-top: 28px !important; }
+[data-upright] .jc-diagrams figure + figure { margin-top: 34px; }
+
+/* Two panels, one above the other. */
+[data-upright] .duo-head { display: block; }
+[data-upright] .duo-head h2 { font-size: 52px; white-space: normal; margin-bottom: 16px; }
+[data-upright] .duo-head p { font-size: 25px; }
+[data-upright] .duo-next { display: inline-block; margin-top: 20px; }
+[data-upright] .duo-panel { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: 100% !important; height: 440px; margin-top: 30px; }
+[data-upright] .duo-panel img { inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover; }
+[data-upright] .duo-panel figcaption { padding: 100px var(--up-pad) 20px; }
+[data-upright] .duo-panel figcaption b { font-size: 42px; }
+
+/* ── Single slides ────────────────────────────────────────────────────── */
+
+/* The Solar System cover: the line-up is a strip, so the page is centred. */
+[data-upright] .cover { justify-content: center; }
+
+/* The Solar System's Sources slide is laid out inline, without a pattern. */
+[data-upright] deck-stage > section[data-label="Sources"]:not(.dk) {
+  display: block !important;
+  padding: 96px var(--up-pad) 124px !important;
+}
+[data-upright] section[data-label="Sources"]:not(.dk) h2 { font-size: 52px !important; line-height: 1.04 !important; margin: 0 0 16px !important; }
+[data-upright] section[data-label="Sources"]:not(.dk) dl { margin-top: 28px !important; }
+[data-upright] section[data-label="Sources"]:not(.dk) dl > div { grid-template-columns: minmax(0, 1fr) !important; gap: 2px !important; padding: 12px 0 !important; }
+
+/* Phobos and Deimos are to scale with each other: one factor for both. */
+[data-upright] section[data-label="Mars"] .dk-pair { --up: 0.55; }
+
+/* Titan's six mosaics are a wide strip. */
+[data-upright] section[data-label="Under the haze"] .dk-pair:nth-of-type(2) { --up: 0.457; }
+
+/* Two readings of one frame are compared side by side, upright as anywhere. */
+[data-upright] section[data-label="Two readings"] { flex-flow: row wrap; align-content: flex-start; }
+[data-upright] section[data-label="Two readings"] .dk-pair { --up: 0.41; padding-top: 0 !important; margin: calc(96px / var(--up)) 0 0 calc(var(--up-pad) / var(--up)) !important; }
+[data-upright] section[data-label="Two readings"] .dk-pair + .dk-pair { margin-left: calc(12px / var(--up)) !important; }
+[data-upright] section[data-label="Two readings"] .dk-copy { flex: 0 0 calc(100% - var(--up-pad) * 2); }

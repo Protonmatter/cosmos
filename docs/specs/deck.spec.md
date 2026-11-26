@@ -194,3 +194,32 @@ difference of one pixel, or two per cent on the larger discs, which is rounding.
 `DECK-027` matters more than it looks. The JunoCam deck crops its frames to fit a
 grid, and its argument is that every picture of Jupiter is somebody's choice of
 what to show. The viewer is where a reader sees the frame the deck cropped.
+
+### On a phone held upright
+
+Added by [RFC 0008](../rfcs/0008-decks-on-an-upright-phone.md). "Upright phone" means
+a window 390 px wide and 844 px high. `deck-upright.js` gives the engine a canvas the
+shape of that window, 540 px wide, by changing the two size attributes it already
+observes, and `deck-upright.css` lays each slide out again as one column.
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-030` | MUST | On an upright phone every slide of every deck is drawn the full width and height of the window |
+| `DECK-031` | MUST | On an upright phone no text on any slide is drawn smaller than 16 px |
+| `DECK-032` | MUST | On an upright phone no slide is wider than the window, and a slide taller than the window scrolls |
+| `DECK-033` | MUST | On an upright phone a full-bleed slide's picture is above its words |
+| `DECK-034` | MUST | On an upright phone a swipe to the left shows the next slide and a swipe to the right the one before |
+| `DECK-035` | MUST | A window that is not an upright phone gets the 1920 by 1080 stage, including one that was upright a moment ago |
+
+Before this the 16:9 stage was drawn 390 by 219 px on such a window and its 24 px
+labels at 4.9 px.
+
+These are checked on every slide of every deck, not on a sample. The upright layout
+is written pattern by pattern, with a few rules for single slides, so it can be right
+on forty slides and wrong on one. What the tests cannot see is whether a page looks
+well: `DECK-032` caught a strip of six pictures running off the side of one slide, but
+nothing would catch a picture that is merely too small.
+
+`DECK-004` still holds. It is measured on a wide window, where the stage is the size
+the deck declares.
+
