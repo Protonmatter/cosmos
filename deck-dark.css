@@ -301,3 +301,7 @@
 .fb h2.fb-long { font-size: 68px; line-height: 1.06; margin: 0 0 26px; }
 .fb-copy .dk-lede { max-width: none; }
 .fb-copy .dk-stats, .dk-copy .dk-stats { position: static; margin-top: 34px; }
+
+/* Who made a picture, on a line of its own under a caption. */
+.dk-by { display: block; margin-top: 2px; color: var(--fb-ink-3); }
+.dk-by::before { content: 'Processed by '; }

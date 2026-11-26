@@ -220,11 +220,12 @@ came with it.
 
 It is an essay. Seven of its eleven slides are a column of prose beside one
 picture, one is three diagrams, and the pictures are not NASA originals but
-frames processed by volunteers, every one of them 960 pixels wide.
+frames processed by volunteers. The repository held each as a 960 pixel copy
+with no note of where it came from.
 
-That width decides the layout. A 960 pixel frame across a 1,920 pixel slide
-would be shown at twice its size, so no frame fills the slide edge to edge.
-Instead:
+The layout was drawn for that width, where a frame across a 1,920 pixel slide
+would have been shown at twice its size, and then the originals were found (see
+"The originals" below). The layout stayed as it was:
 
 - The three tall frames (the title, the planet, the closing) run the full height
   of the slide down its right side, which shows them whole at 60 to 90 per cent
@@ -232,11 +233,10 @@ Instead:
   pixels wide that cut off more than a third of their height.
 - The four landscape frames (the stripes, the poles, the pushframe camera, eight
   bits) are each the one large picture on their slide, 1,300 to 1,400 pixels
-  wide, with the text over the left of them as on a full-bleed slide. That is
-  1.35 to 1.46 times their size. They were first set at 900 to 920, one for one,
-  in a frame beside the text; the owner asked for larger pictures without visible
-  edges, and larger and slightly softer reads better than smaller and boxed.
-  Before this work they were 770 to 790.
+  wide, with the text over the left of them as on a full-bleed slide. They were
+  first set at 900 to 920 in a frame beside the text; the owner asked for larger
+  pictures without visible edges. All four originals are wider than the space
+  they now fill, so nothing is enlarged. Before this work they were 770 to 790.
 - "What counts as processing" and "What comes back" are grids. A grid crops each
   frame to one shape; the viewer shows it whole.
 - "Which one is Jupiter?" shows its two frames uncropped and side by side, since
@@ -260,6 +260,50 @@ They are particular to this deck and live in its own style block.
 - **Captions of the form "Name, dash, description"** now set the name in the
   brighter ink and follow it with a full stop. Other dashes in the running text
   are replaced with commas and colons. No figure and no claim was changed.
+
+### The originals
+
+The owner asked whether larger versions of the frames could be used. The
+repository's copies match the 960 pixel previews the Mission Juno gallery serves,
+so the originals were on the gallery, among about 12,500 public submissions.
+
+They were found by comparison, not by guessing. The gallery's listing pages give
+every submission's id, title, credit and thumbnail. Thumbnails were matched to
+each frame by keypoints, keeping only matches at the same orientation and the
+expected scale, and the two frames too smooth for keypoints were matched by
+direct comparison at equal shape. Each original was then downloaded, reduced to
+960 pixels and compared with the repository's copy: all seventeen agree to
+between 35 and 45 dB, which is what a second JPEG encoding of the same picture
+gives.
+
+| Frame | Processed by | Gallery entry | Original |
+| --- | --- | --- | --- |
+| `01-turbulent-south` | Giulio Macrì | [17822](https://www.missionjuno.swri.edu/junocam/processing?id=17822) | 7,214 × 11,240 |
+| `02-south-polar` | Jackie Branc | [17819](https://www.missionjuno.swri.edu/junocam/processing?id=17819) | 5,871 × 3,303 |
+| `03-southern-ovals` | Jackie Branc | [17823](https://www.missionjuno.swri.edu/junocam/processing?id=17823) | 8,000 × 6,000 |
+| `04-limb-terminator` | Jackie Branc | [17811](https://www.missionjuno.swri.edu/junocam/processing?id=17811) | 7,816 × 4,950 |
+| `05-golden-filaments` | Raihan Mohammad | [17777](https://www.missionjuno.swri.edu/junocam/processing?id=17777) | 2,520 × 1,588 |
+| `06-blue-north` | Raihan Mohammad | [17776](https://www.missionjuno.swri.edu/junocam/processing?id=17776) | 1,509 × 2,683 |
+| `07-low-light` | ShanieMoorey | [17775](https://www.missionjuno.swri.edu/junocam/processing?id=17775) | 4,961 × 3,508 |
+| `08-banded-hemisphere` | Raihan Mohammad | [17705](https://www.missionjuno.swri.edu/junocam/processing?id=17705) | 1,457 × 819 |
+| `10-blue-vortex-field` | Gerald Eichstädt and Jackie Branc | [16959](https://www.missionjuno.swri.edu/junocam/processing?id=16959) | 6,092 × 3,428 |
+| `12-jonsson-bright` | Björn Jónsson | [16969](https://www.missionjuno.swri.edu/junocam/processing?id=16969) | 1,646 × 2,520 |
+| `13-jonsson-dark` | Björn Jónsson | [16968](https://www.missionjuno.swri.edu/junocam/processing?id=16968) | 1,646 × 2,520 |
+| `16-merging-storms` | Gerald Eichstädt and Thomas Thomopoulos | [16963](https://www.missionjuno.swri.edu/junocam/processing?id=16963) | 3,108 × 3,108 |
+| `23-banded-orange` | Kevin M. Gill | [15517](https://www.missionjuno.swri.edu/junocam/processing?id=15517) | 1,722 × 837 |
+| `25-io-tall` | Iva Forkapa | [15463](https://www.missionjuno.swri.edu/junocam/processing?id=15463) | 1,080 × 1,350 |
+| `26-brown-barges` | Tanya Oleksuik | [15420](https://www.missionjuno.swri.edu/junocam/processing?id=15420) | 2,499 × 1,406 |
+| `27-full-disc` | Rachel Richards | [15051](https://www.missionjuno.swri.edu/junocam/processing?id=15051) | 2,400 × 3,000 |
+| `29-grs-square` | Reaves-84 | [17853](https://www.missionjuno.swri.edu/junocam/processing?id=17853) | 800 × 800 |
+
+Sixteen of the seventeen are larger, most of them much larger. The Great Red
+Spot frame is the exception: its original is 800 pixels square, so the copy in
+the repository was already an enlargement, and it is left as it was.
+
+The search also gave every frame a name. The deck said its pictures were
+"processed by JunoCam citizen scientists"; each one now says by whom, and the
+README lists them with their gallery entries. One credit is a gallery user name
+and is given as the gallery gives it.
 
 ### Edges
 
@@ -295,9 +339,11 @@ lighter than the slide around it. That is left as it is.
 
 ### Images
 
-WebP at 640 pixels and at each frame's own 960, for the 17 frames the deck uses:
-34 files, 2.1 MB. Reading the deck from first slide to last at 1440 × 900 fetches
-1.0 MB of images where it fetched 18.1 MB, and opening it fetches 0.12 MB. The
+WebP from the originals at 640, 960, 1,440, 1,920 and 2,560 pixels where the
+original has them, and one at the original's own width or 4,096, whichever is
+smaller, for the viewer: 77 files, 18.0 MB. Reading the deck from first slide to
+last at 1440 × 900 fetches 1.4 MB of images where it fetched 18.1 MB, and opening
+it fetches 0.12 MB. On a 2560 × 1440 window the read-through is 2.3 MB. The
 PNG files stay: the explorer and the poster use them, and their names are pinned
 by tests.
 

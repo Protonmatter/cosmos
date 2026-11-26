@@ -118,6 +118,32 @@ Spacecraft imagery is NASA/JPL-Caltech and partner institutions, in the public d
   gallery](https://www.missionjuno.swri.edu/junocam/processing)
   (NASA/JPL-Caltech/SwRI/MSSS)
 
+The JunoCam deck shows seventeen of those frames from the processors' own
+full-size files. Each is credited on its slide:
+
+| Frame | Processed by | Gallery entry | Original |
+| --- | --- | --- | --- |
+| `01-turbulent-south` | Giulio Macrì | [17822](https://www.missionjuno.swri.edu/junocam/processing?id=17822) | 7,214 × 11,240 |
+| `02-south-polar` | Jackie Branc | [17819](https://www.missionjuno.swri.edu/junocam/processing?id=17819) | 5,871 × 3,303 |
+| `03-southern-ovals` | Jackie Branc | [17823](https://www.missionjuno.swri.edu/junocam/processing?id=17823) | 8,000 × 6,000 |
+| `04-limb-terminator` | Jackie Branc | [17811](https://www.missionjuno.swri.edu/junocam/processing?id=17811) | 7,816 × 4,950 |
+| `05-golden-filaments` | Raihan Mohammad | [17777](https://www.missionjuno.swri.edu/junocam/processing?id=17777) | 2,520 × 1,588 |
+| `06-blue-north` | Raihan Mohammad | [17776](https://www.missionjuno.swri.edu/junocam/processing?id=17776) | 1,509 × 2,683 |
+| `07-low-light` | ShanieMoorey | [17775](https://www.missionjuno.swri.edu/junocam/processing?id=17775) | 4,961 × 3,508 |
+| `08-banded-hemisphere` | Raihan Mohammad | [17705](https://www.missionjuno.swri.edu/junocam/processing?id=17705) | 1,457 × 819 |
+| `10-blue-vortex-field` | Gerald Eichstädt and Jackie Branc | [16959](https://www.missionjuno.swri.edu/junocam/processing?id=16959) | 6,092 × 3,428 |
+| `12-jonsson-bright` | Björn Jónsson | [16969](https://www.missionjuno.swri.edu/junocam/processing?id=16969) | 1,646 × 2,520 |
+| `13-jonsson-dark` | Björn Jónsson | [16968](https://www.missionjuno.swri.edu/junocam/processing?id=16968) | 1,646 × 2,520 |
+| `16-merging-storms` | Gerald Eichstädt and Thomas Thomopoulos | [16963](https://www.missionjuno.swri.edu/junocam/processing?id=16963) | 3,108 × 3,108 |
+| `23-banded-orange` | Kevin M. Gill | [15517](https://www.missionjuno.swri.edu/junocam/processing?id=15517) | 1,722 × 837 |
+| `25-io-tall` | Iva Forkapa | [15463](https://www.missionjuno.swri.edu/junocam/processing?id=15463) | 1,080 × 1,350 |
+| `26-brown-barges` | Tanya Oleksuik | [15420](https://www.missionjuno.swri.edu/junocam/processing?id=15420) | 2,499 × 1,406 |
+| `27-full-disc` | Rachel Richards | [15051](https://www.missionjuno.swri.edu/junocam/processing?id=15051) | 2,400 × 3,000 |
+| `29-grs-square` | Reaves-84 | [17853](https://www.missionjuno.swri.edu/junocam/processing?id=17853) | 800 × 800 |
+
+The `images/*.png` files are 960 pixel copies of the same pictures, matching the
+previews the gallery serves, and are what the explorer and poster use.
+
 The Solar System deck shows four bodies from larger originals than the rest of the
 site uses, all NASA and in the public domain:
 
