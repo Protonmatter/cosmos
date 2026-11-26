@@ -115,3 +115,35 @@ test('follow the JunoCam deck through to the explorer @REQ FLOW-008', async ({ p
 
   await expect(page).toHaveURL(/junocam-explorer\.dc\.html/);
 });
+
+test.describe('on a phone held upright', () => {
+  test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
+
+  test('swipe through the Solar System deck from its first slide to its last @REQ FLOW-009', async ({ page }) => {
+    // The decks used to be a strip a quarter of the screen high here. A reader
+    // on a phone should be able to go through one with a thumb (RFC 0008).
+    await page.goto('/solar-system.dc.html');
+    await waitForReady(page, { kind: 'deck' });
+    const active = page.locator('deck-stage > section[data-deck-active]');
+    await expect(active).toHaveAttribute('data-label', 'Cover');
+
+    const swipeLeft = () =>
+      page.evaluate(() => {
+        const stage = document.querySelector('deck-stage');
+        const finger = (x) => new Touch({ identifier: 1, target: stage, clientX: x, clientY: 500 });
+        stage.dispatchEvent(new TouchEvent('touchstart', { bubbles: true, composed: true, touches: [finger(330)], changedTouches: [finger(330)] }));
+        stage.dispatchEvent(new TouchEvent('touchend', { bubbles: true, composed: true, touches: [], changedTouches: [finger(60)] }));
+      });
+
+    for (let slide = 1; slide < 13; slide += 1) {
+      await swipeLeft();
+      await expect(active).toHaveAttribute('data-deck-slide', String(slide));
+      // Every page on the way is the size of the screen, not a strip across it.
+      expect((await active.boundingBox())?.height ?? 0).toBeGreaterThan(800);
+    }
+    await expect(active).toHaveAttribute('data-label', 'Sources');
+
+    await swipeLeft();
+    await expect(active).toHaveAttribute('data-deck-slide', '12');
+  });
+});

@@ -35,6 +35,9 @@ image at full resolution ([RFC 0005](docs/rfcs/0005-full-bleed-decks.md)).
 `deck-dark.css` is the rest of that look, for slides that compare several bodies, set
 out a table or pair two photographs; the Moons and JunoCam decks are built from it
 ([RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)).
+`deck-upright.js` and `deck-upright.css` give every slide a second layout for a phone
+held upright: a page the shape of the screen, picture above words, turned with a
+swipe ([RFC 0008](docs/rfcs/0008-decks-on-an-upright-phone.md)).
 
 ## Pocket Planetarium (beta)
 

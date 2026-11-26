@@ -30,6 +30,7 @@ that visitor could see.
 | `FLOW-006` | MUST | A visitor can follow the Solar System deck's moons slide through to the Moons deck |
 | `FLOW-007` | MUST | A visitor can follow the Moons deck's last slide through to the JunoCam deck |
 | `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer |
+| `FLOW-009` | MUST | On an upright phone a reader can swipe from the first slide of the Solar System deck to its last |
 
 `FLOW-004` exists because sharing a link to a particular slide is the main reason
 the fragment is in the URL at all. A deep link that opens the right slide but leaves

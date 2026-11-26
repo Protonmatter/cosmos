@@ -6,6 +6,16 @@ and image swaps are left to the commit history.
 
 ## 2026-11-26
 
+### Added
+
+- **The decks on a phone held upright**
+  ([RFC 0008](docs/rfcs/0008-decks-on-an-upright-phone.md)). On a 390 by 844
+  phone a slide was a strip 219 pixels high with 4.9 pixel labels. Each slide is
+  now a page the shape of the screen: the picture across the top, the same words
+  beneath at 17 pixels or more, scrolling where there is more than fits. A
+  sideways swipe turns the page. Turned on its side, or on anything wider than a
+  phone, the deck is the 16:9 stage it was. The deck engine is not modified.
+
 ### Changed
 
 - **The JunoCam explorer in the dark look**
