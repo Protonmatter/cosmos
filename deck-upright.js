@@ -11,6 +11,9 @@
  * attribute. A sideways swipe turns the page through the engine's own
  * next() and prev().
  *
+ * An upright tablet gets the same layout on a canvas 720 px wide, marked
+ * `data-upright="wide"`, so that its text is not drawn at large-print size.
+ *
  * See docs/rfcs/0008-decks-on-an-upright-phone.md.
  */
 (function () {
@@ -19,7 +22,10 @@
   // 24 px, the decks' smallest text, is drawn at 17.3 px on a 390 px phone
   // when the canvas is 540 wide, and at 16 px on a 360 px one.
   var CANVAS = 540;
-  var UPRIGHT = window.matchMedia('(orientation: portrait) and (max-width: 640px)');
+  // Past this width the window is a tablet's, and 540 would draw 24 px at 28 or more.
+  var PHONE_MAX = 640;
+  var CANVAS_WIDE = 720;
+  var UPRIGHT = window.matchMedia('(orientation: portrait) and (max-width: 900px)');
   var SWIPE = 48; // px a finger must travel sideways to turn the page
 
   var authored = null; // the size the deck was written at
@@ -36,11 +42,14 @@
       authored = { width: el.getAttribute('width') || '1920', height: el.getAttribute('height') || '1080' };
     }
     var upright = UPRIGHT.matches && !printing;
-    var width = upright ? String(CANVAS) : authored.width;
-    var height = upright ? String(Math.round((CANVAS * window.innerHeight) / window.innerWidth)) : authored.height;
+    var wide = window.innerWidth > PHONE_MAX;
+    var canvas = wide ? CANVAS_WIDE : CANVAS;
+    var width = upright ? String(canvas) : authored.width;
+    var height = upright ? String(Math.round((canvas * window.innerHeight) / window.innerWidth)) : authored.height;
     if (el.getAttribute('width') !== width) el.setAttribute('width', width);
     if (el.getAttribute('height') !== height) el.setAttribute('height', height);
-    document.documentElement.toggleAttribute('data-upright', upright);
+    if (upright) document.documentElement.setAttribute('data-upright', wide ? 'wide' : '');
+    else document.documentElement.removeAttribute('data-upright');
   }
 
   // The runtime builds the stage after the page has loaded.

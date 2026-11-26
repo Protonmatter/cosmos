@@ -75,15 +75,16 @@ prints.
 
 ## Adding or changing a slide
 
-Every slide has two layouts. On anything but an upright phone it is the 1920 by
-1080 stage. On an upright phone `deck-upright.css` lays it out again as one column
-on a canvas 540 px wide. Its rules are written for the shared patterns (`.fb`,
+Every slide has two layouts. On anything but an upright phone or small tablet it is
+the 1920 by 1080 stage. On those `deck-upright.css` lays it out again as one column,
+on a canvas 540 px wide for a phone and 720 px wide for a tablet up to 900 px. Its rules are written for the shared patterns (`.fb`,
 `.dk-side`, `.dk-lineup`, `.dk-pair` and the rest), with a few at the end for single
 slides.
 
 So, after changing a slide:
 
-- Look at it at 390 by 844 as well. A browser's device toolbar is enough.
+- Look at it at 390 by 844 and at 768 by 1024 as well. A browser's device toolbar is
+  enough.
 - A slide built from the existing patterns usually needs nothing.
 - A block positioned with its own inline `left` and `top` needs a rule putting it
   back into the flow, or it will sit where the wide slide put it.

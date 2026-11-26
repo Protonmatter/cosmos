@@ -212,8 +212,8 @@ one.
 
 A window wider than 640 px gets a canvas 720 px wide where a phone gets 540. On
 the 540 px canvas a 768 px tablet would draw 24 px text at 34 px, which is large
-print. On 720 it draws it at 25.6 px, and a line of the paragraph holds about
-sixty characters.
+print. On 720 it draws it at 25.6 px, and a line of a slide's paragraph holds
+about fifty-five characters, where a phone's holds about forty.
 
 The root carries `data-upright="wide"` on that canvas, so the stylesheet can
 tell the two apart. One rule uses it. On a phone a planet's disc is nearly as
@@ -222,7 +222,9 @@ the same crop would leave only a band through the middle of the planet, so
 there the whole picture is shown within the plate instead. The JunoCam frames,
 which are fields of cloud and not discs, still fill the plate.
 
-Everything else is the phone's layout with more room round it.
+Everything else is the phone's layout with more room round it. Setting the
+table of figures two abreast was tried, to shorten the page, and taken out: at
+this size the labels ran into the values.
 
 ### Requirements
 
