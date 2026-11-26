@@ -159,3 +159,28 @@ for (const budget of OPENING_IMAGE_BUDGETS) {
     expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(budget.bytes);
   });
 }
+
+/**
+ * The explorer has thirty frames and showed all of them at once: 29.6 MB before
+ * the reader had scrolled. It now loads what is on screen (RFC 0007).
+ */
+test('the explorer opens within its image budget @REQ EXPL-013', async ({ page }) => {
+  const pending = [];
+  page.on('response', (response) => {
+    if (response.request().resourceType() !== 'image') return;
+    pending.push(response.body().then((body) => ({ path: sitePath(response.url()), bytes: body.length })).catch(() => null));
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await open(page, { path: '/junocam-explorer.dc.html', kind: 'component', name: 'junocam-explorer' });
+  await page.waitForSelector('figure img');
+  await page.waitForLoadState('networkidle');
+
+  const images = (await Promise.all(pending)).filter(Boolean);
+  const total = images.reduce((sum, image) => sum + image.bytes, 0);
+  const breakdown = images.map((image) => `${image.path} ${(image.bytes / 1000).toFixed(0)} KB`).join(', ');
+
+  expect(images.length, 'the explorer opened without requesting any image').toBeGreaterThan(0);
+  expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(1_000_000);
+});
+

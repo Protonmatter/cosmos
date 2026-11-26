@@ -22,6 +22,17 @@ test.describe('Landing page', () => {
     await page.goto('/');
   });
 
+  test('shows a picture on every card and row that opens a page @REQ LAND-008', async ({ page }) => {
+    for (const target of DECK_LINKS) {
+      const picture = page.locator(`a[href="${target}"] img`).first();
+      await picture.scrollIntoViewIfNeeded();
+      await expect(async () => {
+        expect(await picture.evaluate((image) => image.complete && image.naturalWidth > 0), target).toBe(true);
+      }).toPass();
+      expect((await picture.getAttribute('alt'))?.trim().length ?? 0, target).toBeGreaterThan(0);
+    }
+  });
+
   test('links to every deck, the explorer and the poster @REQ LAND-001', async ({ page }) => {
     for (const target of DECK_LINKS) {
       await expect(page.locator(`a[href="${target}"]`).first()).toBeVisible();

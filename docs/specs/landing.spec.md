@@ -30,6 +30,7 @@ of search results, and deliberately honest that it is unfinished.
 | `LAND-005` | MUST | Every in-page navigation anchor scrolls to a section that exists |
 | `LAND-006` | MUST | The hero heading is rendered and visible |
 | `LAND-007` | SHOULD | Each deck card names the deck it opens |
+| `LAND-008` | SHOULD | Every card and row that opens a deck, the explorer or the poster shows a picture of it |
 
 `LAND-001` is the requirement that keeps the landing page honest as the collection
 grows: a deck that exists but is unreachable from the front door is, for most

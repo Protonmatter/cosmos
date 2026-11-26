@@ -32,17 +32,6 @@ export const PAGES = [
 /** Origins the site may legitimately reach. */
 export const APPROVED_ORIGINS = ['https://fonts.googleapis.com', 'https://fonts.gstatic.com'];
 
-/**
- * Requests the pages are known to make and fail, which the runtime tolerates.
- *
- * The template `<img src="{{ s.src }}">` exists as real DOM before the runtime
- * compiles it, so the browser dutifully requests the literal, percent-encoded
- * `{{ … }}` string and gets a 404. It is harmless — the element is replaced on
- * boot — but it is wasted traffic and noise in the console, and it is tracked as
- * a defect rather than blessed as correct.
- */
-export const KNOWN_FAILING_REQUEST_PATTERN = /%7B%7B|\{\{/;
-
 /** Wait until a page has finished whatever bootstrapping it does. */
 export async function waitForReady(page, descriptor) {
   switch (descriptor.kind) {
