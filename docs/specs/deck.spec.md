@@ -120,6 +120,7 @@ its pixel size. The viewer is a `role="dialog"` element appended to `<body>` by
 | `DECK-018` | MUST | `Escape` closes the viewer and returns focus to the control that opened it |
 | `DECK-019` | MUST | A viewer file the slide does not itself display is requested only when the viewer is opened |
 | `DECK-022` | SHOULD | Full-bleed images are served as WebP in more than one width |
+| `DECK-029` | SHOULD | Where the window is not 16:9, a full-bleed photograph fades out before it reaches a letterbox bar |
 
 The body slides are slides 2 to 11 of `solar-system.dc.html`: the Sun, Mercury,
 Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
@@ -128,6 +129,13 @@ Venus, Earth, the Moon, Mars, Jupiter, Saturn, Uranus, and Neptune.
 `Space` from a window-level handler and cancels the event, which also cancels the
 activation of whatever button has focus. `DECK-017` exists for the same reason from
 the other side: the engine does not know the viewer is there.
+
+`DECK-029` was added with the addendum to
+[RFC 0006](../rfcs/0006-one-look-for-every-deck.md). A photograph that runs off
+the canvas is cut by the edge of the screen on a 16:9 window, which is the
+effect wanted. On any other window the same cut is a straight line against a
+bar. The fade is drawn only on the sides that have a bar, so a 16:9 window is
+unchanged.
 
 `DECK-019` is worded around what the slide displays because the two can coincide. A
 slide offers its image in several widths, and on a large enough screen the widest of
@@ -145,6 +153,7 @@ Introduced by [RFC 0005](../rfcs/0005-full-bleed-decks.md).
 | `DECK-023` | MUST | When a deck is about to be printed, every slide's images load |
 
 | `DECK-026` | MUST | The images the Moons deck requests on load total no more than 1 MB at the test viewport |
+| `DECK-028` | MUST | The images the JunoCam deck requests on load total no more than 1 MB at the test viewport |
 
 `DECK-021`'s figure is a budget, not a measurement. The deck requested 20.5 MB of
 images on load before RFC 0005 and 0.27 MB after; 1 MB leaves room to work while
@@ -154,7 +163,8 @@ start loading. The test viewport is 1440 × 900 at a device pixel ratio of 1.
 `DECK-026` is the same budget for the Moons deck, added by
 [RFC 0006](../rfcs/0006-one-look-for-every-deck.md). That deck asked for 50.7 MB
 before RFC 0005, nothing after it while its opening slides had no pictures, and
-0.02 MB now that its cover has one.
+0.02 MB now that its cover has one. `DECK-028` is the JunoCam deck's: 18.1 MB
+before RFC 0005, 1.6 MB after it, and 0.12 MB with its frames as WebP.
 
 `DECK-023` protects the README's promise that printing to PDF gives one page per
 slide. The engine marks every slide active before a print, which brings them all
@@ -162,9 +172,10 @@ back into rendering; this requirement is what notices if that ever stops being t
 
 ### Comparing bodies
 
-Introduced by [RFC 0006](../rfcs/0006-one-look-for-every-deck.md). The Moons deck
-sets photographs side by side: in a row, in pairs, and as a smaller picture beside
-a full-bleed one. Each is a `<button data-zoom="…">` around its `<img>`. A row of
+Introduced by [RFC 0006](../rfcs/0006-one-look-for-every-deck.md). The Moons and
+JunoCam decks set photographs side by side: in a row, in a grid, in pairs, and as
+a smaller picture beside a full-bleed one. Each is a `<button data-zoom="…">`
+around its `<img>`. A row of
 bodies is a `.dk-lineup` of `<figure class="dk-body">`, each holding a `.dk-disc`
 button and a caption whose `.dk-fig` begins with the body's radius in kilometres.
 
@@ -172,9 +183,14 @@ button and a caption whose `.dk-fig` begins with the body's radius in kilometres
 | --- | --- | --- |
 | `DECK-024` | MUST | Every photograph in the Moons deck can be opened in the image viewer |
 | `DECK-025` | MUST | In a line-up, each disc is drawn in proportion to the radius printed beneath it |
+| `DECK-027` | MUST | Every photograph in the JunoCam deck can be opened in the image viewer |
 
 `DECK-025` is what the word "scale" on those slides promises. A disc is a circle
 cut from a photograph, so a body photographed as a crescent still shows its size,
 but nothing about the photograph enforces that size: it is a number in the markup,
 and this requirement is what holds it to the radius beside it. The test allows a
 difference of one pixel, or two per cent on the larger discs, which is rounding.
+
+`DECK-027` matters more than it looks. The JunoCam deck crops its frames to fit a
+grid, and its argument is that every picture of Jupiter is somebody's choice of
+what to show. The viewer is where a reader sees the frame the deck cropped.

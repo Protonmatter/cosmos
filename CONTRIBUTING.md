@@ -52,9 +52,9 @@ npx playwright test --grep "@REQ DECK-005"
 
 ## Adding a full-bleed image
 
-The Solar System and Moons decks show their photographs in several WebP widths.
-To add or replace one, run the image tool on the original (`--out moons` for the
-Moons deck):
+The decks show their photographs in several WebP widths. To add or replace one,
+run the image tool on the original (`--out moons` for the Moons deck, `--out
+images` for the JunoCam deck):
 
 ```bash
 python3 tools/image-variants.py path/to/original.jpg venus --max 4096

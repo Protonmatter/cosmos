@@ -1,7 +1,7 @@
 ---
 rfc: 0006
 title: One look for every deck
-status: Draft
+status: Accepted
 author: Protonmatter
 created: 2026-11-25
 updated: 2026-11-25
@@ -192,7 +192,8 @@ RFC 0005, and the Pocket Planetarium, which already shows these moons on black.
 ## Unresolved questions
 
 - **The JunoCam deck** is the next pull request. Its slides are an argument with
-  diagrams, so it will add patterns of its own to `deck-dark.css`.
+  diagrams, so it will add patterns of its own to `deck-dark.css`. (Done: see the
+  addendum at the end.)
 - **The explorer, the poster and the landing page** are still as they were. The
   poster is a sheet meant for printing and may be right to stay light.
 - **Phones.** A deck is still a 1920 × 1080 canvas scaled down. That is a change
@@ -207,3 +208,158 @@ RFC 0005, and the Pocket Planetarium, which already shows these moons on black.
 One pull request for this deck. No address changes. To revert, revert the merge.
 
 Status moves to Accepted when the owner merges this.
+
+## Addendum: the JunoCam deck
+
+Added 25 November 2026, after the Moons deck was merged in #14, in the pull
+request that converts the JunoCam deck. The design above is unchanged; this
+records how it was applied to the second deck and the three requirements that
+came with it.
+
+### What is different about this deck
+
+It is an essay. Seven of its eleven slides are a column of prose beside one
+picture, one is three diagrams, and the pictures are not NASA originals but
+frames processed by volunteers. The repository held each as a 960 pixel copy
+with no note of where it came from.
+
+The layout was drawn for that width, where a frame across a 1,920 pixel slide
+would have been shown at twice its size, and then the originals were found (see
+"The originals" below). The layout stayed as it was:
+
+- The three tall frames (the title, the planet, the closing) run the full height
+  of the slide down its right side, which shows them whole at 60 to 90 per cent
+  of their size. The title and closing frames used to sit in boxes 767 and 835
+  pixels wide that cut off more than a third of their height.
+- The four landscape frames (the stripes, the poles, the pushframe camera, eight
+  bits) are each the one large picture on their slide, 1,300 to 1,400 pixels
+  wide, with the text over the left of them as on a full-bleed slide. They were
+  first set at 900 to 920 in a frame beside the text; the owner asked for larger
+  pictures without visible edges. All four originals are wider than the space
+  they now fill, so nothing is enlarged. Before this work they were 770 to 790.
+- "What counts as processing" and "What comes back" are grids. A grid crops each
+  frame to one shape; the viewer shows it whole.
+- "Which one is Jupiter?" shows its two frames uncropped and side by side, since
+  comparing them is the slide. This is the one place a picture got smaller: each
+  was an 803 pixel crop and is now the whole frame at 570.
+
+`deck-dark.css` gains what that took: a right-hand `.dk-side`, `.dk-grid`,
+`.dk-stats`, label-and-text rows inside a text column, and a heading size for
+headings that are sentences. The three diagrams of the detector, the spin and
+time-delay integration are the same diagrams, redrawn in light rules on black.
+They are particular to this deck and live in its own style block.
+
+### Changes beyond layout
+
+- **The planet slide gains a picture.** It was a table of facts under the line
+  "Everything that follows is an argument about how to photograph this", with
+  nothing to look at. It now shows the deck's own near-full-disc frame, the one
+  that also appears on "What comes back".
+- **The closing slide links to the explorer** (`FLOW-008`). Its speaker notes
+  already say the explorer is where to browse the archive.
+- **Captions of the form "Name, dash, description"** now set the name in the
+  brighter ink and follow it with a full stop. Other dashes in the running text
+  are replaced with commas and colons. No figure and no claim was changed.
+
+### The originals
+
+The owner asked whether larger versions of the frames could be used. The
+repository's copies match the 960 pixel previews the Mission Juno gallery serves,
+so the originals were on the gallery, among about 12,500 public submissions.
+
+They were found by comparison, not by guessing. The gallery's listing pages give
+every submission's id, title, credit and thumbnail. Thumbnails were matched to
+each frame by keypoints, keeping only matches at the same orientation and the
+expected scale, and the two frames too smooth for keypoints were matched by
+direct comparison at equal shape. Each original was then downloaded, reduced to
+960 pixels and compared with the repository's copy: all seventeen agree to
+between 35 and 45 dB, which is what a second JPEG encoding of the same picture
+gives.
+
+| Frame | Processed by | Gallery entry | Original |
+| --- | --- | --- | --- |
+| `01-turbulent-south` | Giulio Macrì | [17822](https://www.missionjuno.swri.edu/junocam/processing?id=17822) | 7,214 × 11,240 |
+| `02-south-polar` | Jackie Branc | [17819](https://www.missionjuno.swri.edu/junocam/processing?id=17819) | 5,871 × 3,303 |
+| `03-southern-ovals` | Jackie Branc | [17823](https://www.missionjuno.swri.edu/junocam/processing?id=17823) | 8,000 × 6,000 |
+| `04-limb-terminator` | Jackie Branc | [17811](https://www.missionjuno.swri.edu/junocam/processing?id=17811) | 7,816 × 4,950 |
+| `05-golden-filaments` | Raihan Mohammad | [17777](https://www.missionjuno.swri.edu/junocam/processing?id=17777) | 2,520 × 1,588 |
+| `06-blue-north` | Raihan Mohammad | [17776](https://www.missionjuno.swri.edu/junocam/processing?id=17776) | 1,509 × 2,683 |
+| `07-low-light` | ShanieMoorey | [17775](https://www.missionjuno.swri.edu/junocam/processing?id=17775) | 4,961 × 3,508 |
+| `08-banded-hemisphere` | Raihan Mohammad | [17705](https://www.missionjuno.swri.edu/junocam/processing?id=17705) | 1,457 × 819 |
+| `10-blue-vortex-field` | Gerald Eichstädt and Jackie Branc | [16959](https://www.missionjuno.swri.edu/junocam/processing?id=16959) | 6,092 × 3,428 |
+| `12-jonsson-bright` | Björn Jónsson | [16969](https://www.missionjuno.swri.edu/junocam/processing?id=16969) | 1,646 × 2,520 |
+| `13-jonsson-dark` | Björn Jónsson | [16968](https://www.missionjuno.swri.edu/junocam/processing?id=16968) | 1,646 × 2,520 |
+| `16-merging-storms` | Gerald Eichstädt and Thomas Thomopoulos | [16963](https://www.missionjuno.swri.edu/junocam/processing?id=16963) | 3,108 × 3,108 |
+| `23-banded-orange` | Kevin M. Gill | [15517](https://www.missionjuno.swri.edu/junocam/processing?id=15517) | 1,722 × 837 |
+| `25-io-tall` | Iva Forkapa | [15463](https://www.missionjuno.swri.edu/junocam/processing?id=15463) | 1,080 × 1,350 |
+| `26-brown-barges` | Tanya Oleksuik | [15420](https://www.missionjuno.swri.edu/junocam/processing?id=15420) | 2,499 × 1,406 |
+| `27-full-disc` | Rachel Richards | [15051](https://www.missionjuno.swri.edu/junocam/processing?id=15051) | 2,400 × 3,000 |
+| `29-grs-square` | Reaves-84 | [17853](https://www.missionjuno.swri.edu/junocam/processing?id=17853) | 800 × 800 |
+
+Sixteen of the seventeen are larger, most of them much larger. The Great Red
+Spot frame is the exception: its original is 800 pixels square, so the copy in
+the repository was already an enlargement, and it is left as it was.
+
+The search also gave every frame a name. The deck said its pictures were
+"processed by JunoCam citizen scientists"; each one now says by whom, and the
+README lists them with their gallery entries. One credit is a gallery user name
+and is given as the gallery gives it.
+
+### Edges
+
+Most of these frames run to the edge of the file: the planet is cut off by the
+frame, not surrounded by sky. On a black slide that edge is a hard straight line.
+`.dk-feather` lays a shadow over the edges of a picture so that it fades into the
+slide instead. Every photograph in this deck has it, the large ones and the grid
+tiles alike.
+
+The shadow is drawn over the picture on the slide. It is not in the file, and the
+viewer shows every frame as its author left it.
+
+Two more edges were found by looking for them, and are treated the same way in
+this pull request although they are outside this deck:
+
+- **The Moons deck's four inset pictures** had a hairline frame. They now have
+  the shadow in its place. Io's inset also sat over the globe it accompanies; it
+  moves up into the sky beside its caption.
+- **A full-bleed photograph is cut by the edge of the canvas.** On a 16:9 screen
+  that is the edge of the screen and looks deliberate. On a 16:10 laptop or an
+  upright phone the canvas is letterboxed and the planet ends in a straight line
+  against the bar. `deck-full-bleed.css` now fades the photograph out on the
+  sides that have a bar, and adds nothing on a 16:9 window (`DECK-029`). This
+  applies to every full-bleed slide in all three decks.
+
+### The frames are not adjusted
+
+The Moons deck took the background of two photographs down to black. Nothing of
+the kind is done here. These frames are other people's finished work, and the
+deck's subject is that every such picture is a set of choices. The near-full-disc
+frame sits on a dark grey of its author's choosing, so its panel reads as slightly
+lighter than the slide around it. That is left as it is.
+
+### Images
+
+WebP from the originals at 640, 960, 1,440, 1,920 and 2,560 pixels where the
+original has them, and one at the original's own width or 4,096, whichever is
+smaller, for the viewer: 77 files, 18.0 MB. Reading the deck from first slide to
+last at 1440 × 900 fetches 1.4 MB of images where it fetched 18.1 MB, and opening
+it fetches 0.12 MB. On a 2560 × 1440 window the read-through is 2.3 MB. The
+PNG files stay: the explorer and the poster use them, and their names are pinned
+by tests.
+
+### Requirements
+
+| ID | Level | Requirement | Spec |
+| --- | --- | --- | --- |
+| `DECK-027` | MUST | Every photograph in the JunoCam deck can be opened in the image viewer | `docs/specs/deck.spec.md` |
+| `DECK-028` | MUST | The images the JunoCam deck requests on load total no more than 1 MB at the test viewport | `docs/specs/deck.spec.md` |
+| `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer | `docs/specs/journeys.spec.md` |
+| `DECK-029` | SHOULD | Where the window is not 16:9, a full-bleed photograph fades out before it reaches a letterbox bar | `docs/specs/deck.spec.md` |
+
+Each test was run against the deck with its behaviour removed and failed as it
+should. `tests/functional/moons-deck.spec.js` is renamed
+`deck-photographs.spec.js`, since it now covers both decks.
+
+### Still open
+
+The explorer, the poster and the landing page, and phones, as listed above.

@@ -8,6 +8,21 @@ and image swaps are left to the commit history.
 
 ### Added
 
+- **The JunoCam deck in the dark look** (the addendum to
+  [RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 11 slides keep
+  their order, words and figures. Four slides are built round one large
+  photograph each, the tall frames are shown whole at the full height of the
+  slide, the diagrams are redrawn on black, and every frame opens in the image
+  viewer. The edges of every photograph fade into the slide. The planet slide
+  gains a picture.
+- **The JunoCam deck's frames from their originals.** The repository held the
+  gallery's 960 pixel previews with no record of their source. All seventeen
+  were traced to their gallery entries by image comparison, and sixteen are now
+  shown from the processors' full-size files, up to 8,000 pixels wide. Each
+  slide names who processed its frame, and the README lists them.
+- A link from the JunoCam deck's closing slide to the explorer.
+- Requirements `DECK-027`, `DECK-028` and `FLOW-008`, with tests.
+
 - **The Moons deck in the dark, photograph-led look**
   ([RFC 0006](docs/rfcs/0006-one-look-for-every-deck.md)). Its 18 slides keep
   their order, words and figures. Eight are now full-bleed, the line-ups are
@@ -37,6 +52,14 @@ and image swaps are left to the commit history.
 
 ### Changed
 
+- On a window that is not 16:9, a full-bleed photograph in any deck now fades
+  out before the letterbox bar instead of ending in a straight line
+  (`DECK-029`). A 16:9 window is unchanged.
+- The Moons deck's inset pictures lose their hairline frames and fade at the
+  edges like every other picture; Io's inset moves clear of the globe.
+- The JunoCam deck's images are WebP. Reading the deck from first slide to last
+  at 1440 × 900 fetches 1.4 MB of images where it fetched 18.1 MB.
+- RFC 0006 is Accepted.
 - The Moons deck's images are WebP. Reading the deck from first slide to last
   at 1440 × 900 fetches 1.7 MB of images where it fetched 50.7 MB.
 - RFC 0005 is Accepted.

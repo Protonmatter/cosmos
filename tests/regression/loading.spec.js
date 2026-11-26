@@ -123,13 +123,15 @@ for (const deck of DECKS) {
  * figure is recorded in docs/specs/deck.spec.md beside its requirement; change
  * both together. They are budgets, not measurements: the Solar System deck
  * asked for 20.5 MB before RFC 0005 and 0.27 MB after, and the Moons deck for
- * 50.7 MB before it and 0.02 MB after RFC 0006.
+ * 50.7 MB before it and 0.02 MB after RFC 0006. The JunoCam deck asked for
+ * 18.1 MB, then 1.6 MB, and 0.12 MB once its frames were WebP.
  */
 const OPENING_IMAGE_BUDGETS = [
   // The requirement is written out in each name because the traceability tool
   // reads this file as text and would not see one assembled at run time.
   { deck: 'solar-system', bytes: 1_000_000, name: 'the Solar System deck opens within its image budget @REQ DECK-021' },
   { deck: 'the-moons', bytes: 1_000_000, name: 'the Moons deck opens within its image budget @REQ DECK-026' },
+  { deck: 'junocam-deck', bytes: 1_000_000, name: 'the JunoCam deck opens within its image budget @REQ DECK-028' },
 ];
 
 for (const budget of OPENING_IMAGE_BUDGETS) {

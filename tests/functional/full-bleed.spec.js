@@ -209,3 +209,30 @@ test.describe('the body slides of the Solar System deck', () => {
     expect(problems).toEqual([]);
   });
 });
+
+test.describe('the edge of the canvas', () => {
+  // A full-bleed photograph runs off the canvas. On a 16:9 window that is the
+  // edge of the screen. On any other window there are bars, and the cut shows
+  // as a straight line against them unless the photograph fades out first.
+  const fade = (slide) =>
+    slide.evaluate((section) => {
+      const style = getComputedStyle(section, '::after');
+      return style.content === 'none' ? 'none' : style.backgroundImage;
+    });
+
+  test('a photograph fades towards a bar, and is left alone where there is none @REQ DECK-029', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    const slide = await openSlide(page, SATURN);
+
+    // Narrower than 16:9: bars above and below, so the fade runs top to bottom.
+    expect(await fade(slide), 'at 1440 x 900').toMatch(/^linear-gradient\((180deg, )?rgb/);
+
+    // Wider: bars left and right.
+    await page.setViewportSize({ width: 2560, height: 1080 });
+    expect(await fade(slide), 'at 2560 x 1080').toMatch(/^linear-gradient\(90deg/);
+
+    // 16:9: the canvas fills the window and nothing is drawn over it.
+    await page.setViewportSize({ width: 1600, height: 900 });
+    expect(await fade(slide), 'at 1600 x 900').toBe('none');
+  });
+});
