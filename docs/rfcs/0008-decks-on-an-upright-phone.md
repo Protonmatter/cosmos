@@ -195,3 +195,44 @@ RFC 0007 (the explorer on a phone, which fixed the pages that are not decks).
 
 One pull request. No URL changes. Each deck links one more stylesheet and one
 more script.
+
+## Addendum: upright tablets
+
+Added 2026-11-26. The RFC left upright tablets as an open question, and they
+were the one place the decks were still small: on a 768 by 1024 window the 16:9
+stage is 432 px high, 42% of the screen, with 9.6 px labels.
+
+### What changes
+
+The upright layout now applies to an upright window up to 900 px wide, where it
+stopped at 640. That takes in the common tablets held upright (744 to 834 px
+wide). A 1024 px wide tablet held upright keeps the 16:9 stage: at that width
+it is 576 px high with 12.8 px labels, and a single column would be a very wide
+one.
+
+A window wider than 640 px gets a canvas 720 px wide where a phone gets 540. On
+the 540 px canvas a 768 px tablet would draw 24 px text at 34 px, which is large
+print. On 720 it draws it at 25.6 px, and a line of the paragraph holds about
+sixty characters.
+
+The root carries `data-upright="wide"` on that canvas, so the stylesheet can
+tell the two apart. One rule uses it. On a phone a planet's disc is nearly as
+wide as the page is, and the plate crops a sliver from it. On the wider canvas
+the same crop would leave only a band through the middle of the planet, so
+there the whole picture is shown within the plate instead. The JunoCam frames,
+which are fields of cloud and not discs, still fill the plate.
+
+Everything else is the phone's layout with more room round it.
+
+### Requirements
+
+| ID | Level | Requirement |
+| --- | --- | --- |
+| `DECK-036` | MUST | On an upright window 768 px wide and 1024 px high, every slide of every deck fills the window, draws no text under 16 px, keeps within the window's width, and scrolls if it is taller |
+| `DECK-037` | MUST | An upright window wider than 900 px gets the 1920 by 1080 stage |
+
+### What is still open
+
+- A 1024 px wide tablet held upright.
+- None of this has been tried on a real tablet.
+
