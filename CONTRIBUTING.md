@@ -73,6 +73,27 @@ you replace one, or change a radius, redraw it with `python3 tools/cover-lineup.
 (it also needs NumPy), and move the names on the cover slide to the positions it
 prints.
 
+## Adding or changing a slide
+
+Every slide has two layouts. On anything but an upright phone it is the 1920 by
+1080 stage. On an upright phone `deck-upright.css` lays it out again as one column
+on a canvas 540 px wide. Its rules are written for the shared patterns (`.fb`,
+`.dk-side`, `.dk-lineup`, `.dk-pair` and the rest), with a few at the end for single
+slides.
+
+So, after changing a slide:
+
+- Look at it at 390 by 844 as well. A browser's device toolbar is enough.
+- A slide built from the existing patterns usually needs nothing.
+- A block positioned with its own inline `left` and `top` needs a rule putting it
+  back into the flow, or it will sit where the wide slide put it.
+- Nothing may be set smaller than 24 px there either. It is drawn at 17.3 px on a
+  390 px phone.
+
+`tests/functional/upright.spec.js` goes through every slide and will fail on text
+that is too small, on anything that runs off the side, and on a tall slide that
+cannot scroll. It cannot tell you whether the page looks right.
+
 ## Writing tests
 
 The house rules, in full:

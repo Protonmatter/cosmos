@@ -1,7 +1,7 @@
 ---
 rfc: 0008
 title: Decks on an upright phone
-status: Draft
+status: Accepted
 author: Protonmatter
 created: 2026-11-26
 updated: 2026-11-26
@@ -90,14 +90,28 @@ each pattern are put back into the flow, picture first:
 | --- | --- |
 | Full bleed (`.fb`) | The plate is across the top at the picture's own shape, up to 44% of the page, its lower edge faded into the ground. The copy follows, then the credit and the button that opens the viewer. The side scrim and the letterbox fade are not drawn. |
 | Side picture (`.dk-side`) | The picture is across the top, the copy beneath. |
-| Line-ups (`.dk-lineup`) | The bodies wrap onto as many rows as they need. Every disc is drawn at the same fraction of its wide-screen size, so the line-up is still to scale. |
+| Line-ups (`.dk-lineup`) | The bodies wrap two to a row. Every disc is drawn at the same fraction of its wide-screen size, so the line-up is still to scale. |
 | Tables (`.dk-tables`) | One table above the other. |
-| Pairs and grids (`.dk-pair`, `.dk-grid`) | Pairs stack. Grids are two columns. |
+| Pairs and grids (`.dk-pair`, `.dk-grid`) | Pairs stack, each scaled as a whole so two pictures that are to scale with each other stay so. Grids are two columns. |
 | Two panels (`.duo`) | One panel above the other. |
 | Ledgers and rows | Label above value where the two do not fit side by side. |
 
 Type is set again for the narrower canvas: headings come down from 150 and 92 px
-to sizes that fit 540, and nothing goes below 24.
+to 76 and 52, and nothing goes below 24.
+
+Six slides have a rule of their own at the end of the stylesheet, chosen by
+their `data-label`: the Solar System's cover and its Sources slide (which is
+laid out inline, without a pattern), the two Moons slides whose pictures are
+pairs of different sizes, and the JunoCam slide that compares two frames, which
+keeps them side by side.
+
+The Solar System cover's line-up is drawn as a strip the width of the page, and
+the planets' names under it are not shown, since they are placed by pixel on the
+wide picture and would be drawn under 5 px tall at this size.
+
+Most slides are taller than the page and scroll. A planet's slide is its
+picture, its paragraph and a table of eight figures, which is about a screen and
+a half.
 
 ### Swiping
 
@@ -170,7 +184,12 @@ RFC 0007 (the explorer on a phone, which fixed the pages that are not decks).
 - Tablets held upright (768 px and wider) keep the 16:9 stage, which there is
   432 px high with 9.6 px labels. Whether they should get the upright layout, or
   one of their own, is left open.
-- None of this has been tried on a real phone.
+- None of this has been tried on a real phone. In particular the swipe is tested
+  with synthetic touch events, and how it feels beside the browser's own edge
+  gestures is unknown.
+- The engine's slide counter sits over the bottom of the page. Slides leave room
+  for it at their end, but while a tall slide is being scrolled it covers a line
+  of text.
 
 ## Rollout and migration
 
