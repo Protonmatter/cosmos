@@ -6,7 +6,7 @@
  * which, so a future reader can judge whether it still earns its place.
  */
 import { test, expect } from '../support/fixtures.js';
-import { PAGES, KNOWN_FAILING_REQUEST_PATTERN, APPROVED_ORIGINS, open } from '../support/pages.js';
+import { PAGES, APPROVED_ORIGINS, open } from '../support/pages.js';
 
 for (const descriptor of PAGES) {
   test.describe(descriptor.path, () => {
@@ -29,13 +29,9 @@ for (const descriptor of PAGES) {
     test('makes no failing same-origin request @REQ SITE-017', async ({ page, observed }) => {
       await open(page, descriptor);
 
-      const unexpected = observed.failedRequests.filter(
-        ({ url }) => !KNOWN_FAILING_REQUEST_PATTERN.test(url),
-      );
-      expect(
-        unexpected,
-        'Un-substituted {{ }} template placeholders are a recorded deviation (D-2); anything else is a defect.',
-      ).toEqual([]);
+      // Deviation D-2 (requests for un-substituted {{ }} placeholders) was closed
+      // by RFC 0007, so there is no longer any failure this test forgives.
+      expect(observed.failedRequests, 'every failing same-origin request is a defect').toEqual([]);
     });
 
     test('requests nothing from an unapproved origin @REQ SITE-008', async ({ page, observed }) => {

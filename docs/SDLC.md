@@ -121,16 +121,14 @@ installs a copy of this site at a pinned version.
 ## Known deviations
 
 Recorded, not hidden — see the "Known deviations" section of
-[`specs/site.spec.md`](specs/site.spec.md). One is open:
-
-- **D-2** — the deck runtime requests un-substituted `{{ }}` template placeholders
-  before boot, producing harmless 404s.
+[`specs/site.spec.md`](specs/site.spec.md). None is open.
 
 D-1, the Pocket Planetarium loading its runtime from a CDN, was resolved by
-[RFC 0003](rfcs/0003-vendored-runtime-for-the-beta.md). Identifiers are not reused,
-so the gap it leaves is deliberate.
+[RFC 0003](rfcs/0003-vendored-runtime-for-the-beta.md). D-2, the runtime requesting
+un-substituted `{{ }}` template placeholders before boot, was closed by
+[RFC 0007](rfcs/0007-explorer-poster-and-landing.md). Identifiers are not reused.
 
-Each is excluded from the requirement it violates, in one named place, with a
+An open deviation is excluded from the requirement it violates, in one named place, with a
 reason. That is the only acceptable way to carry a known defect: an exclusion that
 a reader can find and argue with beats a requirement quietly written loose enough
 to pass.

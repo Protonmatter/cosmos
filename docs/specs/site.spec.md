@@ -121,7 +121,7 @@ rewrite; this requirement detects it if the prevention is ever removed.
 | ID | Level | Requirement |
 | --- | --- | --- |
 | `SITE-006` | MUST | Loading a page produces no uncaught exception |
-| `SITE-017` | MUST | No request a page makes for a same-origin resource fails, other than the recorded template-placeholder deviation below |
+| `SITE-017` | MUST | No request a page makes for a same-origin resource fails |
 | `SITE-018` | MUST | Every page renders visible text content once ready |
 | `SITE-007` | SHOULD | Every page reaches a rendered, interactive state within 10 seconds on CI hardware |
 
@@ -136,14 +136,17 @@ mode this site can suffer that every other check would miss.
 Recorded rather than hidden. Each is a defect with a decision attached, not a
 blessing of the current behaviour.
 
-### D-2 — Template placeholders are requested before boot
+### D-2: Template placeholders are requested before boot (closed)
 
-The deck runtime keeps its template as live DOM until React compiles it, so an
-authored `<img src="{{ s.src }}">` is parsed as a real image and the browser
-requests the literal string `{{ s.src }}`, percent-encoded, before the runtime can
-substitute it. `junocam-explorer.dc.html` produces three such 404s on every load.
+The runtime keeps its template as live DOM until React compiles it, so an authored
+`<img src="{{ s.src }}">` was parsed as a real image and the browser requested the
+literal string `{{ s.src }}`, percent-encoded, before the runtime could substitute
+it. `junocam-explorer.dc.html` produced three such 404s on every load, and
+`SITE-017` used to forgive them.
 
-Nothing breaks — the elements are replaced on boot — but it is wasted traffic and
-console noise, and the fix (deferring template parsing) is a runtime change rather
-than a page change. `SITE-017` excludes these specific requests so that the
-requirement can be enforced for everything else.
+Closed by [RFC 0007](../rfcs/0007-explorer-poster-and-landing.md) without a runtime
+change. The template is hidden until it is compiled, and an image marked
+`loading="lazy"` is not requested while it is not displayed, so a templated image
+that is lazy never asks for its placeholder. Every templated image in the explorer
+now is. No page produces these requests any longer, `SITE-017` forgives nothing,
+and a templated image added without `loading="lazy"` fails it.
