@@ -15,12 +15,40 @@
   doc-page:not(:defined) { visibility:hidden; }
   a { color:var(--color-accent-700); text-decoration:none; }
   a:hover { color:var(--color-accent-600); }
+  .by { display:block; margin-top:4px; font-size:15px; color:var(--color-neutral-600); }
+
+  /* On a screen the sheet lies on the same black ground as the rest of the
+     site, fitted to the window by poster-screen.js. None of this prints. */
+  .poster-bar { display:none; }
+  @media screen {
+    html, body { margin:0; background:#000; }
+    doc-page { background:#000; padding-top:20px; zoom:var(--poster-zoom, 1); }
+    .poster-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 24px; padding:16px clamp(16px, 4vw, 48px);
+      font-family:var(--font-body); font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:#958e82; background:#000; }
+    .poster-bar a { color:#c9c2b6; }
+    .poster-bar a:hover { color:#f0ece5; }
+    .poster-bar .home { font-family:var(--font-heading); font-size:22px; letter-spacing:0; text-transform:none; color:#f0ece5; }
+    .poster-bar nav { display:flex; align-items:center; gap:clamp(14px, 3vw, 28px); }
+    .poster-bar button { font-family:var(--font-heading); font-size:17px; letter-spacing:0; text-transform:none; padding:9px 18px; cursor:pointer;
+      color:var(--color-accent-400); background:transparent; border:1px solid var(--color-accent-400); border-radius:999px; }
+    .poster-bar button:hover { color:#000; background:var(--color-accent-400); }
+  }
 </style>
 <script src="./doc-page.js"></script>
+<script src="./poster-screen.js"></script>
 </helmet>
 
+<div class="poster-bar">
+  <a class="home" href="index.html">Cosmos</a>
+  <span>JunoCam poster · 18 × 24 in</span>
+  <nav aria-label="Related pages">
+    <a href="junocam-explorer.dc.html">Explorer</a>
+    <button type="button" data-print>Print or save as PDF</button>
+  </nav>
+</div>
+
 <doc-page width="18in" height="24in">
-  <section class="page" data-screen-label="Poster" style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:96px 96px 84px;display:flex;flex-direction:column;gap:34px;justify-content:space-between">
+  <section class="page" data-screen-label="Poster" style="background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);padding:88px 96px 80px;display:flex;flex-direction:column;gap:24px;justify-content:space-between">
 
     <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--color-text);border-bottom:1px solid var(--color-divider);padding:22px 0;font-size:24px;letter-spacing:0.2em;text-transform:uppercase;font-family:var(--font-heading);white-space:nowrap">
       <span>Mission Juno · JunoCam</span>
@@ -28,23 +56,23 @@
     </div>
 
     <div>
-      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:156px;line-height:0.94;letter-spacing:-0.025em;margin:0 0 40px;max-width:14em">Jupiter, developed by strangers</h1>
+      <h1 style="font-family:var(--font-heading);font-weight:400;font-size:156px;line-height:0.94;letter-spacing:-0.025em;margin:0 0 28px;max-width:14em">Jupiter, developed by strangers</h1>
       <p style="margin:0;font-size:38px;line-height:1.35;color:var(--color-neutral-800);max-width:27em;text-wrap:pretty">A camera flown as an outreach instrument sends home raw frames. The mission posts them and asks the public to make the pictures.</p>
     </div>
 
     <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:72px;align-items:start">
       <figure style="margin:0">
         <div style="aspect-ratio:5/4;border:14px solid var(--color-surface);outline:2px solid var(--color-divider);background:#171614;overflow:hidden">
-          <img src="images/06-blue-north.png" alt="A tall processed JunoCam frame: a cold blue polar region above warm ochre bands studded with white ovals" style="width:100%;height:100%;object-fit:cover;display:block">
+          <img src="images/06-blue-north-1509.webp" alt="A tall processed JunoCam frame: a cold blue polar region above warm ochre bands studded with white ovals" style="width:100%;height:100%;object-fit:cover;display:block">
         </div>
-        <figcaption style="font-size:21px;margin-top:18px;color:var(--color-neutral-600)">Blue North over Ovals — one processor's reading of a single perijove pass.</figcaption>
+        <figcaption style="font-size:21px;margin-top:18px;color:var(--color-neutral-600)">Blue North over Ovals — one processor's reading of a single perijove pass. Processed by Raihan Mohammad.</figcaption>
       </figure>
 
-      <div style="display:flex;flex-direction:column;gap:32px">
-        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">JunoCam is a pushframe imager. Its filter strips are bonded straight onto the detector — 1600 pixels wide, about 155 rows high — and the spacecraft's own rotation drags them across the planet. At two revolutions per minute a frame arrives roughly every 400 milliseconds.</p>
-        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">The spin would smear any exposure longer than 3.2 milliseconds, so the camera shifts the image down one row every 3.2 milliseconds to cancel the motion. Pixels leave the detector 12 bits deep and are compressed to 8 inside the instrument. That 8-bit form is what the public receives.</p>
-        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">What happens next is not the mission's work. Cropping counts. So does pulling one storm out of the murk, pushing colour past what an eye would see, stitching frames into collages, reconstructing colour from the separate strips. No two people develop the same frame the same way, and the disagreement is the record.</p>
-        <p style="margin:0;font-size:26px;line-height:1.5;text-align:justify;hyphens:auto">The camera is also wearing out. Jupiter’s radiation belts have cut its dynamic range and raised its noise floor, and the mission has asked the public to find new ways to read what still comes back.</p>
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <p style="margin:0;font-size:25px;line-height:1.5;text-align:justify;hyphens:auto">JunoCam is a pushframe imager. Its filter strips are bonded straight onto the detector — 1600 pixels wide, about 155 rows high — and the spacecraft's own rotation drags them across the planet. At two revolutions per minute a frame arrives roughly every 400 milliseconds.</p>
+        <p style="margin:0;font-size:25px;line-height:1.5;text-align:justify;hyphens:auto">The spin would smear any exposure longer than 3.2 milliseconds, so the camera shifts the image down one row every 3.2 milliseconds to cancel the motion. Pixels leave the detector 12 bits deep and are compressed to 8 inside the instrument. That 8-bit form is what the public receives.</p>
+        <p style="margin:0;font-size:25px;line-height:1.5;text-align:justify;hyphens:auto">What happens next is not the mission's work. Cropping counts. So does pulling one storm out of the murk, pushing colour past what an eye would see, stitching frames into collages, reconstructing colour from the separate strips. No two people develop the same frame the same way, and the disagreement is the record.</p>
+        <p style="margin:0;font-size:25px;line-height:1.5;text-align:justify;hyphens:auto">The camera is also wearing out. Jupiter’s radiation belts have cut its dynamic range and raised its noise floor, and the mission has asked the public to find new ways to read what still comes back.</p>
       </div>
     </div>
 
@@ -60,11 +88,11 @@
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:26px">
-      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/29-grs-square.png" alt="The Great Red Spot with its turbulent wake" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Great Red Spot</figcaption></figure>
-      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/25-io-tall.png" alt="Io just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Io at the Limb</figcaption></figure>
-      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/10-blue-vortex-field.png" alt="A deep blue field of white cyclones" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Blue Field</figcaption></figure>
-      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/16-merging-storms.png" alt="Two bright storm cores folding into one another" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Merging Storms</figcaption></figure>
-      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/26-brown-barges.png" alt="Two dark brown belts broken by elongated barges" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Brown Barges</figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/29-grs-square-960.webp" alt="The Great Red Spot with its turbulent wake" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Great Red Spot<span class="by">Reaves-84</span></figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/25-io-tall-1080.webp" alt="Io just clear of Jupiter's shadowed limb" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Io at the Limb<span class="by">Iva Forkapa</span></figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/10-blue-vortex-field-960.webp" alt="A deep blue field of white cyclones" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">The Blue Field<span class="by">Gerald Eichstädt and Jackie Branc</span></figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/16-merging-storms-960.webp" alt="Two bright storm cores folding into one another" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Merging Storms<span class="by">Gerald Eichstädt and Thomas Thomopoulos</span></figcaption></figure>
+      <figure style="margin:0"><div style="border:8px solid var(--color-surface);outline:1px solid var(--color-divider);background:#171614;aspect-ratio:16/9;overflow:hidden"><img src="images/26-brown-barges-960.webp" alt="Two dark brown belts broken by elongated barges" style="width:100%;height:100%;object-fit:cover;display:block"></div><figcaption style="font-size:18px;margin-top:12px">Brown Barges<span class="by">Tanya Oleksuik</span></figcaption></figure>
     </div>
 
     <div style="border-top:1px solid var(--color-divider);padding-top:22px;display:flex;justify-content:space-between;gap:40px;font-size:19px;color:var(--color-neutral-600)">
