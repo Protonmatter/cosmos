@@ -148,6 +148,10 @@ page chooses: the smallest file that covers the width the frame is shown at,
 times the screen's pixel density, times the zoom in the viewer. A frame is never
 stepped back down to a smaller file than it has already been given.
 
+Paths built this way are invisible to the checks that every reference in a page
+resolves, so `EXPL-020` checks the page's own list of widths against the files.
+It was added after review found three listed widths with no file behind them.
+
 Every templated image is `loading="lazy"`. That is also what closes deviation
 D-2: the template is hidden until the runtime has compiled it, and a lazy image
 that is not displayed is not requested, so the browser no longer asks for
@@ -206,6 +210,7 @@ Added to `docs/specs/explorer.spec.md`:
 | `EXPL-017` | MUST | Every frame in the grid can be focused and opened from the keyboard |
 | `EXPL-018` | MUST | The explorer is drawn on the same black ground as the decks |
 | `EXPL-019` | SHOULD | Two fingers moving apart on the open frame zoom it in |
+| `EXPL-020` | MUST | Every image file the explorer can ask for, at any window size or zoom, exists in the repository |
 
 New `docs/specs/poster.spec.md`:
 

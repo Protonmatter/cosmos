@@ -64,3 +64,25 @@ test('element identifiers are unique within each page @REQ SITE-011', async () =
   }
   assert.deepEqual(collisions, [], `Duplicate identifiers:\n  ${collisions.join('\n  ')}`);
 });
+
+/**
+ * The explorer builds its image paths at run time, from each frame's name and a
+ * list of the widths it is held at, so the reference checks above cannot see
+ * them. A width listed without its file shows a broken picture at exactly the
+ * window size or zoom that asks for it, and nowhere else. This reads the list
+ * the page carries and checks every file it could ask for.
+ */
+test('every frame file the explorer can ask for exists @REQ EXPL-020', async () => {
+  const source = await readRepoFile('junocam-explorer.dc.html');
+  const frames = [...source.matchAll(/name:'([^']+)',[^\n]*?widths:\[([\d,]+)\]/g)];
+  assert.equal(frames.length, 30, 'expected the explorer to carry thirty frames, each with a list of widths');
+
+  const missing = [];
+  for (const [, name, widths] of frames) {
+    for (const width of widths.split(',')) {
+      const file = `images/${name}-${width}.webp`;
+      if (!(await exists(file))) missing.push(file);
+    }
+  }
+  assert.deepEqual(missing, []);
+});

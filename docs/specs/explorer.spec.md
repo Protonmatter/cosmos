@@ -70,9 +70,16 @@ their gallery entries, in the README.
 | `EXPL-017` | MUST | Every frame in the grid can be focused and opened from the keyboard |
 | `EXPL-018` | MUST | The explorer is drawn on the same black ground as the decks |
 | `EXPL-019` | SHOULD | Two fingers moving apart on the open frame zoom it in |
+| `EXPL-020` | MUST | Every image file the explorer can ask for, at any window size or zoom, exists in the repository |
 
 `EXPL-013` was measured at 0.35 MB when it was written; with every frame loaded at
 once the same window fetches 1.32 MB, so the limit catches a return to loading
 everything. The page chooses each file itself, by the width the frame is shown at
 and the screen's pixel density, because a `srcset` in the template would be read by
 the browser before the runtime had filled it in.
+
+That choice is why `EXPL-020` exists. The paths are built at run time from each
+frame's name and its list of widths, where the reference checks (`SITE-002`) cannot
+see them. The first version of this page listed three widths whose files had been
+removed as near-duplicates, and showed a broken picture at exactly the zoom that
+asked for one of them. The check reads the list the page carries.
