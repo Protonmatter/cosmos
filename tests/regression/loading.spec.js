@@ -184,3 +184,27 @@ test('the explorer opens within its image budget @REQ EXPL-013', async ({ page }
   expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(1_000_000);
 });
 
+/**
+ * The landing page shows photographs now, ten of them in a row that mostly sits
+ * off screen. It should fetch the ones near the window, not all ten (RFC 0009).
+ */
+test('the landing page opens within its image budget @REQ LAND-015', async ({ page }) => {
+  const pending = [];
+  page.on('response', (response) => {
+    if (response.request().resourceType() !== 'image') return;
+    pending.push(response.body().then((body) => ({ path: sitePath(response.url()), bytes: body.length })).catch(() => null));
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+
+  const images = (await Promise.all(pending)).filter(Boolean);
+  const total = images.reduce((sum, image) => sum + image.bytes, 0);
+  const breakdown = images.map((image) => `${image.path} ${(image.bytes / 1000).toFixed(0)} KB`).join(', ');
+
+  expect(images.length, 'the landing page opened without requesting any image').toBeGreaterThan(0);
+  // About 560 KB as built. Loading all ten worlds at once takes it to 760 KB.
+  expect(total, `opening images: ${breakdown}`).toBeLessThanOrEqual(680_000);
+});
+

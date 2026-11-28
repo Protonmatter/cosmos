@@ -7,16 +7,18 @@ JunoCam — the JunoCam explorer and poster, and a beta iOS prototype called the
 Planetarium. Built as standalone HTML: no build step and nothing to install. Open any file
 in a browser, or serve the folder.
 
-[`index.html`](index.html) is the interactive landing page. It links every deck, the beta
-preview, and on to [Sol](https://protonmatter.github.io/sol/).
+[`index.html`](index.html) is the landing page. It opens on the Sun, the planets and the
+Moon in a row of photographs, each a door to its own slide, then sets out the three decks
+in the order they are meant to be read, the explorer, and at the end the way on to
+[Sol](https://protonmatter.github.io/sol/).
 
-![The Cosmos landing page at desktop size — the hero, with the Sun in orbit lines and the deck navigation](site/readme-landing.png)
+![The Cosmos landing page at desktop size: the headline "Walk outward from the Sun" above a large photograph of the Sun, with Mercury waiting beside it](site/readme-landing.png)
 
 ## What's here
 
 | File | Format | What it covers |
 | --- | --- | --- |
-| [`index.html`](index.html) | landing | Showcase page for the collection, with links to the beta and through to Sol |
+| [`index.html`](index.html) | landing | The way in: ten worlds in a row, the three decks in order, the explorer, the poster and the beta, and on to Sol |
 | [`solar-system.dc.html`](solar-system.dc.html) | 13 slides | The Sun, the eight planets and the Moon — one card each, with radius, mass, gravity, rotation, tilt, temperature, atmosphere and field strength |
 | [`the-moons.dc.html`](the-moons.dc.html) | 18 slides | Twenty-two moons across five systems: Mars, the Galileans, Saturn's ice moons and Titan, the Uranian five, Neptune's three |
 | [`junocam-deck.dc.html`](junocam-deck.dc.html) | 11 slides | JunoCam itself: the instrument, why its images arrive as raw strips, and the volunteers who process them |
@@ -180,6 +182,10 @@ by `tools/cover-lineup.py`. The rest of the deck's images are the `planets/<name
 `tools/image-variants.py`. The Moons deck's images are the `moons/<name>-<width>.webp`
 files, and the JunoCam deck's, the explorer's and the poster's are
 `images/<frame>-<width>.webp`, written the same way.
+The landing page's row of worlds uses `site/worlds/<name>-<width>.webp`: the same ten
+photographs redrawn by `tools/world-portraits.py` so that every body is the same size on
+a sky that is black to its last pixel
+([RFC 0009](docs/rfcs/0009-the-landing-page.md)).
 The older `planets/*.png`, `moons/*.png` and `images/*.png` files remain because the
 Pocket Planetarium still uses them: all thirty of the `images/` frames, and some of
 the others.

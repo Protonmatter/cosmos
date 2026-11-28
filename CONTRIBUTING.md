@@ -73,6 +73,11 @@ you replace one, or change a radius, redraw it with `python3 tools/cover-lineup.
 (it also needs NumPy), and move the names on the cover slide to the positions it
 prints.
 
+The landing page's row of worlds is drawn from those files too. If you replace a
+planet's photograph, measure the new one, update its line in
+`tools/world-portraits.py`, and run it: it rewrites `site/worlds/` and prints the
+size and the edge of each portrait, which `--check` repeats without redrawing.
+
 ## Adding or changing a slide
 
 Every slide has two layouts. On anything but an upright phone or small tablet it is

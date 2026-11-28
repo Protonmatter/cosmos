@@ -4,6 +4,29 @@ The site is continuously deployed from `main` and carries no version number, so
 entries are dated rather than released. Notable changes only — routine copy fixes
 and image swaps are left to the commit history.
 
+## 2026-11-28
+
+### Changed
+
+- **The landing page, rebuilt round one idea: walk outward from the Sun**
+  ([RFC 0009](docs/rfcs/0009-the-landing-page.md)). It opens on the Sun, the
+  eight planets and the Moon in a row of photographs. The one in the middle is
+  in focus, with its name, its size and a door to its own slide; swipe, use the
+  arrow keys or the arrows beside the name to move along. Each body is redrawn
+  for the row at one size on true black, by `tools/world-portraits.py`. Below
+  the row the three decks are set out in order, then the explorer with four of
+  its frames under their processors' names, the poster and the beta.
+- **Sol is linked once**, at the end, where it was linked three times and had a
+  keyboard shortcut. The explorer, the last stop on the route, links on to it
+  too.
+
+### Removed
+
+- From the landing page: the photograph of the Sun spinning clockwise and the
+  dots orbiting it, the canvas of stars that followed the pointer, the tilt on
+  the cards, and the `S` key. Nothing on the page moves now unless the visitor
+  moves it.
+
 ## 2026-11-26
 
 ### Added
