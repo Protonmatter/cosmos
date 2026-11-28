@@ -116,6 +116,16 @@ test('follow the JunoCam deck through to the explorer @REQ FLOW-008', async ({ p
   await expect(page).toHaveURL(/junocam-explorer\.dc\.html/);
 });
 
+test('go on from the explorer to Sol @REQ FLOW-010', async ({ page }) => {
+  // The explorer is the last stop on the route. It used to end there (RFC 0009).
+  await page.goto('/junocam-explorer.dc.html');
+  await waitForReady(page, { kind: 'component', name: 'junocam-explorer' });
+  const onward = page.getByRole('link', { name: /Sol/ });
+  await onward.scrollIntoViewIfNeeded();
+  await expect(onward).toBeVisible();
+  await expect(onward).toHaveAttribute('href', 'https://protonmatter.github.io/sol/');
+});
+
 test.describe('on a phone held upright', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 

@@ -3,303 +3,505 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cosmos — three decks on the solar system</title>
-<meta name="description" content="Three presentation decks: the Sun and planets, twenty-two moons, and JunoCam at Jupiter. Built as standalone HTML, drawn from Protonmatter/sol.">
-<meta property="og:title" content="Cosmos — three decks on the solar system">
-<meta property="og:description" content="The planets, the moons, and JunoCam. Every figure read from Protonmatter/sol.">
+<title>Cosmos: walk outward from the Sun</title>
+<meta name="description" content="The solar system in photographs. Three short decks in order: the Sun and its planets, twenty-two moons drawn to scale, and Jupiter as volunteers develop it from JunoCam's raw frames.">
+<meta property="og:title" content="Cosmos: walk outward from the Sun">
+<meta property="og:description" content="The Sun and its planets, twenty-two moons, and Jupiter through JunoCam, in photographs.">
 <meta property="og:image" content="site/thumb-juno.jpg">
+<meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Lora:wght@400;600&display=swap">
 <style>
+  /* The landing page: walk outward from the Sun. One file, no build.
+     See docs/rfcs/0009-the-landing-page.md. Nothing here is sized by the
+     height of the window, and nothing moves unless the visitor moves it. */
   :root {
-    --bg: #131210;
-    --bg-2: #1a1815;
-    --ink: #f0ece5;
-    --ink-2: #bdb6ab;
-    --ink-3: #7c766c;
-    --line: rgba(240,236,229,.12);
-    --accent: #e1ad66;
-    --accent-2: #c28d41;
-    --accent-deep: #7d5411;
-    --heading: "Cormorant Garamond", Georgia, serif;
-    --body: "Lora", Georgia, serif;
+    --bg: #000; --ink: #f0ece5; --ink-2: #c9c2b6; --ink-3: #958e82;
+    --line: rgba(240,236,229,.16); --gold: #e1ad66;
+    --heading: 'Cormorant Garamond', Georgia, serif; --body: 'Lora', Georgia, serif;
+    --pad: clamp(20px, 4.4vw, 72px);
   }
   * { box-sizing: border-box; }
-  /* The hero's decorative orbit rings are scaled past the wrap (1.18x and
-     1.4x), so they reach ~1388px against a 1280px viewport. They are meant
-     to bleed off the edge, not to be scrollable to. */
-  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--accent-deep); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .kicker { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
 
-  #sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-  .veil { position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: radial-gradient(1200px 700px at 78% -10%, rgba(225,173,102,.14), transparent 60%),
-                radial-gradient(900px 600px at 10% 110%, rgba(120,140,190,.10), transparent 60%); }
 
-  .wrap { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 20px var(--pad) 0; }
+  .top .home { font-family: var(--heading); font-size: 26px; }
+  .top nav { display: flex; gap: clamp(16px, 3vw, 34px); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+  .top nav a { white-space: nowrap; }
+  .top nav a:hover { color: var(--ink); }
 
-  header.top { display: flex; align-items: center; justify-content: space-between; padding: 30px 0 0; }
-  .wordmark { font-family: var(--heading); font-size: 26px; letter-spacing: .04em; display: flex; align-items: center; gap: 12px; }
-  .wordmark .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 18px 4px rgba(225,173,102,.45); }
-  nav.top-nav { display: flex; gap: 28px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
-  nav.top-nav a { padding: 6px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
-  nav.top-nav a:hover { color: var(--accent); border-color: var(--accent); }
+  /* ── 1. The opening ─────────────────────────────────────────────────── */
+  .open { padding-top: clamp(14px, 2.4vw, 36px); }
+  /* Above the worlds, whose canvases are a little larger than their stage. */
+  .open-copy { position: relative; z-index: 2; padding: 0 var(--pad); }
+  .open h1 { font-family: var(--heading); font-weight: 400; font-size: clamp(46px, 6.3vw, 96px); line-height: .96; letter-spacing: -.022em; margin: .12em 0 .16em -.03em; text-wrap: balance; }
+  .open h1 em { font-style: italic; color: var(--gold); }
+  .open-row { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 18px 48px; }
+  .lede { margin: 0; max-width: 39em; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+  .actions { position: relative; z-index: 2; display: flex; align-items: center; flex-wrap: wrap; gap: 12px 26px; }
+  .go { display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border-radius: 999px; background: var(--gold); color: #120d05; font-family: var(--heading); font-size: 22px; line-height: 1; font-weight: 600; transition: transform .2s, background .2s; }
+  .go:hover { background: #efc283; transform: translateX(3px); }
+  .quiet { font-size: 14px; color: var(--ink-3); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .quiet:hover { color: var(--ink); }
 
-  .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 60px; align-items: center; padding: 90px 0 70px; }
-  .eyebrow { font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 26px; }
-  h1 { font-family: var(--heading); font-weight: 400; font-size: clamp(56px, 8.5vw, 124px); line-height: .94; letter-spacing: -.02em; margin: 0 0 30px; }
-  h1 em { font-style: italic; color: var(--accent); }
-  .lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 32em; margin: 0 0 36px; }
-  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; letter-spacing: .06em; transition: border-color .2s, background .2s, transform .2s; }
-  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
-  .btn.solid { background: var(--accent); color: #1a1207; border-color: var(--accent); font-weight: 600; }
-  .btn.solid:hover { background: #f0c27c; }
-  .btn svg { width: 16px; height: 16px; }
+  /* The worlds: one photograph each, large and sharp, in a row you travel
+     along. The one in the middle is in focus; its neighbours wait at the
+     edges. Under them the ten names say where you are. */
+  .worlds { position: relative; margin-top: clamp(8px, 1.6vw, 24px); --stage: clamp(220px, 16vw + 200px, 460px); }
+  .track { display: flex; align-items: flex-start; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding: 0 calc(50% - var(--stage) / 2); -webkit-overflow-scrolling: touch; }
+  .track::-webkit-scrollbar { display: none; }
+  .stage { --t: 0; flex: none; width: var(--stage); scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  /* Lighten: a canvas is black wherever its body is not, and black must never cover a neighbour. */
+  .disc { display: block; width: 100%; aspect-ratio: 1; transform: scale(calc(1 - .28 * var(--t))); opacity: calc(1 - .6 * var(--t)); filter: saturate(calc(1 - .5 * var(--t))); mix-blend-mode: lighten; will-change: transform, opacity; }
+  .disc img { display: block; width: 100%; height: 100%; object-fit: contain; transform: scale(var(--zoom, 1)); }
+  /* Each portrait is drawn by tools/world-portraits.py: the body the same size in every one, on a sky that is
+     black to its last pixel. The Sun's and Saturn's canvases are larger than the stage, by --zoom. */
+  .plate { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; margin-top: 6px; opacity: calc(1 - 1.5 * var(--t)); transform: translateY(calc(14px * var(--t))); }
+  .plate .name { font-family: var(--heading); font-size: clamp(44px, 5.2vw, 76px); line-height: 1; letter-spacing: -.02em; margin: 6px 0 10px; }
+  .plate .fact { font-size: 15px; color: var(--ink-2); font-feature-settings: 'tnum'; white-space: nowrap; }
+  .plate .fact i { font-style: normal; color: var(--ink-3); }
+  .plate .fact i::before { content: '·'; margin: 0 .6em; }
+  .plate .enter { margin-top: 16px; padding: 10px 20px; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold); font-family: var(--heading); font-size: 19px; line-height: 1; transition: background .2s, color .2s; }
+  .stage:hover .enter, .stage:focus-visible .enter { background: var(--gold); color: #120d05; }
+  .stage:focus-visible { outline: none; }
+  .stage:focus-visible .name { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 8px; text-decoration-thickness: 1px; }
+  /* The arrows sit either side of the name they change, never over a photograph. */
+  .step { position: absolute; top: calc(var(--stage) + 34px + clamp(44px, 5.2vw, 76px) / 2); z-index: 3; width: 48px; height: 48px; margin-top: -24px; border-radius: 50%; border: 1px solid var(--line); background: #000; color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; transition: border-color .2s, color .2s, opacity .2s; }
+  .step:hover:not([disabled]) { border-color: var(--gold); color: var(--gold); }
+  .step[disabled] { opacity: .25; cursor: default; }
+  /* The arrows and the index need the script. Without it the row still scrolls, and they are not offered. */
+  html:not(.js) .step, html:not(.js) .index { display: none; }
+  .step.prev { right: calc(50% + var(--stage) / 2 + 8px); } .step.next { left: calc(50% + var(--stage) / 2 + 8px); }
 
-  .orb-wrap { position: relative; width: min(460px, 100%); aspect-ratio: 1; height: auto; margin-left: auto; justify-self: end; }
-  .orb { position: absolute; inset: 0; border-radius: 50%; overflow: hidden;
-    background: url("site/hero-sun.jpg") center/cover; box-shadow: 0 0 80px 10px rgba(225,173,102,.28), inset 0 0 60px rgba(0,0,0,.35);
-    animation: spin 240s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(240,236,229,.14); transform: scale(1.18) rotate(-12deg); }
-  .ring.two { transform: scale(1.4) rotate(18deg); border-color: rgba(240,236,229,.08); }
-  .planet { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #d8cfc0; box-shadow: 0 0 10px rgba(255,255,255,.4); top: 50%; left: 50%; margin: -7px; transform-origin: 0 0; }
-  .planet.p1 { animation: orbit1 26s linear infinite; }
-  .planet.p2 { width: 9px; height: 9px; margin: -4.5px; background: #9fb4d6; animation: orbit2 41s linear infinite; }
-  @keyframes orbit1 { from { transform: rotate(0deg) translate(272px) rotate(0deg); } to { transform: rotate(360deg) translate(272px) rotate(-360deg); } }
-  @keyframes orbit2 { from { transform: rotate(120deg) translate(322px); } to { transform: rotate(480deg) translate(322px); } }
-
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 26px; margin: 20px 0 34px; }
-  .section-head h2 { font-family: var(--heading); font-weight: 400; font-size: 40px; margin: 0; letter-spacing: -.01em; }
-  .section-head span { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
-
-  .decks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
-  .card { position: relative; display: block; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--bg-2);
-    transform-style: preserve-3d; transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .3s, box-shadow .3s; will-change: transform; }
-  .card:hover { border-color: rgba(225,173,102,.5); box-shadow: 0 30px 60px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(225,173,102,.15); }
-  .card .art { aspect-ratio: 4/3; overflow: hidden; position: relative; background: #000; }
-  .card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s; filter: saturate(.92); }
-  .card:hover .art img { transform: scale(1.08); filter: saturate(1.05); }
-  .card .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,24,21,.95) 0%, rgba(26,24,21,0) 45%); }
-  .card .num { position: absolute; top: 18px; left: 20px; font-family: var(--heading); font-size: 22px; color: var(--ink); opacity: .85; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
-  .card .tag { position: absolute; top: 20px; right: 20px; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; background: rgba(19,18,16,.6); border: 1px solid var(--line); backdrop-filter: blur(6px); }
-  .card .body { padding: 22px 24px 26px; }
-  .card h3 { font-family: var(--heading); font-weight: 400; font-size: 34px; margin: 0 0 10px; line-height: 1.05; }
-  .card p { margin: 0 0 18px; color: var(--ink-2); font-size: 15px; line-height: 1.55; }
-  .card .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
-  .card .meta b { color: var(--accent); font-weight: 400; display: inline-flex; align-items: center; gap: 8px; }
-  .card .meta b::after { content: "→"; transition: transform .3s; }
-  .card:hover .meta b::after { transform: translateX(4px); }
-  .card .shine { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.08), transparent 40%); opacity: 0; transition: opacity .3s; }
-  .card:hover .shine { opacity: 1; }
-
-  .more { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin-top: 26px; }
-  .row { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: rgba(26,24,21,.6); transition: border-color .3s, background .3s; }
-  .row:hover { border-color: rgba(225,173,102,.5); background: var(--bg-2); }
-  .row img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; display: block; }
-  .row h4 { font-family: var(--heading); font-weight: 400; font-size: 24px; margin: 0 0 4px; }
-  .row p { margin: 0; color: var(--ink-2); font-size: 14px; }
-
-  .beta-strip { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 28px; align-items: center;
-    margin: 44px 0 0; padding: 26px 30px; border: 1px solid rgba(225,173,102,.3); border-radius: 18px;
-    background: linear-gradient(100deg, rgba(225,173,102,.09), rgba(26,24,21,.6) 55%);
-    transition: border-color .3s, transform .3s, box-shadow .3s; }
-  .beta-strip:hover { border-color: rgba(225,173,102,.6); transform: translateY(-2px);
-    box-shadow: 0 30px 60px -35px rgba(0,0,0,.9); }
-  .beta-orb { width: 64px; height: 64px; border-radius: 50%; background: url("site/hero-sun.jpg") center/cover;
-    box-shadow: 0 0 40px 6px rgba(225,173,102,.3), inset 0 0 24px rgba(0,0,0,.4); }
-  .beta-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--accent); }
-  .beta-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px 2px rgba(225,173,102,.6); }
-  .beta-body h3 { font-family: var(--heading); font-weight: 400; font-size: 30px; margin: 8px 0 8px; line-height: 1.05; }
-  .beta-body p { margin: 0; color: var(--ink-2); font-size: 15px; line-height: 1.55; max-width: 56em; }
-  .beta-go { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
-  @media (max-width: 980px) {
-    .beta-strip { grid-template-columns: 1fr; gap: 16px; }
-    .beta-orb { width: 52px; height: 52px; }
+  /* Where you are: the ten names on a hairline. */
+  .index { display: flex; justify-content: center; gap: clamp(10px, 2.2vw, 34px); margin: clamp(22px, 3vw, 40px) var(--pad) 0; padding-top: 16px; border-top: 1px solid var(--line); }
+  .tick { position: relative; padding: 6px 0 4px; border: 0; background: none; cursor: pointer; font-family: var(--body); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); transition: color .25s; }
+  .tick::before { content: ''; position: absolute; left: 0; right: 0; top: -17px; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+  .tick:hover { color: var(--ink); }
+  .tick[aria-current="true"] { color: var(--gold); }
+  .tick[aria-current="true"]::before { transform: scaleX(1); }
+  .hint { display: none; text-align: center; margin: 14px 0 0; padding: 0 var(--pad); font-size: 13px; color: var(--ink-3); }
+  @media (hover: none) and (pointer: coarse) { .hint { display: block; } .step { display: none; } }
+  @media (max-width: 820px) {
+    .worlds { --stage: clamp(200px, 68vw, 400px); }
+    .step { display: none; }
+    .disc { transform: scale(calc(1 - .2 * var(--t))); }
+    .quiet { display: none; }
+    .index { gap: 0; justify-content: space-between; border-top: 0; padding-top: 0; }
+    .tick { flex: 1; font-size: 0; letter-spacing: 0; padding: 12px 0; }
+    .tick::before { display: none; }
+    .tick::after { content: ''; position: absolute; left: 3px; right: 3px; top: 50%; height: 2px; border-radius: 2px; background: var(--line); transition: background .25s; }
+    .tick[aria-current="true"]::after { background: var(--gold); }
+    .plate .enter { margin-top: 12px; }
   }
 
-  .sol { margin: 90px 0 0; padding: 60px 0 70px; border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 40px; align-items: center; }
-  .sol h2 { font-family: var(--heading); font-weight: 400; font-size: 46px; margin: 0 0 14px; line-height: 1.05; }
-  .sol p { margin: 0; color: var(--ink-2); font-size: 17px; line-height: 1.55; max-width: 44em; }
-  .sol .btn { font-size: 15px; padding: 16px 26px; }
+  /* ── 2. The route ───────────────────────────────────────────────────── */
+  .route { padding-top: clamp(70px, 9vw, 140px); }
+  .route-head { padding: 0 var(--pad) clamp(26px, 3.4vw, 54px); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px 48px; flex-wrap: wrap; }
+  .route-head h2 { font-family: var(--heading); font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 1; letter-spacing: -.02em; margin: 10px 0 0; }
+  .route-head p { margin: 0; max-width: 27em; color: var(--ink-2); }
 
-  footer { padding: 30px 0 50px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; color: var(--ink-3); font-size: 13px; }
-  footer a:hover { color: var(--accent); }
-  kbd { font: 12px/1 ui-monospace, monospace; padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink-2); }
+  .leg { position: relative; display: block; isolation: isolate; overflow: hidden; min-height: clamp(460px, 54vw, 820px); border-top: 1px solid var(--line); }
+  .leg-pic { position: absolute; inset: 0; z-index: -2; }
+  .leg-pic img { width: 100%; height: 100%; object-fit: contain; object-position: 100% 50%; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .leg.fill .leg-pic img { object-fit: cover; object-position: 50% 50%; }
+  .leg.left .leg-pic { left: -13vw; }
+  .leg.left .leg-pic img { object-position: 0 50%; }
+  .leg:hover .leg-pic img { transform: scale(1.025); }
+  .leg::before { content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(90deg, #000 0, rgba(0,0,0,.86) 26%, rgba(0,0,0,0) 62%), linear-gradient(0deg, #000 0, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 86%, #000 100%); }
+  .leg.left::before { background: linear-gradient(270deg, #000 0, rgba(0,0,0,.86) 26%, rgba(0,0,0,0) 62%), linear-gradient(0deg, #000 0, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 86%, #000 100%); }
+  .leg-copy { display: flex; flex-direction: column; justify-content: center; min-height: inherit; width: min(44%, 620px); padding: 70px 0 70px var(--pad); }
+  .leg.left .leg-copy { margin-left: auto; padding: 70px var(--pad) 70px 0; }
+  .leg-n { display: flex; align-items: baseline; gap: 16px; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .leg-n b { font-family: var(--heading); font-weight: 400; font-size: 64px; line-height: 1; letter-spacing: 0; color: var(--gold); }
+  .leg h3 { font-family: var(--heading); font-weight: 400; font-size: clamp(40px, 4.6vw, 74px); line-height: 1; letter-spacing: -.02em; margin: 16px 0 18px; text-wrap: balance; }
+  .leg p { margin: 0; color: var(--ink-2); font-size: clamp(17px, 1.25vw, 19px); text-wrap: pretty; }
+  .leg-open { align-self: flex-start; margin-top: 28px; padding: 12px 22px; border: 1px solid var(--gold); border-radius: 999px; color: var(--gold); font-family: var(--heading); font-size: 20px; line-height: 1; transition: background .2s, color .2s; }
+  .leg:hover .leg-open, .leg:focus-visible .leg-open { background: var(--gold); color: #120d05; }
+  .leg:focus-visible, .closer-main:focus-visible { outline-offset: -6px; }
+  .leg-credit { position: absolute; right: var(--pad); bottom: 18px; font-size: 12px; color: var(--ink-3); text-shadow: 0 1px 6px #000; }
+  .then { display: flex; align-items: center; gap: 14px; padding: 0 var(--pad); height: 0; position: relative; z-index: 2; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .then::before { content: ''; width: 1px; height: 54px; background: linear-gradient(180deg, rgba(225,173,102,0), var(--gold)); transform: translateY(-27px); }
+  .then span { transform: translateY(-8px); background: #000; padding: 2px 8px; }
 
-  @media (max-width: 980px) {
-    .decks { grid-template-columns: 1fr; }
-    .hero { grid-template-columns: 1fr; padding-top: 60px; }
-    .orb-wrap { width: 300px; margin: 0; justify-self: start; }
-    .planet.p1 { animation: none; display: none; } .planet.p2 { display: none; }
-    .more { grid-template-columns: 1fr; }
-    .sol { grid-template-columns: 1fr; }
-    nav.top-nav { display: none; }
-    .wrap { padding: 0 22px; }
+
+  /* ── 3. Look closer, and what else is here ──────────────────────────── */
+  .closer { border-top: 1px solid var(--line); padding: clamp(60px, 8vw, 120px) 0 0; }
+  .closer-main { display: block; }
+  .closer-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px 48px; padding: 0 var(--pad) clamp(26px, 3.4vw, 54px); }
+  .closer-head h2 { font-family: var(--heading); font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 1; letter-spacing: -.02em; margin: 10px 0 0; }
+  .closer-say { max-width: 30em; }
+  .closer-say p { margin: 0; color: var(--ink-2); text-wrap: pretty; }
+  .closer-say .leg-open { display: inline-block; margin-top: 20px; }
+  .closer-main:hover .leg-open, .closer-main:focus-visible .leg-open { background: var(--gold); color: #120d05; }
+  /* Four frames, square and edge to edge, each under its processor's name. */
+  .frames { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 24px); padding: 0 var(--pad); }
+  .frames figure { margin: 0; }
+  .frames .cell { display: block; aspect-ratio: 1; overflow: hidden; background: #0b0a09; }
+  .frames img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .closer-main:hover .frames img { transform: scale(1.035); }
+  .frames figcaption { margin-top: 12px; font-size: 13px; line-height: 1.45; color: var(--ink-3); }
+  .frames figcaption b { display: block; font-family: var(--heading); font-weight: 400; font-size: 21px; line-height: 1.2; color: var(--ink); }
+  .rows { margin: clamp(48px, 7vw, 100px) var(--pad) 0; border-top: 1px solid var(--line); }
+  .rowlink { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; align-items: center; gap: clamp(16px, 2.4vw, 32px); padding: 20px 0; border-bottom: 1px solid var(--line); transition: background .2s; }
+  .rowlink:hover { background: rgba(240,236,229,.04); }
+  .rowlink img { width: 96px; height: 72px; object-fit: cover; border-radius: 4px; }
+  .rowlink .mark { display: grid; place-items: center; width: 96px; height: 72px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .rowlink b { display: block; font-family: var(--heading); font-weight: 400; font-size: 26px; line-height: 1.15; color: var(--ink); }
+  .rowlink span.what { color: var(--ink-2); font-size: 15px; }
+  .rowlink .arrow { color: var(--gold); font-size: 20px; transition: transform .2s; }
+  .rowlink:hover .arrow { transform: translateX(4px); }
+
+  /* ── 4. Sol, once ───────────────────────────────────────────────────── */
+  .sol { padding: clamp(80px, 12vw, 180px) var(--pad) clamp(70px, 9vw, 130px); text-align: center; }
+  .sol h2 { font-family: var(--heading); font-weight: 400; font-size: clamp(46px, 6.4vw, 104px); line-height: .98; letter-spacing: -.02em; margin: 12px 0 20px; }
+  .sol h2 em { font-style: italic; color: var(--gold); }
+  .sol p { margin: 0 auto; max-width: 31em; color: var(--ink-2); font-size: clamp(17px, 1.3vw, 20px); text-wrap: pretty; }
+  .sol .go { margin-top: clamp(24px, 3vw, 40px); }
+  .foot { display: flex; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; padding: 22px var(--pad) 40px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+  .foot a { color: var(--ink-2); border-bottom: 1px solid var(--line); }
+  .foot a:hover { color: var(--ink); }
+  kbd { font-family: var(--body); font-size: 12px; padding: 1px 7px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink-2); }
+
+  @media (max-width: 380px) { .top nav { letter-spacing: .1em; gap: 14px; } }
+  @media (max-width: 820px) {
+    body { font-size: 16px; }
+    .top nav a.wide { display: none; }
+    .leg { min-height: 0; }
+    .leg-pic, .leg.left .leg-pic { position: relative; inset: auto; aspect-ratio: 5 / 4; }
+    .leg-pic img, .leg.left .leg-pic img { object-fit: cover; object-position: 50% 50%; }
+    .leg.contain .leg-pic img { object-fit: contain; }
+    .leg::before, .leg.left::before { inset: 0 0 auto 0; aspect-ratio: 5 / 4; background: linear-gradient(0deg, #000 0, rgba(0,0,0,0) 26%); z-index: 0; }
+    .leg-copy, .leg.left .leg-copy { position: relative; z-index: 1; width: auto; min-height: 0; margin: -34px 0 0; padding: 0 var(--pad) 64px; }
+    .leg-n b { font-size: 52px; }
+    .leg-credit, .leg.left .leg-credit { position: static; display: block; margin: -40px var(--pad) 54px; }
+    .then::before { height: 32px; transform: translateY(-16px); }
+    .frames { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+    .frames figcaption b { font-size: 19px; }
+    .rowlink { grid-template-columns: 72px minmax(0, 1fr) auto; }
+    .rowlink img, .rowlink .mark { width: 72px; height: 54px; }
+    .rowlink b { font-size: 22px; }
+    .foot .keys { display: none; }
   }
-  @media (prefers-reduced-motion: reduce) { .orb, .planet { animation: none !important; } .card { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .leg-pic img, .frames img, .go, .tick::before { transition: none; } .leg:hover .leg-pic img, .closer-main:hover .frames img, .go:hover { transform: none; } }
 </style>
 </head>
 <body>
-<canvas id="sky" aria-hidden="true"></canvas>
-<div class="veil" aria-hidden="true"></div>
 
-<div class="wrap">
-  <header class="top">
-    <a class="wordmark" href="./"><span class="dot"></span>Cosmos</a>
-    <nav class="top-nav">
-      <a href="#decks">Decks</a>
-      <a href="#more">Explorer</a>
-      <a href="beta.html">Beta</a>
-      <a href="https://github.com/Protonmatter/cosmos">Source</a>
-      <a href="https://protonmatter.github.io/sol/">Sol ↗</a>
-    </nav>
-  </header>
 
-  <section class="hero">
-    <div>
-      <div class="eyebrow">Protonmatter · Sol reference decks</div>
-      <h1>The Sun, the planets,<br>and <em>everything</em><br>in orbit</h1>
-      <p class="lede">Three presentation decks built from the same body and satellite tables that drive the Sol orrery — the eight planets, twenty-two moons, and the JunoCam images that volunteers develop from raw strips.</p>
-      <div class="cta-row">
-        <a class="btn solid" href="#decks">Open the decks
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
-        <a class="btn" href="https://protonmatter.github.io/sol/">Go to Sol
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+<header class="top">
+  <a class="home" href="#top">Cosmos</a>
+  <nav class="top-nav" aria-label="Sections">
+    <a href="#decks">The route</a>
+    <a href="junocam-explorer.dc.html">Explorer</a>
+    <a class="wide" href="beta.html">Beta</a>
+    <a class="wide" href="https://github.com/Protonmatter/cosmos" rel="noopener">Source</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- 1. The opening -->
+  <section class="open" aria-labelledby="open-title">
+    <div class="open-copy">
+      <div class="kicker">The solar system, in photographs</div>
+      <h1 id="open-title">Walk outward <em>from the Sun</em></h1>
+      <div class="open-row">
+        <p class="lede">Three short decks, in order: the Sun and its planets, twenty-two moons at true scale, and Jupiter as volunteers develop it from a spacecraft's raw frames.</p>
+        <div class="actions">
+          <a class="go" href="solar-system.dc.html">Start at the Sun <span aria-hidden="true">→</span></a>
+          <a class="quiet" href="#decks">or see the whole route</a>
+        </div>
       </div>
     </div>
-    <div class="orb-wrap" aria-hidden="true">
-      <div class="ring"></div><div class="ring two"></div>
-      <div class="orb"></div>
-      <div class="planet p1"></div><div class="planet p2"></div>
+
+    <div class="worlds" id="worlds">
+      <button type="button" class="step prev" aria-label="Previous world">←</button>
+      <button type="button" class="step next" aria-label="Next world">→</button>
+      <div class="track" tabindex="0" role="group" aria-label="The Sun, the planets and the Moon, in order. Left and right arrows move along them.">
+        <a class="stage" data-world="sun" style="--zoom:1.216" href="solar-system.dc.html#2">
+          <span class="disc"><img fetchpriority="high" src="site/worlds/sun-720.webp" srcset="site/worlds/sun-720.webp 720w, site/worlds/sun-1080.webp 1080w, site/worlds/sun-1440.webp 1440w" sizes="(max-width: 820px) 83vw, 560px" width="1440" height="1440" alt="The Sun in extreme ultraviolet, its surface mottled with bright active regions"></span>
+          <span class="plate">
+            <span class="kicker">The star</span>
+            <span class="name">The Sun</span>
+            <span class="fact">Radius 695,700 km<i>109 Earths across</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="mercury" style="--zoom:1" href="solar-system.dc.html#3">
+          <span class="disc"><img loading="lazy" src="site/worlds/mercury-720.webp" srcset="site/worlds/mercury-720.webp 720w, site/worlds/mercury-1080.webp 1080w, site/worlds/mercury-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="Mercury, grey and heavily cratered"></span>
+          <span class="plate">
+            <span class="kicker">First planet from the Sun</span>
+            <span class="name">Mercury</span>
+            <span class="fact">Radius 2,439.7 km<i>38% of Earth's width</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="venus" style="--zoom:1" href="solar-system.dc.html#4">
+          <span class="disc"><img loading="lazy" src="site/worlds/venus-720.webp" srcset="site/worlds/venus-720.webp 720w, site/worlds/venus-1080.webp 1080w, site/worlds/venus-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="Venus's surface mapped by radar, in gold"></span>
+          <span class="plate">
+            <span class="kicker">Second planet from the Sun</span>
+            <span class="name">Venus</span>
+            <span class="fact">Radius 6,051.8 km<i>95% of Earth's width</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="earth" style="--zoom:1" href="solar-system.dc.html#5">
+          <span class="disc"><img loading="lazy" src="site/worlds/earth-720.webp" srcset="site/worlds/earth-720.webp 720w, site/worlds/earth-1080.webp 1080w, site/worlds/earth-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="Earth, with North America under swirls of cloud"></span>
+          <span class="plate">
+            <span class="kicker">Third planet from the Sun</span>
+            <span class="name">Earth</span>
+            <span class="fact">Radius 6,378.1 km<i>the yardstick</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="moon" style="--zoom:1" href="solar-system.dc.html#6">
+          <span class="disc"><img loading="lazy" src="site/worlds/moon-720.webp" srcset="site/worlds/moon-720.webp 720w, site/worlds/moon-1080.webp 1080w, site/worlds/moon-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="The Moon's near side"></span>
+          <span class="plate">
+            <span class="kicker">Earth's satellite</span>
+            <span class="name">The Moon</span>
+            <span class="fact">Radius 1,737.4 km<i>27% of Earth's width</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="mars" style="--zoom:1" href="solar-system.dc.html#7">
+          <span class="disc"><img loading="lazy" src="site/worlds/mars-720.webp" srcset="site/worlds/mars-720.webp 720w, site/worlds/mars-1080.webp 1080w, site/worlds/mars-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="Mars, with the Valles Marineris canyons across its middle"></span>
+          <span class="plate">
+            <span class="kicker">Fourth planet from the Sun</span>
+            <span class="name">Mars</span>
+            <span class="fact">Radius 3,396.2 km<i>53% of Earth's width</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="jupiter" style="--zoom:1" href="solar-system.dc.html#8">
+          <span class="disc"><img loading="lazy" src="site/worlds/jupiter-720.webp" srcset="site/worlds/jupiter-720.webp 720w, site/worlds/jupiter-1080.webp 1080w, site/worlds/jupiter-1440.webp 1440w" sizes="(max-width: 820px) 68vw, 460px" width="1440" height="1440" alt="Jupiter, banded in cream and rust, half in shadow"></span>
+          <span class="plate">
+            <span class="kicker">Fifth planet from the Sun</span>
+            <span class="name">Jupiter</span>
+            <span class="fact">Radius 71,492 km<i>11.2 Earths across</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="saturn" style="--zoom:1.383" href="solar-system.dc.html#9">
+          <span class="disc"><img loading="lazy" src="site/worlds/saturn-960.webp" srcset="site/worlds/saturn-960.webp 960w, site/worlds/saturn-1440.webp 1440w, site/worlds/saturn-1920.webp 1920w" sizes="(max-width: 820px) 94vw, 636px" width="1920" height="960" alt="Saturn and its rings, lit from the side"></span>
+          <span class="plate">
+            <span class="kicker">Sixth planet from the Sun</span>
+            <span class="name">Saturn</span>
+            <span class="fact">Radius 60,268 km<i>9.4 Earths across</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="uranus" style="--zoom:1" href="solar-system.dc.html#10">
+          <span class="disc"><img loading="lazy" src="site/worlds/uranus-720.webp" srcset="site/worlds/uranus-720.webp 720w, site/worlds/uranus-1080.webp 1080w" sizes="(max-width: 820px) 68vw, 460px" width="1080" height="1080" alt="Uranus, a featureless pale blue-green disc"></span>
+          <span class="plate">
+            <span class="kicker">Seventh planet from the Sun</span>
+            <span class="name">Uranus</span>
+            <span class="fact">Radius 25,559 km<i>4.0 Earths across</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="stage" data-world="neptune" style="--zoom:1" href="solar-system.dc.html#11">
+          <span class="disc"><img loading="lazy" src="site/worlds/neptune-720.webp" srcset="site/worlds/neptune-720.webp 720w, site/worlds/neptune-1080.webp 1080w" sizes="(max-width: 820px) 68vw, 460px" width="1080" height="1080" alt="Neptune, deep blue with a dark storm"></span>
+          <span class="plate">
+            <span class="kicker">Eighth planet from the Sun</span>
+            <span class="name">Neptune</span>
+            <span class="fact">Radius 24,764 km<i>3.9 Earths across</i></span>
+            <span class="enter">Open its slide <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </div>
+      <div class="index" role="group" aria-label="Jump to a world">
+        <button type="button" class="tick" data-go="sun" aria-label="The Sun">Sun</button>
+        <button type="button" class="tick" data-go="mercury" aria-label="Mercury">Mercury</button>
+        <button type="button" class="tick" data-go="venus" aria-label="Venus">Venus</button>
+        <button type="button" class="tick" data-go="earth" aria-label="Earth">Earth</button>
+        <button type="button" class="tick" data-go="moon" aria-label="The Moon">Moon</button>
+        <button type="button" class="tick" data-go="mars" aria-label="Mars">Mars</button>
+        <button type="button" class="tick" data-go="jupiter" aria-label="Jupiter">Jupiter</button>
+        <button type="button" class="tick" data-go="saturn" aria-label="Saturn">Saturn</button>
+        <button type="button" class="tick" data-go="uranus" aria-label="Uranus">Uranus</button>
+        <button type="button" class="tick" data-go="neptune" aria-label="Neptune">Neptune</button>
+      </div>
+      <p class="hint">Swipe to travel outward</p>
     </div>
   </section>
 
-  <div class="section-head" id="decks">
-    <h2>Three decks</h2>
-    <span>1920 × 1080 · arrow keys or space to advance</span>
-  </div>
-
-  <div class="decks">
-    <a class="card" href="solar-system.dc.html" data-tilt>
-      <div class="art"><img src="site/thumb-solar.jpg" alt="Saturn, imaged by Cassini" loading="lazy"><span class="num">01</span><span class="tag">13 slides</span></div>
-      <div class="body">
-        <h3>The Solar System</h3>
-        <p>The Sun, the eight planets and the Moon — one card each with radius, mass, gravity, rotation, tilt, temperature, atmosphere and field strength.</p>
-        <div class="meta"><span>Planets</span><b>Open deck</b></div>
+  <!-- 2. The route -->
+  <section class="route" id="decks" aria-labelledby="route-title">
+    <div class="route-head">
+      <div>
+        <div class="kicker">The route</div>
+        <h2 id="route-title">Three decks, one way through</h2>
       </div>
-      <div class="shine"></div>
-    </a>
-
-    <a class="card" href="the-moons.dc.html" data-tilt>
-      <div class="art"><img src="site/thumb-moons.jpg" alt="Europa, imaged by Galileo" loading="lazy"><span class="num">02</span><span class="tag">18 slides</span></div>
-      <div class="body">
-        <h3>The Moons</h3>
-        <p>Twenty-two moons across five systems: Mars, the Galileans, Saturn's ice moons and Titan, the Uranian five, and Neptune's three.</p>
-        <div class="meta"><span>Satellites</span><b>Open deck</b></div>
-      </div>
-      <div class="shine"></div>
-    </a>
-
-    <a class="card" href="junocam-deck.dc.html" data-tilt>
-      <div class="art"><img src="site/thumb-juno.jpg" alt="Jupiter's Great Red Spot from JunoCam" loading="lazy"><span class="num">03</span><span class="tag">11 slides</span></div>
-      <div class="body">
-        <h3>JunoCam</h3>
-        <p>The instrument itself: why its images arrive as raw pushframe strips, what eight bits can hold, and the volunteers who process them.</p>
-        <div class="meta"><span>Jupiter</span><b>Open deck</b></div>
-      </div>
-      <div class="shine"></div>
-    </a>
-  </div>
-
-  <div class="section-head" id="more">
-    <h2>Also in this collection</h2>
-    <span>Companion pieces</span>
-  </div>
-  <div class="more">
-    <a class="row" href="junocam-explorer.dc.html">
-      <img src="site/thumb-explorer.jpg" alt="Merging storms on Jupiter" width="480" height="360" loading="lazy">
-      <div><h4>JunoCam Explorer</h4><p>Thirty processed Jupiter frames from their full-size originals, each credited to its processor, with filters, a zoomable viewer and side-by-side compare.</p></div>
-    </a>
-    <a class="row" href="junocam-poster.dc.html">
-      <img src="site/thumb-poster.jpg" alt="The top of the JunoCam poster: its title above a frame of Jupiter" width="480" height="360" loading="lazy">
-      <div><h4>JunoCam Poster</h4><p>A single printable sheet on the same subject — print to PDF for one page.</p></div>
-    </a>
-  </div>
-
-  <a class="beta-strip" href="beta.html">
-    <div class="beta-orb" aria-hidden="true"></div>
-    <div class="beta-body">
-      <span class="beta-tag"><span class="beta-pulse"></span>Beta</span>
-      <h3>Pocket Planetarium</h3>
-      <p>An early iOS prototype: the same bodies and imagery, rebuilt as a phone app you scroll from the Sun out to Neptune. Rough edges are the point — go and have a look.</p>
+      <p>Each deck ends by handing you to the next, so you can start at the top and keep going. Swipe or use the arrow keys inside a deck.</p>
     </div>
-    <span class="beta-go">View the beta →</span>
-  </a>
 
-  <section class="sol">
-    <div>
-      <div class="eyebrow">Where the numbers come from</div>
-      <h2>Continue to Sol</h2>
-      <p>Every figure in these decks is read from the body and satellite tables in <a href="https://github.com/Protonmatter/sol" style="color:var(--accent)">Protonmatter/sol</a> — the solar-cycle engine and orrery. If the decks are the reference, Sol is the live instrument.</p>
-    </div>
-    <a class="btn solid" href="https://protonmatter.github.io/sol/">Open Sol
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    <a class="leg contain" href="solar-system.dc.html">
+      <div class="leg-pic"><img loading="lazy" src="site/worlds/saturn-1440.webp" srcset="site/worlds/saturn-960.webp 960w, site/worlds/saturn-1440.webp 1440w, site/worlds/saturn-1920.webp 1920w" sizes="100vw" width="1920" height="960" alt="Saturn and its rings, lit from the side"></div>
+      <div class="leg-copy">
+        <div class="leg-n"><b>1</b>13 slides</div>
+        <h3>The Sun and its planets</h3>
+        <p>Start at the Sun and go out to Neptune. Each world gets one photograph filling the screen and the few numbers that define it: its size, its mass, its gravity, the length of its day, its tilt, its temperature and its air.</p>
+        <span class="leg-open">Open the deck <span aria-hidden="true">→</span></span>
+      </div>
+      <span class="leg-credit">Saturn. NASA/JPL-Caltech/Space Science Institute</span>
+    </a>
+
+    <div class="then" aria-hidden="true"><span>then</span></div>
+
+    <a class="leg left contain" href="the-moons.dc.html">
+      <div class="leg-pic"><img loading="lazy" src="moons/europa-1440.webp" srcset="moons/europa-960.webp 960w, moons/europa-1440.webp 1440w, moons/europa-1920.webp 1920w" sizes="(max-width: 820px) 100vw, 70vw" width="1920" height="1419" alt="Europa, its ice crossed by long rust-coloured cracks"></div>
+      <div class="leg-copy">
+        <div class="leg-n"><b>2</b>18 slides</div>
+        <h3>Twenty-two moons</h3>
+        <p>Then the moons, set beside each other at true scale. Two small rocks at Mars, Jupiter's four, Saturn's ice worlds and Titan under its haze, and on out to Triton, which runs backwards round Neptune.</p>
+        <span class="leg-open">Open the deck <span aria-hidden="true">→</span></span>
+      </div>
+      <span class="leg-credit">Europa. NASA/JPL-Caltech/SETI Institute</span>
+    </a>
+
+    <div class="then" aria-hidden="true"><span>then</span></div>
+
+    <a class="leg fill" href="junocam-deck.dc.html">
+      <div class="leg-pic"><img loading="lazy" src="images/10-blue-vortex-field-1440.webp" srcset="images/10-blue-vortex-field-960.webp 960w, images/10-blue-vortex-field-1440.webp 1440w, images/10-blue-vortex-field-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="A field of blue cyclones near Jupiter's north pole"></div>
+      <div class="leg-copy">
+        <div class="leg-n"><b>3</b>11 slides</div>
+        <h3>Jupiter, developed by volunteers</h3>
+        <p>Last, one planet up close. JunoCam sends home raw strips, and members of the public turn them into pictures. This deck shows how the camera works, and why no two pictures of Jupiter agree.</p>
+        <span class="leg-open">Open the deck <span aria-hidden="true">→</span></span>
+      </div>
+      <span class="leg-credit">Jupiter. NASA/JPL-Caltech/SwRI/MSSS, processed by Gerald Eichstädt and Jackie Branc</span>
+    </a>
   </section>
 
-  <footer>
-    <span>Imagery NASA/JPL-Caltech and partners · Moon and ring textures CC BY 4.0 Solar System Scope · Code MIT</span>
-    <span><a href="https://github.com/Protonmatter/cosmos">github.com/Protonmatter/cosmos</a></span>
-  </footer>
-</div>
+  <!-- 3. Look closer -->
+  <section class="closer" id="explorer" aria-labelledby="closer-title">
+    <a class="closer-main" href="junocam-explorer.dc.html">
+      <div class="closer-head">
+        <div>
+          <div class="kicker">Look closer</div>
+          <h2 id="closer-title">Every frame, up close</h2>
+        </div>
+        <div class="closer-say">
+          <p>Thirty of the pictures volunteers have made from JunoCam's raw frames, each shown from its processor's full-size original and credited by name. Filter them, open one, and zoom in.</p>
+          <span class="leg-open">Open the explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </div>
+      <div class="frames">
+        <figure>
+          <span class="cell"><img loading="lazy" src="images/16-merging-storms-640.webp" srcset="images/16-merging-storms-640.webp 640w, images/16-merging-storms-960.webp 960w" sizes="(max-width: 820px) 46vw, 23vw" width="3108" height="3108" alt="Two storms in Jupiter's clouds curling into one another"></span>
+          <figcaption><b>Merging Storms</b>Gerald Eichstädt and Thomas Thomopoulos</figcaption>
+        </figure>
+        <figure>
+          <span class="cell"><img loading="lazy" src="images/29-grs-square-640.webp" srcset="images/29-grs-square-640.webp 640w, images/29-grs-square-960.webp 960w" sizes="(max-width: 820px) 46vw, 23vw" width="800" height="800" alt="The Great Red Spot among cream and rust bands"></span>
+          <figcaption><b>The Great Red Spot</b>Reaves-84</figcaption>
+        </figure>
+        <figure>
+          <span class="cell"><img loading="lazy" src="images/15-vortex-grain-640.webp" srcset="images/15-vortex-grain-640.webp 640w, images/15-vortex-grain-960.webp 960w" sizes="(max-width: 820px) 46vw, 23vw" width="1836" height="1840" alt="A single oval vortex in sharp, grainy contrast"></span>
+          <figcaption><b>Vortex, Grain and All</b>Gerald Eichstädt and Thomas Thomopoulos</figcaption>
+        </figure>
+        <figure>
+          <span class="cell"><img loading="lazy" src="images/22-pale-oval-closeup-640.webp" srcset="images/22-pale-oval-closeup-640.webp 640w, images/22-pale-oval-closeup-960.webp 960w" sizes="(max-width: 820px) 46vw, 23vw" width="2000" height="1552" alt="A pale oval storm seen from directly above"></span>
+          <figcaption><b>Pale Oval</b>Navaneeth Krishnan S</figcaption>
+        </figure>
+      </div>
+    </a>
+
+    <div class="rows">
+      <a class="rowlink" href="junocam-poster.dc.html">
+        <img loading="lazy" src="site/thumb-poster.jpg" width="480" height="360" alt="The top of the JunoCam poster: its title above a frame of Jupiter">
+        <span><b>The poster</b><span class="what">The same subject on one printable sheet, 18 × 24 in.</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="rowlink" href="beta.html">
+        <span class="mark">Beta</span>
+        <span><b>Pocket Planetarium</b><span class="what">A prototype of all this for a phone. Not finished, and it says so.</span></span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 4. Sol, once -->
+  <section class="sol" aria-labelledby="sol-title">
+    <div class="kicker">Where the numbers come from</div>
+    <h2 id="sol-title">Then see it <em>move</em></h2>
+    <p>Every figure in these decks is read from the tables behind Sol, a live orrery of the same bodies. When you have seen them still, watch them in motion.</p>
+    <a class="go" href="https://protonmatter.github.io/sol/" rel="noopener">Continue to Sol <span aria-hidden="true">↗</span></a>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Photographs: NASA and the mission teams and processors credited on each slide.</span>
+  <span class="keys"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> open the decks</span>
+  <a href="https://github.com/Protonmatter/cosmos" rel="noopener">Source on GitHub</a>
+</footer>
 
 <script>
-  // Starfield
-  (function () {
-    const c = document.getElementById('sky'), ctx = c.getContext('2d');
-    let w, h, stars = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function resize() {
-      w = c.width = innerWidth * dpr; h = c.height = innerHeight * dpr;
-      c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
-      const n = Math.floor((innerWidth * innerHeight) / 4200);
-      stars = Array.from({ length: n }, () => ({ x: Math.random() * w, y: Math.random() * h, r: (Math.random() * 1.1 + .2) * dpr, a: Math.random(), s: Math.random() * .8 + .2, t: Math.random() * Math.PI * 2 }));
-    }
-    let px = 0, py = 0;
-    addEventListener('mousemove', e => { px = (e.clientX / innerWidth - .5); py = (e.clientY / innerHeight - .5); }, { passive: true });
-    function draw(t) {
-      ctx.clearRect(0, 0, w, h);
-      for (const s of stars) {
-        const tw = reduce ? .7 : (.55 + .45 * Math.sin(t / 900 * s.s + s.t));
-        ctx.globalAlpha = s.a * tw;
-        ctx.fillStyle = s.r > .9 * dpr ? '#fff3e4' : '#e9e4da';
-        ctx.beginPath(); ctx.arc(s.x - px * 18 * s.s * dpr, s.y - py * 18 * s.s * dpr, s.r, 0, Math.PI * 2); ctx.fill();
-      }
-      if (!reduce) requestAnimationFrame(draw);
-    }
-    resize(); addEventListener('resize', resize); requestAnimationFrame(draw);
-  })();
+/* The worlds row. The stage nearest the middle is in focus: the others shrink
+   and dim by how far away they are. Nothing here moves by itself. */
+(function () {
+  document.documentElement.classList.add('js');
+  var track = document.querySelector('.track');
+  var stages = Array.prototype.slice.call(track.querySelectorAll('.stage'));
+  var ticks = Array.prototype.slice.call(document.querySelectorAll('.tick'));
+  var prev = document.querySelector('.step.prev'), next = document.querySelector('.step.next');
+  var current = 0, queued = false;
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Card tilt + shine
-  document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      card.style.transform = `perspective(900px) rotateX(${(y - .5) * -6}deg) rotateY(${(x - .5) * 8}deg) translateY(-4px)`;
-      card.style.setProperty('--mx', (x * 100) + '%'); card.style.setProperty('--my', (y * 100) + '%');
+  function measure() {
+    queued = false;
+    var middle = track.scrollLeft + track.clientWidth / 2, best = 0, bestGap = Infinity;
+    stages.forEach(function (stage, index) {
+      var gap = Math.abs(stage.offsetLeft + stage.offsetWidth / 2 - middle) / stage.offsetWidth;
+      stage.style.setProperty('--t', Math.min(gap, 1).toFixed(3));
+      if (gap < bestGap) { bestGap = gap; best = index; }
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
-  });
+    current = best;
+    ticks.forEach(function (tick, index) { tick.setAttribute('aria-current', index === best ? 'true' : 'false'); });
+    prev.disabled = best === 0; next.disabled = best === stages.length - 1;
+  }
+  function queue() { if (!queued) { queued = true; requestAnimationFrame(measure); } }
+  function go(index) {
+    index = Math.max(0, Math.min(stages.length - 1, index));
+    var stage = stages[index];
+    track.scrollTo({ left: stage.offsetLeft + stage.offsetWidth / 2 - track.clientWidth / 2, behavior: calm ? 'auto' : 'smooth' });
+  }
 
-  // Keyboard: 1/2/3 open decks, S goes to Sol
-  addEventListener('keydown', e => {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
-    const map = { '1': 'solar-system.dc.html', '2': 'the-moons.dc.html', '3': 'junocam-deck.dc.html', 's': 'https://protonmatter.github.io/sol/' };
-    if (map[e.key.toLowerCase()]) location.href = map[e.key.toLowerCase()];
+  track.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  prev.addEventListener('click', function () { go(current - 1); });
+  next.addEventListener('click', function () { go(current + 1); });
+  ticks.forEach(function (tick, index) { tick.addEventListener('click', function () { go(index); }); });
+  track.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
   });
+  /* A world waiting at the edge comes to the middle first. Only the one in
+     focus opens its slide. */
+  stages.forEach(function (stage, index) {
+    stage.addEventListener('click', function (event) {
+      if (index !== current) { event.preventDefault(); go(index); }
+    });
+    stage.addEventListener('focus', function () { if (index !== current) go(index); });
+  });
+  measure();
+
+  /* 1, 2 and 3 open the decks. */
+  var decks = { '1': 'solar-system.dc.html', '2': 'the-moons.dc.html', '3': 'junocam-deck.dc.html' };
+  window.addEventListener('keydown', function (event) {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (decks[event.key]) window.location.href = decks[event.key];
+  });
+})();
 </script>
+
 </body>
 </html>
