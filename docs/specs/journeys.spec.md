@@ -31,6 +31,7 @@ that visitor could see.
 | `FLOW-007` | MUST | A visitor can follow the Moons deck's last slide through to the JunoCam deck |
 | `FLOW-008` | MUST | A visitor can follow the JunoCam deck's closing slide through to the explorer |
 | `FLOW-009` | MUST | On an upright phone a reader can swipe from the first slide of the Solar System deck to its last |
+| `FLOW-010` | MUST | From the explorer a visitor can go on to Sol |
 
 `FLOW-004` exists because sharing a link to a particular slide is the main reason
 the fragment is in the URL at all. A deep link that opens the right slide but leaves
@@ -45,3 +46,7 @@ the same reason: the decks are numbered and meant to be read in order.
 
 `FLOW-008` completes the chain. The JunoCam deck's own speaker notes say the
 explorer is where to browse the archive; the slide now links to it.
+
+`FLOW-010` was added by [RFC 0009](../rfcs/0009-the-landing-page.md). The explorer is
+the last stop on the route the landing page sets out, and Sol is where that page
+says to go next, so the explorer says so too.
